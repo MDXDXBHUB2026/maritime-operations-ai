@@ -1,0 +1,9 @@
+voyage_id,weather_risk,sea_state,wind_factor
+VP-2601,Low,2,1.0
+VP-2602,Medium,3,1.08
+VP-2603,Low,2,0.98
+VP-2604,High,5,1.2
+VP-2605,Medium,4,1.1
+VP-2606,Low,2,0.96
+VP-2607,High,5,1.18
+VP-2608,Medium,3,1.05

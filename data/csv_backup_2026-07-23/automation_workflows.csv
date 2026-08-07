@@ -1,0 +1,13 @@
+workflow_name,automation_level,enabled
+Maintenance work-order drafting,Level 1: Administrative assistance,True
+Alert classification,Level 2: Decision recommendation,True
+Voyage-delay notification,Level 3: Controlled execution after approval,True
+Berth-plan adjustment recommendation,Level 1: Administrative assistance,True
+Fuel-deviation review,Level 2: Decision recommendation,True
+Safety observation classification,Level 3: Controlled execution after approval,True
+Corrective-action reminder,Level 1: Administrative assistance,True
+Invoice exception review,Level 2: Decision recommendation,True
+Cargo-document validation,Level 3: Controlled execution after approval,True
+Reefer inspection request,Level 1: Administrative assistance,True
+Daily management summary preparation,Level 2: Decision recommendation,True
+Spare-parts reorder recommendation,Level 3: Controlled execution after approval,True

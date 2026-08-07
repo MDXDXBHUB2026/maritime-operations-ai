@@ -1,0 +1,239 @@
+@import "tailwindcss";
+@import "maplibre-gl/dist/maplibre-gl.css";
+
+/* ==========================================================================
+   THEME DESIGN TOKENS
+   ========================================================================== */
+
+/* Sustainable Light (Default) */
+:root,
+[data-theme="sustainable-light"] {
+  --bg-app: #F5F8F5;
+  --bg-viewport: #E5EFEA;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #EAF3EE;
+  --bg-input: #F5F8F5;
+  --text-main: #102A2E;
+  --text-muted: #4A6064;
+  --text-inverse: #FFFFFF;
+  --primary-brand: #087F5B;
+  --primary-hover: #066649;
+  --accent-brand: #20B486;
+  --border-soft: #DCE6E1;
+  --shadow-color: rgba(16, 42, 46, 0.08);
+  --header-bg: #F5F8F5;
+  --header-text: #102A2E;
+  --nav-bg: #FFFFFF;
+}
+
+/* Eco Dark */
+[data-theme="eco-dark"] {
+  --bg-app: #0B1715;
+  --bg-viewport: #060E0C;
+  --bg-card: #132723;
+  --bg-subtle: #1C3832;
+  --bg-input: #172F2A;
+  --text-main: #F0FDF8;
+  --text-muted: #A3B8B2;
+  --text-inverse: #0B1715;
+  --primary-brand: #20B486;
+  --primary-hover: #34D399;
+  --accent-brand: #34D399;
+  --border-soft: #254942;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --header-bg: #0E1F1C;
+  --header-text: #F0FDF8;
+  --nav-bg: #132723;
+}
+
+/* Ocean Blue */
+[data-theme="ocean-blue"] {
+  --bg-app: #F0F4F8;
+  --bg-viewport: #E2E8F0;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #E1E9F0;
+  --bg-input: #F0F4F8;
+  --text-main: #0F2537;
+  --text-muted: #486278;
+  --text-inverse: #FFFFFF;
+  --primary-brand: #0284C7;
+  --primary-hover: #0369A1;
+  --accent-brand: #00B4D8;
+  --border-soft: #CBD5E1;
+  --shadow-color: rgba(15, 37, 55, 0.08);
+  --header-bg: #F0F4F8;
+  --header-text: #0F2537;
+  --nav-bg: #FFFFFF;
+}
+
+/* Desert Sunrise */
+[data-theme="desert-sunrise"] {
+  --bg-app: #FAF5EC;
+  --bg-viewport: #EFE4D2;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #F3EAD9;
+  --bg-input: #FAF5EC;
+  --text-main: #2C221E;
+  --text-muted: #6E5C53;
+  --text-inverse: #FFFFFF;
+  --primary-brand: #D97706;
+  --primary-hover: #B45309;
+  --accent-brand: #087F5B;
+  --border-soft: #E8DCCB;
+  --shadow-color: rgba(44, 34, 30, 0.08);
+  --header-bg: #FAF5EC;
+  --header-text: #2C221E;
+  --nav-bg: #FFFFFF;
+}
+
+/* ==========================================================================
+   HIGH CONTRAST MODE OVERRIDES (Operates independently on EVERY theme)
+   ========================================================================== */
+
+[data-high-contrast="true"] {
+  --text-main: #000000 !important;
+  --text-muted: #111111 !important;
+  --border-soft: #000000 !important;
+  --shadow-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="eco-dark"][data-high-contrast="true"] {
+  --text-main: #FFFFFF !important;
+  --text-muted: #F3F4F6 !important;
+  --border-soft: #FFFFFF !important;
+  --bg-card: #050A09 !important;
+  --bg-app: #000000 !important;
+  --bg-subtle: #111D1B !important;
+}
+
+/* Force 2px solid borders & 100% opacity text in High Contrast */
+[data-high-contrast="true"] .bg-white,
+[data-high-contrast="true"] .bg-\[\#F5F8F5\],
+[data-high-contrast="true"] .bg-\[\#EAF3EE\],
+[data-high-contrast="true"] button,
+[data-high-contrast="true"] input,
+[data-high-contrast="true"] select {
+  border-width: 2px !important;
+  border-color: var(--border-soft) !important;
+}
+
+[data-high-contrast="true"] p,
+[data-high-contrast="true"] span,
+[data-high-contrast="true"] label,
+[data-high-contrast="true"] div {
+  opacity: 1 !important;
+  font-weight: 700 !important;
+}
+
+/* Enhanced Focus Outlines for Accessibility */
+:focus-visible {
+  outline: 3px solid var(--primary-brand) !important;
+  outline-offset: 2px !important;
+}
+
+[data-high-contrast="true"] :focus-visible {
+  outline: 3px solid #000000 !important;
+  outline-offset: 3px !important;
+}
+
+[data-theme="eco-dark"][data-high-contrast="true"] :focus-visible {
+  outline: 3px solid #FFFFFF !important;
+  outline-offset: 3px !important;
+}
+
+/* Dynamic Theme Utility Overrides */
+[data-theme="eco-dark"] .bg-white {
+  background-color: var(--bg-card) !important;
+}
+[data-theme="eco-dark"] .bg-\[\#F5F8F5\] {
+  background-color: var(--bg-input) !important;
+}
+[data-theme="eco-dark"] .bg-\[\#EAF3EE\] {
+  background-color: var(--bg-subtle) !important;
+}
+[data-theme="eco-dark"] .text-\[\#102A2E\] {
+  color: var(--text-main) !important;
+}
+[data-theme="eco-dark"] .text-\[\#607276\] {
+  color: var(--text-muted) !important;
+}
+[data-theme="eco-dark"] .border-\[\#DCE6E1\] {
+  border-color: var(--border-soft) !important;
+}
+
+[data-theme="ocean-blue"] .bg-\[\#F5F8F5\] {
+  background-color: var(--bg-input) !important;
+}
+[data-theme="ocean-blue"] .bg-\[\#EAF3EE\] {
+  background-color: var(--bg-subtle) !important;
+}
+[data-theme="ocean-blue"] .text-\[\#102A2E\] {
+  color: var(--text-main) !important;
+}
+[data-theme="ocean-blue"] .text-\[\#607276\] {
+  color: var(--text-muted) !important;
+}
+
+[data-theme="desert-sunrise"] .bg-\[\#F5F8F5\] {
+  background-color: var(--bg-input) !important;
+}
+[data-theme="desert-sunrise"] .bg-\[\#EAF3EE\] {
+  background-color: var(--bg-subtle) !important;
+}
+[data-theme="desert-sunrise"] .text-\[\#102A2E\] {
+  color: var(--text-main) !important;
+}
+[data-theme="desert-sunrise"] .text-\[\#607276\] {
+  color: var(--text-muted) !important;
+}
+
+/* ==========================================================================
+   GLOBAL BASE STYLES & TRANSITIONS
+   ========================================================================== */
+
+html, body {
+  background-color: var(--bg-viewport);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global Smooth Theme Transitions (250ms - 350ms) */
+body,
+header,
+nav,
+main,
+div,
+button,
+input,
+section,
+article {
+  transition: background-color 300ms ease-in-out, border-color 300ms ease-in-out, color 300ms ease-in-out;
+}
+
+/* Custom Hide Scrollbar for Carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Touch targets min 44px for accessibility */
+button, input, select, a {
+  touch-action: manipulation;
+}
+
+/* Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+

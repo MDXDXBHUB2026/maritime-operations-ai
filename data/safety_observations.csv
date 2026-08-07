@@ -1,0 +1,49 @@
+event_id,timestamp,event_type,vessel_or_terminal,location,severity,description
+SE-0001,2026-07-23T08:00:00,Missing PPE,North Container Terminal,Berth 1,Low,Synthetic missing ppe observation for workflow demonstration
+SE-0002,2026-07-23T04:00:00,Worker and vehicle proximity,South Container Terminal,Yard A,Medium,Synthetic worker and vehicle proximity observation for workflow demonstration
+SE-0003,2026-07-23T00:00:00,Restricted-area entry,MV Horizon Star,Workshop,High,Synthetic restricted-area entry observation for workflow demonstration
+SE-0004,2026-07-22T20:00:00,Unsafe lifting activity,MV Meridian,Reefer Stack,Critical,Synthetic unsafe lifting activity observation for workflow demonstration
+SE-0005,2026-07-22T16:00:00,Person below suspended load,North Container Terminal,Engine Room,Low,Synthetic person below suspended load observation for workflow demonstration
+SE-0006,2026-07-22T12:00:00,Vehicle speeding,South Container Terminal,Access Gate,Medium,Synthetic vehicle speeding observation for workflow demonstration
+SE-0007,2026-07-22T08:00:00,Fire or smoke observation,MV Horizon Star,Berth 1,High,Synthetic fire or smoke observation observation for workflow demonstration
+SE-0008,2026-07-22T04:00:00,Oil or chemical spill,MV Meridian,Yard A,Critical,Synthetic oil or chemical spill observation for workflow demonstration
+SE-0009,2026-07-22T00:00:00,Unsafe working at height,North Container Terminal,Workshop,Low,Synthetic unsafe working at height observation for workflow demonstration
+SE-0010,2026-07-21T20:00:00,Fatigue or excessive overtime,South Container Terminal,Reefer Stack,Medium,Synthetic fatigue or excessive overtime observation for workflow demonstration
+SE-0011,2026-07-21T16:00:00,Near miss,MV Horizon Star,Engine Room,High,Synthetic near miss observation for workflow demonstration
+SE-0012,2026-07-21T12:00:00,Equipment safety interlock alarm,MV Meridian,Access Gate,Critical,Synthetic equipment safety interlock alarm observation for workflow demonstration
+SE-0013,2026-07-21T08:00:00,Missing PPE,North Container Terminal,Berth 1,Low,Synthetic missing ppe observation for workflow demonstration
+SE-0014,2026-07-21T04:00:00,Worker and vehicle proximity,South Container Terminal,Yard A,Medium,Synthetic worker and vehicle proximity observation for workflow demonstration
+SE-0015,2026-07-21T00:00:00,Restricted-area entry,MV Horizon Star,Workshop,High,Synthetic restricted-area entry observation for workflow demonstration
+SE-0016,2026-07-20T20:00:00,Unsafe lifting activity,MV Meridian,Reefer Stack,Critical,Synthetic unsafe lifting activity observation for workflow demonstration
+SE-0017,2026-07-20T16:00:00,Person below suspended load,North Container Terminal,Engine Room,Low,Synthetic person below suspended load observation for workflow demonstration
+SE-0018,2026-07-20T12:00:00,Vehicle speeding,South Container Terminal,Access Gate,Medium,Synthetic vehicle speeding observation for workflow demonstration
+SE-0019,2026-07-20T08:00:00,Fire or smoke observation,MV Horizon Star,Berth 1,High,Synthetic fire or smoke observation observation for workflow demonstration
+SE-0020,2026-07-20T04:00:00,Oil or chemical spill,MV Meridian,Yard A,Critical,Synthetic oil or chemical spill observation for workflow demonstration
+SE-0021,2026-07-20T00:00:00,Unsafe working at height,North Container Terminal,Workshop,Low,Synthetic unsafe working at height observation for workflow demonstration
+SE-0022,2026-07-19T20:00:00,Fatigue or excessive overtime,South Container Terminal,Reefer Stack,Medium,Synthetic fatigue or excessive overtime observation for workflow demonstration
+SE-0023,2026-07-19T16:00:00,Near miss,MV Horizon Star,Engine Room,High,Synthetic near miss observation for workflow demonstration
+SE-0024,2026-07-19T12:00:00,Equipment safety interlock alarm,MV Meridian,Access Gate,Critical,Synthetic equipment safety interlock alarm observation for workflow demonstration
+SE-0025,2026-07-19T08:00:00,Missing PPE,North Container Terminal,Berth 1,Low,Synthetic missing ppe observation for workflow demonstration
+SE-0026,2026-07-19T04:00:00,Worker and vehicle proximity,South Container Terminal,Yard A,Medium,Synthetic worker and vehicle proximity observation for workflow demonstration
+SE-0027,2026-07-19T00:00:00,Restricted-area entry,MV Horizon Star,Workshop,High,Synthetic restricted-area entry observation for workflow demonstration
+SE-0028,2026-07-18T20:00:00,Unsafe lifting activity,MV Meridian,Reefer Stack,Critical,Synthetic unsafe lifting activity observation for workflow demonstration
+SE-0029,2026-07-18T16:00:00,Person below suspended load,North Container Terminal,Engine Room,Low,Synthetic person below suspended load observation for workflow demonstration
+SE-0030,2026-07-18T12:00:00,Vehicle speeding,South Container Terminal,Access Gate,Medium,Synthetic vehicle speeding observation for workflow demonstration
+SE-0031,2026-07-18T08:00:00,Fire or smoke observation,MV Horizon Star,Berth 1,High,Synthetic fire or smoke observation observation for workflow demonstration
+SE-0032,2026-07-18T04:00:00,Oil or chemical spill,MV Meridian,Yard A,Critical,Synthetic oil or chemical spill observation for workflow demonstration
+SE-0033,2026-07-18T00:00:00,Unsafe working at height,North Container Terminal,Workshop,Low,Synthetic unsafe working at height observation for workflow demonstration
+SE-0034,2026-07-17T20:00:00,Fatigue or excessive overtime,South Container Terminal,Reefer Stack,Medium,Synthetic fatigue or excessive overtime observation for workflow demonstration
+SE-0035,2026-07-17T16:00:00,Near miss,MV Horizon Star,Engine Room,High,Synthetic near miss observation for workflow demonstration
+SE-0036,2026-07-17T12:00:00,Equipment safety interlock alarm,MV Meridian,Access Gate,Critical,Synthetic equipment safety interlock alarm observation for workflow demonstration
+SE-0037,2026-07-17T08:00:00,Missing PPE,North Container Terminal,Berth 1,Low,Synthetic missing ppe observation for workflow demonstration
+SE-0038,2026-07-17T04:00:00,Worker and vehicle proximity,South Container Terminal,Yard A,Medium,Synthetic worker and vehicle proximity observation for workflow demonstration
+SE-0039,2026-07-17T00:00:00,Restricted-area entry,MV Horizon Star,Workshop,High,Synthetic restricted-area entry observation for workflow demonstration
+SE-0040,2026-07-16T20:00:00,Unsafe lifting activity,MV Meridian,Reefer Stack,Critical,Synthetic unsafe lifting activity observation for workflow demonstration
+SE-0041,2026-07-16T16:00:00,Person below suspended load,North Container Terminal,Engine Room,Low,Synthetic person below suspended load observation for workflow demonstration
+SE-0042,2026-07-16T12:00:00,Vehicle speeding,South Container Terminal,Access Gate,Medium,Synthetic vehicle speeding observation for workflow demonstration
+SE-0043,2026-07-16T08:00:00,Fire or smoke observation,MV Horizon Star,Berth 1,High,Synthetic fire or smoke observation observation for workflow demonstration
+SE-0044,2026-07-16T04:00:00,Oil or chemical spill,MV Meridian,Yard A,Critical,Synthetic oil or chemical spill observation for workflow demonstration
+SE-0045,2026-07-16T00:00:00,Unsafe working at height,North Container Terminal,Workshop,Low,Synthetic unsafe working at height observation for workflow demonstration
+SE-0046,2026-07-15T20:00:00,Fatigue or excessive overtime,South Container Terminal,Reefer Stack,Medium,Synthetic fatigue or excessive overtime observation for workflow demonstration
+SE-0047,2026-07-15T16:00:00,Near miss,MV Horizon Star,Engine Room,High,Synthetic near miss observation for workflow demonstration
+SE-0048,2026-07-15T12:00:00,Equipment safety interlock alarm,MV Meridian,Access Gate,Critical,Synthetic equipment safety interlock alarm observation for workflow demonstration

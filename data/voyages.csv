@@ -1,0 +1,7 @@
+voyage_id,vessel_name,origin,destination,planned_fuel_tonnes,actual_fuel_tonnes,planned_eta,predicted_eta,potential_fuel_saving_pct,progress_pct
+VOY-2401,MV Horizon Star,Dubai Anchorage,Jebel Ali,128,124,2026-07-23T14:00:00,2026-07-23T12:00:00,4.2,72
+VOY-2402,MV Ocean Crest,Jebel Ali,Khalifa Port,154,163,2026-07-24T03:00:00,2026-07-24T08:00:00,6.8,48
+VOY-2403,MV Meridian,Strait of Hormuz,Singapore,212,207,2026-07-24T16:00:00,2026-07-24T16:00:00,3.1,84
+VOY-2404,MV Blue Mariner,Muscat,Salalah,96,104,2026-07-25T05:00:00,2026-07-25T14:00:00,8.5,31
+VOY-2405,MV Atlas Wind,Mumbai,Khor Fakkan,177,173,2026-07-25T18:00:00,2026-07-25T17:00:00,5.4,66
+VOY-2406,MV Gulf Pioneer,Chennai,Mumbai,143,151,2026-07-26T07:00:00,2026-07-26T11:00:00,7.2,57

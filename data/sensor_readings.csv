@@ -1,0 +1,801 @@
+anomaly_id,timestamp,parameter_name,actual_reading,expected_baseline,lower_threshold,upper_threshold,is_detection_point
+ANM-0001,2026-07-21T16:00:00,Exhaust temperature (°C),393.641,390.0,340.0,450.0,False
+ANM-0001,2026-07-21T17:00:00,Exhaust temperature (°C),388.214,390.0,340.0,450.0,False
+ANM-0001,2026-07-21T18:00:00,Exhaust temperature (°C),391.385,390.0,340.0,450.0,False
+ANM-0001,2026-07-21T19:00:00,Exhaust temperature (°C),391.575,390.0,340.0,450.0,False
+ANM-0001,2026-07-21T20:00:00,Exhaust temperature (°C),380.889,390.0,340.0,450.0,False
+ANM-0001,2026-07-21T21:00:00,Exhaust temperature (°C),392.346,390.0,340.0,450.0,False
+ANM-0001,2026-07-21T22:00:00,Exhaust temperature (°C),385.478,390.0,340.0,450.0,False
+ANM-0001,2026-07-21T23:00:00,Exhaust temperature (°C),384.177,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T00:00:00,Exhaust temperature (°C),395.223,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T01:00:00,Exhaust temperature (°C),382.452,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T02:00:00,Exhaust temperature (°C),382.564,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T03:00:00,Exhaust temperature (°C),386.062,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T04:00:00,Exhaust temperature (°C),396.58,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T05:00:00,Exhaust temperature (°C),394.326,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T06:00:00,Exhaust temperature (°C),389.22,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T07:00:00,Exhaust temperature (°C),398.457,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T08:00:00,Exhaust temperature (°C),386.443,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T09:00:00,Exhaust temperature (°C),381.598,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T10:00:00,Exhaust temperature (°C),391.017,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T11:00:00,Exhaust temperature (°C),386.779,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T12:00:00,Exhaust temperature (°C),385.265,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T13:00:00,Exhaust temperature (°C),376.405,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T14:00:00,Exhaust temperature (°C),382.054,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T15:00:00,Exhaust temperature (°C),378.734,390.0,340.0,450.0,False
+ANM-0001,2026-07-22T16:00:00,Exhaust temperature (°C),369.324,390.0,340.0,450.0,True
+ANM-0002,2026-07-21T11:00:00,Jacket-water temperature (°C),82.274,82.0,72.0,92.0,False
+ANM-0002,2026-07-21T12:00:00,Jacket-water temperature (°C),83.402,82.0,72.0,92.0,False
+ANM-0002,2026-07-21T13:00:00,Jacket-water temperature (°C),81.611,82.0,72.0,92.0,False
+ANM-0002,2026-07-21T14:00:00,Jacket-water temperature (°C),82.251,82.0,72.0,92.0,False
+ANM-0002,2026-07-21T15:00:00,Jacket-water temperature (°C),82.915,82.0,72.0,92.0,False
+ANM-0002,2026-07-21T16:00:00,Jacket-water temperature (°C),80.79,82.0,72.0,92.0,False
+ANM-0002,2026-07-21T17:00:00,Jacket-water temperature (°C),81.483,82.0,72.0,92.0,False
+ANM-0002,2026-07-21T18:00:00,Jacket-water temperature (°C),81.031,82.0,72.0,92.0,False
+ANM-0002,2026-07-21T19:00:00,Jacket-water temperature (°C),81.455,82.0,72.0,92.0,False
+ANM-0002,2026-07-21T20:00:00,Jacket-water temperature (°C),83.325,82.0,72.0,92.0,False
+ANM-0002,2026-07-21T21:00:00,Jacket-water temperature (°C),82.689,82.0,72.0,92.0,False
+ANM-0002,2026-07-21T22:00:00,Jacket-water temperature (°C),82.404,82.0,72.0,92.0,False
+ANM-0002,2026-07-21T23:00:00,Jacket-water temperature (°C),82.32,82.0,72.0,92.0,False
+ANM-0002,2026-07-22T00:00:00,Jacket-water temperature (°C),82.546,82.0,72.0,92.0,False
+ANM-0002,2026-07-22T01:00:00,Jacket-water temperature (°C),83.397,82.0,72.0,92.0,False
+ANM-0002,2026-07-22T02:00:00,Jacket-water temperature (°C),82.631,82.0,72.0,92.0,False
+ANM-0002,2026-07-22T03:00:00,Jacket-water temperature (°C),83.462,82.0,72.0,92.0,False
+ANM-0002,2026-07-22T04:00:00,Jacket-water temperature (°C),82.265,82.0,72.0,92.0,False
+ANM-0002,2026-07-22T05:00:00,Jacket-water temperature (°C),83.005,82.0,72.0,92.0,False
+ANM-0002,2026-07-22T06:00:00,Jacket-water temperature (°C),84.269,82.0,72.0,92.0,False
+ANM-0002,2026-07-22T07:00:00,Jacket-water temperature (°C),84.617,82.0,72.0,92.0,False
+ANM-0002,2026-07-22T08:00:00,Jacket-water temperature (°C),86.358,82.0,72.0,92.0,False
+ANM-0002,2026-07-22T09:00:00,Jacket-water temperature (°C),84.299,82.0,72.0,92.0,False
+ANM-0002,2026-07-22T10:00:00,Jacket-water temperature (°C),87.34,82.0,72.0,92.0,False
+ANM-0002,2026-07-22T11:00:00,Jacket-water temperature (°C),88.162,82.0,72.0,92.0,True
+ANM-0003,2026-07-21T06:00:00,Vibration (mm/s),4.256,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T07:00:00,Vibration (mm/s),4.286,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T08:00:00,Vibration (mm/s),4.294,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T09:00:00,Vibration (mm/s),4.131,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T10:00:00,Vibration (mm/s),4.241,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T11:00:00,Vibration (mm/s),4.064,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T12:00:00,Vibration (mm/s),4.165,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T13:00:00,Vibration (mm/s),4.183,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T14:00:00,Vibration (mm/s),4.186,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T15:00:00,Vibration (mm/s),4.179,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T16:00:00,Vibration (mm/s),4.272,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T17:00:00,Vibration (mm/s),4.046,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T18:00:00,Vibration (mm/s),4.214,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T19:00:00,Vibration (mm/s),4.142,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T20:00:00,Vibration (mm/s),4.182,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T21:00:00,Vibration (mm/s),4.319,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T22:00:00,Vibration (mm/s),4.305,4.2,0.0,7.0,False
+ANM-0003,2026-07-21T23:00:00,Vibration (mm/s),4.215,4.2,0.0,7.0,False
+ANM-0003,2026-07-22T00:00:00,Vibration (mm/s),4.486,4.2,0.0,7.0,False
+ANM-0003,2026-07-22T01:00:00,Vibration (mm/s),4.381,4.2,0.0,7.0,False
+ANM-0003,2026-07-22T02:00:00,Vibration (mm/s),4.494,4.2,0.0,7.0,False
+ANM-0003,2026-07-22T03:00:00,Vibration (mm/s),4.638,4.2,0.0,7.0,False
+ANM-0003,2026-07-22T04:00:00,Vibration (mm/s),4.594,4.2,0.0,7.0,False
+ANM-0003,2026-07-22T05:00:00,Vibration (mm/s),4.693,4.2,0.0,7.0,False
+ANM-0003,2026-07-22T06:00:00,Vibration (mm/s),4.883,4.2,0.0,7.0,True
+ANM-0004,2026-07-21T01:00:00,Engine load (%),71.488,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T02:00:00,Engine load (%),70.32,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T03:00:00,Engine load (%),73.919,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T04:00:00,Engine load (%),71.589,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T05:00:00,Engine load (%),72.508,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T06:00:00,Engine load (%),70.847,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T07:00:00,Engine load (%),73.736,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T08:00:00,Engine load (%),70.867,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T09:00:00,Engine load (%),71.655,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T10:00:00,Engine load (%),74.038,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T11:00:00,Engine load (%),72.622,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T12:00:00,Engine load (%),71.699,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T13:00:00,Engine load (%),73.13,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T14:00:00,Engine load (%),72.151,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T15:00:00,Engine load (%),72.039,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T16:00:00,Engine load (%),71.492,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T17:00:00,Engine load (%),71.182,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T18:00:00,Engine load (%),71.256,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T19:00:00,Engine load (%),68.956,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T20:00:00,Engine load (%),66.709,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T21:00:00,Engine load (%),65.062,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T22:00:00,Engine load (%),62.636,72.0,35.0,90.0,False
+ANM-0004,2026-07-21T23:00:00,Engine load (%),60.066,72.0,35.0,90.0,False
+ANM-0004,2026-07-22T00:00:00,Engine load (%),57.843,72.0,35.0,90.0,False
+ANM-0004,2026-07-22T01:00:00,Engine load (%),55.202,72.0,35.0,90.0,True
+ANM-0005,2026-07-20T20:00:00,Fuel consumption (t/day),31.153,31.0,25.0,38.0,False
+ANM-0005,2026-07-20T21:00:00,Fuel consumption (t/day),31.591,31.0,25.0,38.0,False
+ANM-0005,2026-07-20T22:00:00,Fuel consumption (t/day),30.902,31.0,25.0,38.0,False
+ANM-0005,2026-07-20T23:00:00,Fuel consumption (t/day),31.863,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T00:00:00,Fuel consumption (t/day),31.119,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T01:00:00,Fuel consumption (t/day),31.116,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T02:00:00,Fuel consumption (t/day),31.361,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T03:00:00,Fuel consumption (t/day),30.823,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T04:00:00,Fuel consumption (t/day),31.181,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T05:00:00,Fuel consumption (t/day),31.264,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T06:00:00,Fuel consumption (t/day),31.128,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T07:00:00,Fuel consumption (t/day),31.158,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T08:00:00,Fuel consumption (t/day),30.504,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T09:00:00,Fuel consumption (t/day),31.671,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T10:00:00,Fuel consumption (t/day),30.946,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T11:00:00,Fuel consumption (t/day),30.067,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T12:00:00,Fuel consumption (t/day),31.669,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T13:00:00,Fuel consumption (t/day),31.234,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T14:00:00,Fuel consumption (t/day),31.619,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T15:00:00,Fuel consumption (t/day),31.885,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T16:00:00,Fuel consumption (t/day),32.263,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T17:00:00,Fuel consumption (t/day),33.092,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T18:00:00,Fuel consumption (t/day),34.225,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T19:00:00,Fuel consumption (t/day),34.052,31.0,25.0,38.0,False
+ANM-0005,2026-07-21T20:00:00,Fuel consumption (t/day),34.631,31.0,25.0,38.0,True
+ANM-0006,2026-07-20T15:00:00,Exhaust temperature (°C),384.34,390.0,340.0,450.0,False
+ANM-0006,2026-07-20T16:00:00,Exhaust temperature (°C),389.281,390.0,340.0,450.0,False
+ANM-0006,2026-07-20T17:00:00,Exhaust temperature (°C),389.367,390.0,340.0,450.0,False
+ANM-0006,2026-07-20T18:00:00,Exhaust temperature (°C),392.827,390.0,340.0,450.0,False
+ANM-0006,2026-07-20T19:00:00,Exhaust temperature (°C),392.073,390.0,340.0,450.0,False
+ANM-0006,2026-07-20T20:00:00,Exhaust temperature (°C),389.982,390.0,340.0,450.0,False
+ANM-0006,2026-07-20T21:00:00,Exhaust temperature (°C),383.216,390.0,340.0,450.0,False
+ANM-0006,2026-07-20T22:00:00,Exhaust temperature (°C),383.124,390.0,340.0,450.0,False
+ANM-0006,2026-07-20T23:00:00,Exhaust temperature (°C),385.526,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T00:00:00,Exhaust temperature (°C),379.9,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T01:00:00,Exhaust temperature (°C),384.135,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T02:00:00,Exhaust temperature (°C),394.876,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T03:00:00,Exhaust temperature (°C),388.096,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T04:00:00,Exhaust temperature (°C),383.469,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T05:00:00,Exhaust temperature (°C),382.754,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T06:00:00,Exhaust temperature (°C),390.758,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T07:00:00,Exhaust temperature (°C),390.882,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T08:00:00,Exhaust temperature (°C),390.383,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T09:00:00,Exhaust temperature (°C),401.358,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T10:00:00,Exhaust temperature (°C),408.1,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T11:00:00,Exhaust temperature (°C),418.848,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T12:00:00,Exhaust temperature (°C),422.732,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T13:00:00,Exhaust temperature (°C),435.812,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T14:00:00,Exhaust temperature (°C),447.195,390.0,340.0,450.0,False
+ANM-0006,2026-07-21T15:00:00,Exhaust temperature (°C),449.299,390.0,340.0,450.0,True
+ANM-0007,2026-07-20T10:00:00,Jacket-water temperature (°C),81.631,82.0,72.0,92.0,False
+ANM-0007,2026-07-20T11:00:00,Jacket-water temperature (°C),83.923,82.0,72.0,92.0,False
+ANM-0007,2026-07-20T12:00:00,Jacket-water temperature (°C),82.416,82.0,72.0,92.0,False
+ANM-0007,2026-07-20T13:00:00,Jacket-water temperature (°C),82.42,82.0,72.0,92.0,False
+ANM-0007,2026-07-20T14:00:00,Jacket-water temperature (°C),83.039,82.0,72.0,92.0,False
+ANM-0007,2026-07-20T15:00:00,Jacket-water temperature (°C),81.98,82.0,72.0,92.0,False
+ANM-0007,2026-07-20T16:00:00,Jacket-water temperature (°C),83.922,82.0,72.0,92.0,False
+ANM-0007,2026-07-20T17:00:00,Jacket-water temperature (°C),81.243,82.0,72.0,92.0,False
+ANM-0007,2026-07-20T18:00:00,Jacket-water temperature (°C),80.846,82.0,72.0,92.0,False
+ANM-0007,2026-07-20T19:00:00,Jacket-water temperature (°C),82.192,82.0,72.0,92.0,False
+ANM-0007,2026-07-20T20:00:00,Jacket-water temperature (°C),81.526,82.0,72.0,92.0,False
+ANM-0007,2026-07-20T21:00:00,Jacket-water temperature (°C),81.077,82.0,72.0,92.0,False
+ANM-0007,2026-07-20T22:00:00,Jacket-water temperature (°C),82.018,82.0,72.0,92.0,False
+ANM-0007,2026-07-20T23:00:00,Jacket-water temperature (°C),79.731,82.0,72.0,92.0,False
+ANM-0007,2026-07-21T00:00:00,Jacket-water temperature (°C),82.324,82.0,72.0,92.0,False
+ANM-0007,2026-07-21T01:00:00,Jacket-water temperature (°C),81.349,82.0,72.0,92.0,False
+ANM-0007,2026-07-21T02:00:00,Jacket-water temperature (°C),82.153,82.0,72.0,92.0,False
+ANM-0007,2026-07-21T03:00:00,Jacket-water temperature (°C),81.126,82.0,72.0,92.0,False
+ANM-0007,2026-07-21T04:00:00,Jacket-water temperature (°C),78.494,82.0,72.0,92.0,False
+ANM-0007,2026-07-21T05:00:00,Jacket-water temperature (°C),76.836,82.0,72.0,92.0,False
+ANM-0007,2026-07-21T06:00:00,Jacket-water temperature (°C),71.851,82.0,72.0,92.0,False
+ANM-0007,2026-07-21T07:00:00,Jacket-water temperature (°C),70.942,82.0,72.0,92.0,False
+ANM-0007,2026-07-21T08:00:00,Jacket-water temperature (°C),66.426,82.0,72.0,92.0,False
+ANM-0007,2026-07-21T09:00:00,Jacket-water temperature (°C),66.035,82.0,72.0,92.0,False
+ANM-0007,2026-07-21T10:00:00,Jacket-water temperature (°C),59.239,82.0,72.0,92.0,True
+ANM-0008,2026-07-20T05:00:00,Vibration (mm/s),4.173,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T06:00:00,Vibration (mm/s),4.329,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T07:00:00,Vibration (mm/s),4.14,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T08:00:00,Vibration (mm/s),4.085,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T09:00:00,Vibration (mm/s),4.19,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T10:00:00,Vibration (mm/s),4.214,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T11:00:00,Vibration (mm/s),4.168,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T12:00:00,Vibration (mm/s),4.197,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T13:00:00,Vibration (mm/s),4.175,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T14:00:00,Vibration (mm/s),4.149,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T15:00:00,Vibration (mm/s),4.068,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T16:00:00,Vibration (mm/s),4.26,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T17:00:00,Vibration (mm/s),4.253,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T18:00:00,Vibration (mm/s),4.129,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T19:00:00,Vibration (mm/s),4.296,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T20:00:00,Vibration (mm/s),4.193,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T21:00:00,Vibration (mm/s),4.232,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T22:00:00,Vibration (mm/s),4.158,4.2,0.0,7.0,False
+ANM-0008,2026-07-20T23:00:00,Vibration (mm/s),4.309,4.2,0.0,7.0,False
+ANM-0008,2026-07-21T00:00:00,Vibration (mm/s),4.418,4.2,0.0,7.0,False
+ANM-0008,2026-07-21T01:00:00,Vibration (mm/s),4.346,4.2,0.0,7.0,False
+ANM-0008,2026-07-21T02:00:00,Vibration (mm/s),4.356,4.2,0.0,7.0,False
+ANM-0008,2026-07-21T03:00:00,Vibration (mm/s),4.252,4.2,0.0,7.0,False
+ANM-0008,2026-07-21T04:00:00,Vibration (mm/s),4.442,4.2,0.0,7.0,False
+ANM-0008,2026-07-21T05:00:00,Vibration (mm/s),4.358,4.2,0.0,7.0,True
+ANM-0009,2026-07-21T14:00:00,Actual fuel consumption (t/day),28.625,29.0,24.0,36.0,False
+ANM-0009,2026-07-21T15:00:00,Actual fuel consumption (t/day),29.028,29.0,24.0,36.0,False
+ANM-0009,2026-07-21T16:00:00,Actual fuel consumption (t/day),29.275,29.0,24.0,36.0,False
+ANM-0009,2026-07-21T17:00:00,Actual fuel consumption (t/day),28.937,29.0,24.0,36.0,False
+ANM-0009,2026-07-21T18:00:00,Actual fuel consumption (t/day),29.583,29.0,24.0,36.0,False
+ANM-0009,2026-07-21T19:00:00,Actual fuel consumption (t/day),29.313,29.0,24.0,36.0,False
+ANM-0009,2026-07-21T20:00:00,Actual fuel consumption (t/day),28.736,29.0,24.0,36.0,False
+ANM-0009,2026-07-21T21:00:00,Actual fuel consumption (t/day),29.038,29.0,24.0,36.0,False
+ANM-0009,2026-07-21T22:00:00,Actual fuel consumption (t/day),29.405,29.0,24.0,36.0,False
+ANM-0009,2026-07-21T23:00:00,Actual fuel consumption (t/day),29.053,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T00:00:00,Actual fuel consumption (t/day),29.021,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T01:00:00,Actual fuel consumption (t/day),29.707,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T02:00:00,Actual fuel consumption (t/day),30.13,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T03:00:00,Actual fuel consumption (t/day),29.569,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T04:00:00,Actual fuel consumption (t/day),28.449,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T05:00:00,Actual fuel consumption (t/day),29.041,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T06:00:00,Actual fuel consumption (t/day),28.774,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T07:00:00,Actual fuel consumption (t/day),28.546,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T08:00:00,Actual fuel consumption (t/day),28.856,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T09:00:00,Actual fuel consumption (t/day),28.862,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T10:00:00,Actual fuel consumption (t/day),29.285,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T11:00:00,Actual fuel consumption (t/day),29.639,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T12:00:00,Actual fuel consumption (t/day),29.751,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T13:00:00,Actual fuel consumption (t/day),29.971,29.0,24.0,36.0,False
+ANM-0009,2026-07-22T14:00:00,Actual fuel consumption (t/day),29.883,29.0,24.0,36.0,True
+ANM-0010,2026-07-21T09:00:00,Vessel speed (kn),15.35,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T10:00:00,Vessel speed (kn),15.051,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T11:00:00,Vessel speed (kn),14.997,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T12:00:00,Vessel speed (kn),15.15,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T13:00:00,Vessel speed (kn),15.199,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T14:00:00,Vessel speed (kn),14.891,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T15:00:00,Vessel speed (kn),14.835,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T16:00:00,Vessel speed (kn),14.969,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T17:00:00,Vessel speed (kn),14.883,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T18:00:00,Vessel speed (kn),14.994,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T19:00:00,Vessel speed (kn),15.22,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T20:00:00,Vessel speed (kn),15.048,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T21:00:00,Vessel speed (kn),14.996,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T22:00:00,Vessel speed (kn),15.001,15.0,11.0,19.0,False
+ANM-0010,2026-07-21T23:00:00,Vessel speed (kn),14.828,15.0,11.0,19.0,False
+ANM-0010,2026-07-22T00:00:00,Vessel speed (kn),14.905,15.0,11.0,19.0,False
+ANM-0010,2026-07-22T01:00:00,Vessel speed (kn),15.432,15.0,11.0,19.0,False
+ANM-0010,2026-07-22T02:00:00,Vessel speed (kn),15.03,15.0,11.0,19.0,False
+ANM-0010,2026-07-22T03:00:00,Vessel speed (kn),15.121,15.0,11.0,19.0,False
+ANM-0010,2026-07-22T04:00:00,Vessel speed (kn),15.689,15.0,11.0,19.0,False
+ANM-0010,2026-07-22T05:00:00,Vessel speed (kn),15.751,15.0,11.0,19.0,False
+ANM-0010,2026-07-22T06:00:00,Vessel speed (kn),15.717,15.0,11.0,19.0,False
+ANM-0010,2026-07-22T07:00:00,Vessel speed (kn),15.71,15.0,11.0,19.0,False
+ANM-0010,2026-07-22T08:00:00,Vessel speed (kn),15.927,15.0,11.0,19.0,False
+ANM-0010,2026-07-22T09:00:00,Vessel speed (kn),16.498,15.0,11.0,19.0,True
+ANM-0011,2026-07-21T04:00:00,Draft (m),10.905,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T05:00:00,Draft (m),10.959,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T06:00:00,Draft (m),10.893,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T07:00:00,Draft (m),10.857,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T08:00:00,Draft (m),10.813,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T09:00:00,Draft (m),10.819,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T10:00:00,Draft (m),10.688,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T11:00:00,Draft (m),10.78,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T12:00:00,Draft (m),10.563,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T13:00:00,Draft (m),10.523,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T14:00:00,Draft (m),10.824,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T15:00:00,Draft (m),10.668,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T16:00:00,Draft (m),10.943,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T17:00:00,Draft (m),10.859,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T18:00:00,Draft (m),11.003,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T19:00:00,Draft (m),11.028,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T20:00:00,Draft (m),10.926,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T21:00:00,Draft (m),10.728,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T22:00:00,Draft (m),10.429,10.8,8.0,13.5,False
+ANM-0011,2026-07-21T23:00:00,Draft (m),10.495,10.8,8.0,13.5,False
+ANM-0011,2026-07-22T00:00:00,Draft (m),10.193,10.8,8.0,13.5,False
+ANM-0011,2026-07-22T01:00:00,Draft (m),9.591,10.8,8.0,13.5,False
+ANM-0011,2026-07-22T02:00:00,Draft (m),9.61,10.8,8.0,13.5,False
+ANM-0011,2026-07-22T03:00:00,Draft (m),9.452,10.8,8.0,13.5,False
+ANM-0011,2026-07-22T04:00:00,Draft (m),9.297,10.8,8.0,13.5,True
+ANM-0012,2026-07-20T23:00:00,Engine load (%),70.759,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T00:00:00,Engine load (%),69.425,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T01:00:00,Engine load (%),71.943,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T02:00:00,Engine load (%),70.647,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T03:00:00,Engine load (%),69.825,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T04:00:00,Engine load (%),70.682,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T05:00:00,Engine load (%),71.033,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T06:00:00,Engine load (%),70.801,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T07:00:00,Engine load (%),70.152,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T08:00:00,Engine load (%),69.458,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T09:00:00,Engine load (%),69.295,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T10:00:00,Engine load (%),69.794,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T11:00:00,Engine load (%),71.025,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T12:00:00,Engine load (%),68.818,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T13:00:00,Engine load (%),68.733,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T14:00:00,Engine load (%),70.979,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T15:00:00,Engine load (%),69.869,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T16:00:00,Engine load (%),69.95,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T17:00:00,Engine load (%),72.39,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T18:00:00,Engine load (%),73.851,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T19:00:00,Engine load (%),77.991,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T20:00:00,Engine load (%),80.08,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T21:00:00,Engine load (%),81.512,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T22:00:00,Engine load (%),82.268,70.0,35.0,90.0,False
+ANM-0012,2026-07-21T23:00:00,Engine load (%),86.403,70.0,35.0,90.0,True
+ANM-0013,2026-07-20T18:00:00,Simulated weather factor,1.024,1.0,0.75,1.25,False
+ANM-0013,2026-07-20T19:00:00,Simulated weather factor,0.995,1.0,0.75,1.25,False
+ANM-0013,2026-07-20T20:00:00,Simulated weather factor,0.989,1.0,0.75,1.25,False
+ANM-0013,2026-07-20T21:00:00,Simulated weather factor,1.02,1.0,0.75,1.25,False
+ANM-0013,2026-07-20T22:00:00,Simulated weather factor,1.016,1.0,0.75,1.25,False
+ANM-0013,2026-07-20T23:00:00,Simulated weather factor,1.009,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T00:00:00,Simulated weather factor,0.991,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T01:00:00,Simulated weather factor,1.003,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T02:00:00,Simulated weather factor,0.974,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T03:00:00,Simulated weather factor,0.993,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T04:00:00,Simulated weather factor,0.998,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T05:00:00,Simulated weather factor,0.997,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T06:00:00,Simulated weather factor,0.991,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T07:00:00,Simulated weather factor,0.986,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T08:00:00,Simulated weather factor,1.005,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T09:00:00,Simulated weather factor,0.987,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T10:00:00,Simulated weather factor,0.991,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T11:00:00,Simulated weather factor,0.992,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T12:00:00,Simulated weather factor,1.025,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T13:00:00,Simulated weather factor,1.022,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T14:00:00,Simulated weather factor,1.036,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T15:00:00,Simulated weather factor,1.045,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T16:00:00,Simulated weather factor,1.053,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T17:00:00,Simulated weather factor,1.095,1.0,0.75,1.25,False
+ANM-0013,2026-07-21T18:00:00,Simulated weather factor,1.116,1.0,0.75,1.25,True
+ANM-0014,2026-07-20T13:00:00,Actual fuel consumption (t/day),28.518,29.0,24.0,36.0,False
+ANM-0014,2026-07-20T14:00:00,Actual fuel consumption (t/day),29.108,29.0,24.0,36.0,False
+ANM-0014,2026-07-20T15:00:00,Actual fuel consumption (t/day),29.524,29.0,24.0,36.0,False
+ANM-0014,2026-07-20T16:00:00,Actual fuel consumption (t/day),29.081,29.0,24.0,36.0,False
+ANM-0014,2026-07-20T17:00:00,Actual fuel consumption (t/day),28.21,29.0,24.0,36.0,False
+ANM-0014,2026-07-20T18:00:00,Actual fuel consumption (t/day),29.636,29.0,24.0,36.0,False
+ANM-0014,2026-07-20T19:00:00,Actual fuel consumption (t/day),29.244,29.0,24.0,36.0,False
+ANM-0014,2026-07-20T20:00:00,Actual fuel consumption (t/day),28.358,29.0,24.0,36.0,False
+ANM-0014,2026-07-20T21:00:00,Actual fuel consumption (t/day),28.884,29.0,24.0,36.0,False
+ANM-0014,2026-07-20T22:00:00,Actual fuel consumption (t/day),29.082,29.0,24.0,36.0,False
+ANM-0014,2026-07-20T23:00:00,Actual fuel consumption (t/day),28.954,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T00:00:00,Actual fuel consumption (t/day),29.112,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T01:00:00,Actual fuel consumption (t/day),28.72,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T02:00:00,Actual fuel consumption (t/day),28.996,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T03:00:00,Actual fuel consumption (t/day),28.913,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T04:00:00,Actual fuel consumption (t/day),28.747,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T05:00:00,Actual fuel consumption (t/day),28.98,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T06:00:00,Actual fuel consumption (t/day),28.902,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T07:00:00,Actual fuel consumption (t/day),28.464,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T08:00:00,Actual fuel consumption (t/day),27.356,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T09:00:00,Actual fuel consumption (t/day),26.706,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T10:00:00,Actual fuel consumption (t/day),26.939,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T11:00:00,Actual fuel consumption (t/day),25.79,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T12:00:00,Actual fuel consumption (t/day),24.6,29.0,24.0,36.0,False
+ANM-0014,2026-07-21T13:00:00,Actual fuel consumption (t/day),24.396,29.0,24.0,36.0,True
+ANM-0015,2026-07-20T08:00:00,Vessel speed (kn),14.775,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T09:00:00,Vessel speed (kn),15.125,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T10:00:00,Vessel speed (kn),15.09,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T11:00:00,Vessel speed (kn),14.849,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T12:00:00,Vessel speed (kn),14.959,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T13:00:00,Vessel speed (kn),14.952,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T14:00:00,Vessel speed (kn),15.123,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T15:00:00,Vessel speed (kn),14.9,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T16:00:00,Vessel speed (kn),14.786,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T17:00:00,Vessel speed (kn),15.303,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T18:00:00,Vessel speed (kn),15.199,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T19:00:00,Vessel speed (kn),14.935,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T20:00:00,Vessel speed (kn),15.0,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T21:00:00,Vessel speed (kn),14.802,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T22:00:00,Vessel speed (kn),14.958,15.0,11.0,19.0,False
+ANM-0015,2026-07-20T23:00:00,Vessel speed (kn),15.081,15.0,11.0,19.0,False
+ANM-0015,2026-07-21T00:00:00,Vessel speed (kn),14.908,15.0,11.0,19.0,False
+ANM-0015,2026-07-21T01:00:00,Vessel speed (kn),15.097,15.0,11.0,19.0,False
+ANM-0015,2026-07-21T02:00:00,Vessel speed (kn),15.681,15.0,11.0,19.0,False
+ANM-0015,2026-07-21T03:00:00,Vessel speed (kn),16.09,15.0,11.0,19.0,False
+ANM-0015,2026-07-21T04:00:00,Vessel speed (kn),16.932,15.0,11.0,19.0,False
+ANM-0015,2026-07-21T05:00:00,Vessel speed (kn),16.952,15.0,11.0,19.0,False
+ANM-0015,2026-07-21T06:00:00,Vessel speed (kn),17.805,15.0,11.0,19.0,False
+ANM-0015,2026-07-21T07:00:00,Vessel speed (kn),18.042,15.0,11.0,19.0,False
+ANM-0015,2026-07-21T08:00:00,Vessel speed (kn),18.84,15.0,11.0,19.0,True
+ANM-0016,2026-07-20T03:00:00,Draft (m),10.888,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T04:00:00,Draft (m),10.744,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T05:00:00,Draft (m),10.558,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T06:00:00,Draft (m),10.697,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T07:00:00,Draft (m),10.841,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T08:00:00,Draft (m),10.779,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T09:00:00,Draft (m),10.783,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T10:00:00,Draft (m),10.806,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T11:00:00,Draft (m),10.965,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T12:00:00,Draft (m),10.81,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T13:00:00,Draft (m),11.01,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T14:00:00,Draft (m),10.864,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T15:00:00,Draft (m),10.728,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T16:00:00,Draft (m),10.787,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T17:00:00,Draft (m),10.88,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T18:00:00,Draft (m),10.72,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T19:00:00,Draft (m),10.655,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T20:00:00,Draft (m),10.748,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T21:00:00,Draft (m),10.824,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T22:00:00,Draft (m),10.879,10.8,8.0,13.5,False
+ANM-0016,2026-07-20T23:00:00,Draft (m),11.097,10.8,8.0,13.5,False
+ANM-0016,2026-07-21T00:00:00,Draft (m),10.914,10.8,8.0,13.5,False
+ANM-0016,2026-07-21T01:00:00,Draft (m),11.115,10.8,8.0,13.5,False
+ANM-0016,2026-07-21T02:00:00,Draft (m),11.419,10.8,8.0,13.5,False
+ANM-0016,2026-07-21T03:00:00,Draft (m),11.301,10.8,8.0,13.5,True
+ANM-0017,2026-07-21T12:00:00,Vibration (mm/s),3.458,3.5,0.0,6.5,False
+ANM-0017,2026-07-21T13:00:00,Vibration (mm/s),3.516,3.5,0.0,6.5,False
+ANM-0017,2026-07-21T14:00:00,Vibration (mm/s),3.486,3.5,0.0,6.5,False
+ANM-0017,2026-07-21T15:00:00,Vibration (mm/s),3.6,3.5,0.0,6.5,False
+ANM-0017,2026-07-21T16:00:00,Vibration (mm/s),3.611,3.5,0.0,6.5,False
+ANM-0017,2026-07-21T17:00:00,Vibration (mm/s),3.411,3.5,0.0,6.5,False
+ANM-0017,2026-07-21T18:00:00,Vibration (mm/s),3.443,3.5,0.0,6.5,False
+ANM-0017,2026-07-21T19:00:00,Vibration (mm/s),3.428,3.5,0.0,6.5,False
+ANM-0017,2026-07-21T20:00:00,Vibration (mm/s),3.462,3.5,0.0,6.5,False
+ANM-0017,2026-07-21T21:00:00,Vibration (mm/s),3.393,3.5,0.0,6.5,False
+ANM-0017,2026-07-21T22:00:00,Vibration (mm/s),3.458,3.5,0.0,6.5,False
+ANM-0017,2026-07-21T23:00:00,Vibration (mm/s),3.489,3.5,0.0,6.5,False
+ANM-0017,2026-07-22T00:00:00,Vibration (mm/s),3.537,3.5,0.0,6.5,False
+ANM-0017,2026-07-22T01:00:00,Vibration (mm/s),3.578,3.5,0.0,6.5,False
+ANM-0017,2026-07-22T02:00:00,Vibration (mm/s),3.551,3.5,0.0,6.5,False
+ANM-0017,2026-07-22T03:00:00,Vibration (mm/s),3.529,3.5,0.0,6.5,False
+ANM-0017,2026-07-22T04:00:00,Vibration (mm/s),3.46,3.5,0.0,6.5,False
+ANM-0017,2026-07-22T05:00:00,Vibration (mm/s),3.503,3.5,0.0,6.5,False
+ANM-0017,2026-07-22T06:00:00,Vibration (mm/s),3.518,3.5,0.0,6.5,False
+ANM-0017,2026-07-22T07:00:00,Vibration (mm/s),3.4,3.5,0.0,6.5,False
+ANM-0017,2026-07-22T08:00:00,Vibration (mm/s),3.651,3.5,0.0,6.5,False
+ANM-0017,2026-07-22T09:00:00,Vibration (mm/s),3.652,3.5,0.0,6.5,False
+ANM-0017,2026-07-22T10:00:00,Vibration (mm/s),3.587,3.5,0.0,6.5,False
+ANM-0017,2026-07-22T11:00:00,Vibration (mm/s),3.629,3.5,0.0,6.5,False
+ANM-0017,2026-07-22T12:00:00,Vibration (mm/s),3.637,3.5,0.0,6.5,True
+ANM-0018,2026-07-21T07:00:00,Hydraulic pressure (bar),217.15,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T08:00:00,Hydraulic pressure (bar),217.567,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T09:00:00,Hydraulic pressure (bar),214.961,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T10:00:00,Hydraulic pressure (bar),210.429,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T11:00:00,Hydraulic pressure (bar),212.673,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T12:00:00,Hydraulic pressure (bar),217.621,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T13:00:00,Hydraulic pressure (bar),218.629,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T14:00:00,Hydraulic pressure (bar),215.418,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T15:00:00,Hydraulic pressure (bar),213.832,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T16:00:00,Hydraulic pressure (bar),215.863,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T17:00:00,Hydraulic pressure (bar),216.087,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T18:00:00,Hydraulic pressure (bar),213.871,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T19:00:00,Hydraulic pressure (bar),213.537,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T20:00:00,Hydraulic pressure (bar),215.39,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T21:00:00,Hydraulic pressure (bar),220.427,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T22:00:00,Hydraulic pressure (bar),214.826,215.0,185.0,245.0,False
+ANM-0018,2026-07-21T23:00:00,Hydraulic pressure (bar),214.797,215.0,185.0,245.0,False
+ANM-0018,2026-07-22T00:00:00,Hydraulic pressure (bar),217.033,215.0,185.0,245.0,False
+ANM-0018,2026-07-22T01:00:00,Hydraulic pressure (bar),216.506,215.0,185.0,245.0,False
+ANM-0018,2026-07-22T02:00:00,Hydraulic pressure (bar),213.049,215.0,185.0,245.0,False
+ANM-0018,2026-07-22T03:00:00,Hydraulic pressure (bar),208.83,215.0,185.0,245.0,False
+ANM-0018,2026-07-22T04:00:00,Hydraulic pressure (bar),209.269,215.0,185.0,245.0,False
+ANM-0018,2026-07-22T05:00:00,Hydraulic pressure (bar),208.588,215.0,185.0,245.0,False
+ANM-0018,2026-07-22T06:00:00,Hydraulic pressure (bar),200.743,215.0,185.0,245.0,False
+ANM-0018,2026-07-22T07:00:00,Hydraulic pressure (bar),194.886,215.0,185.0,245.0,True
+ANM-0019,2026-07-21T02:00:00,Motor temperature (°C),67.629,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T03:00:00,Motor temperature (°C),67.606,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T04:00:00,Motor temperature (°C),68.386,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T05:00:00,Motor temperature (°C),68.317,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T06:00:00,Motor temperature (°C),67.384,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T07:00:00,Motor temperature (°C),68.28,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T08:00:00,Motor temperature (°C),70.688,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T09:00:00,Motor temperature (°C),68.936,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T10:00:00,Motor temperature (°C),68.157,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T11:00:00,Motor temperature (°C),67.398,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T12:00:00,Motor temperature (°C),67.688,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T13:00:00,Motor temperature (°C),68.579,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T14:00:00,Motor temperature (°C),67.644,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T15:00:00,Motor temperature (°C),68.247,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T16:00:00,Motor temperature (°C),68.137,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T17:00:00,Motor temperature (°C),68.217,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T18:00:00,Motor temperature (°C),68.057,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T19:00:00,Motor temperature (°C),67.011,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T20:00:00,Motor temperature (°C),69.57,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T21:00:00,Motor temperature (°C),71.367,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T22:00:00,Motor temperature (°C),73.032,68.0,40.0,82.0,False
+ANM-0019,2026-07-21T23:00:00,Motor temperature (°C),73.072,68.0,40.0,82.0,False
+ANM-0019,2026-07-22T00:00:00,Motor temperature (°C),74.512,68.0,40.0,82.0,False
+ANM-0019,2026-07-22T01:00:00,Motor temperature (°C),76.423,68.0,40.0,82.0,False
+ANM-0019,2026-07-22T02:00:00,Motor temperature (°C),77.832,68.0,40.0,82.0,True
+ANM-0020,2026-07-20T21:00:00,Electrical current (A),303.509,310.0,220.0,380.0,False
+ANM-0020,2026-07-20T22:00:00,Electrical current (A),311.928,310.0,220.0,380.0,False
+ANM-0020,2026-07-20T23:00:00,Electrical current (A),315.847,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T00:00:00,Electrical current (A),311.626,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T01:00:00,Electrical current (A),311.734,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T02:00:00,Electrical current (A),308.781,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T03:00:00,Electrical current (A),313.824,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T04:00:00,Electrical current (A),314.715,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T05:00:00,Electrical current (A),311.387,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T06:00:00,Electrical current (A),314.284,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T07:00:00,Electrical current (A),305.681,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T08:00:00,Electrical current (A),308.015,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T09:00:00,Electrical current (A),309.44,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T10:00:00,Electrical current (A),305.226,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T11:00:00,Electrical current (A),303.249,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T12:00:00,Electrical current (A),308.28,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T13:00:00,Electrical current (A),306.915,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T14:00:00,Electrical current (A),315.32,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T15:00:00,Electrical current (A),313.924,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T16:00:00,Electrical current (A),332.198,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T17:00:00,Electrical current (A),339.62,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T18:00:00,Electrical current (A),353.281,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T19:00:00,Electrical current (A),363.824,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T20:00:00,Electrical current (A),370.434,310.0,220.0,380.0,False
+ANM-0020,2026-07-21T21:00:00,Electrical current (A),381.356,310.0,220.0,380.0,True
+ANM-0021,2026-07-20T16:00:00,Hoist-cycle time (s),95.943,96.0,75.0,120.0,False
+ANM-0021,2026-07-20T17:00:00,Hoist-cycle time (s),95.88,96.0,75.0,120.0,False
+ANM-0021,2026-07-20T18:00:00,Hoist-cycle time (s),98.138,96.0,75.0,120.0,False
+ANM-0021,2026-07-20T19:00:00,Hoist-cycle time (s),96.828,96.0,75.0,120.0,False
+ANM-0021,2026-07-20T20:00:00,Hoist-cycle time (s),95.986,96.0,75.0,120.0,False
+ANM-0021,2026-07-20T21:00:00,Hoist-cycle time (s),95.467,96.0,75.0,120.0,False
+ANM-0021,2026-07-20T22:00:00,Hoist-cycle time (s),96.74,96.0,75.0,120.0,False
+ANM-0021,2026-07-20T23:00:00,Hoist-cycle time (s),96.777,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T00:00:00,Hoist-cycle time (s),95.843,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T01:00:00,Hoist-cycle time (s),94.951,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T02:00:00,Hoist-cycle time (s),95.356,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T03:00:00,Hoist-cycle time (s),96.299,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T04:00:00,Hoist-cycle time (s),95.947,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T05:00:00,Hoist-cycle time (s),95.065,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T06:00:00,Hoist-cycle time (s),96.964,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T07:00:00,Hoist-cycle time (s),96.728,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T08:00:00,Hoist-cycle time (s),95.095,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T09:00:00,Hoist-cycle time (s),95.943,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T10:00:00,Hoist-cycle time (s),94.204,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T11:00:00,Hoist-cycle time (s),93.785,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T12:00:00,Hoist-cycle time (s),90.931,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T13:00:00,Hoist-cycle time (s),91.176,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T14:00:00,Hoist-cycle time (s),88.612,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T15:00:00,Hoist-cycle time (s),87.542,96.0,75.0,120.0,False
+ANM-0021,2026-07-21T16:00:00,Hoist-cycle time (s),85.552,96.0,75.0,120.0,True
+ANM-0022,2026-07-20T11:00:00,Vibration (mm/s),3.559,3.5,0.0,6.5,False
+ANM-0022,2026-07-20T12:00:00,Vibration (mm/s),3.466,3.5,0.0,6.5,False
+ANM-0022,2026-07-20T13:00:00,Vibration (mm/s),3.586,3.5,0.0,6.5,False
+ANM-0022,2026-07-20T14:00:00,Vibration (mm/s),3.431,3.5,0.0,6.5,False
+ANM-0022,2026-07-20T15:00:00,Vibration (mm/s),3.503,3.5,0.0,6.5,False
+ANM-0022,2026-07-20T16:00:00,Vibration (mm/s),3.512,3.5,0.0,6.5,False
+ANM-0022,2026-07-20T17:00:00,Vibration (mm/s),3.554,3.5,0.0,6.5,False
+ANM-0022,2026-07-20T18:00:00,Vibration (mm/s),3.584,3.5,0.0,6.5,False
+ANM-0022,2026-07-20T19:00:00,Vibration (mm/s),3.534,3.5,0.0,6.5,False
+ANM-0022,2026-07-20T20:00:00,Vibration (mm/s),3.614,3.5,0.0,6.5,False
+ANM-0022,2026-07-20T21:00:00,Vibration (mm/s),3.606,3.5,0.0,6.5,False
+ANM-0022,2026-07-20T22:00:00,Vibration (mm/s),3.515,3.5,0.0,6.5,False
+ANM-0022,2026-07-20T23:00:00,Vibration (mm/s),3.501,3.5,0.0,6.5,False
+ANM-0022,2026-07-21T00:00:00,Vibration (mm/s),3.578,3.5,0.0,6.5,False
+ANM-0022,2026-07-21T01:00:00,Vibration (mm/s),3.43,3.5,0.0,6.5,False
+ANM-0022,2026-07-21T02:00:00,Vibration (mm/s),3.504,3.5,0.0,6.5,False
+ANM-0022,2026-07-21T03:00:00,Vibration (mm/s),3.514,3.5,0.0,6.5,False
+ANM-0022,2026-07-21T04:00:00,Vibration (mm/s),3.623,3.5,0.0,6.5,False
+ANM-0022,2026-07-21T05:00:00,Vibration (mm/s),3.561,3.5,0.0,6.5,False
+ANM-0022,2026-07-21T06:00:00,Vibration (mm/s),3.694,3.5,0.0,6.5,False
+ANM-0022,2026-07-21T07:00:00,Vibration (mm/s),3.75,3.5,0.0,6.5,False
+ANM-0022,2026-07-21T08:00:00,Vibration (mm/s),3.766,3.5,0.0,6.5,False
+ANM-0022,2026-07-21T09:00:00,Vibration (mm/s),4.028,3.5,0.0,6.5,False
+ANM-0022,2026-07-21T10:00:00,Vibration (mm/s),4.076,3.5,0.0,6.5,False
+ANM-0022,2026-07-21T11:00:00,Vibration (mm/s),4.116,3.5,0.0,6.5,True
+ANM-0023,2026-07-20T06:00:00,Hydraulic pressure (bar),218.105,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T07:00:00,Hydraulic pressure (bar),217.721,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T08:00:00,Hydraulic pressure (bar),216.203,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T09:00:00,Hydraulic pressure (bar),213.851,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T10:00:00,Hydraulic pressure (bar),214.64,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T11:00:00,Hydraulic pressure (bar),218.107,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T12:00:00,Hydraulic pressure (bar),214.773,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T13:00:00,Hydraulic pressure (bar),215.601,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T14:00:00,Hydraulic pressure (bar),214.697,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T15:00:00,Hydraulic pressure (bar),210.189,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T16:00:00,Hydraulic pressure (bar),211.586,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T17:00:00,Hydraulic pressure (bar),213.162,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T18:00:00,Hydraulic pressure (bar),213.695,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T19:00:00,Hydraulic pressure (bar),219.076,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T20:00:00,Hydraulic pressure (bar),216.331,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T21:00:00,Hydraulic pressure (bar),214.095,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T22:00:00,Hydraulic pressure (bar),217.098,215.0,185.0,245.0,False
+ANM-0023,2026-07-20T23:00:00,Hydraulic pressure (bar),216.209,215.0,185.0,245.0,False
+ANM-0023,2026-07-21T00:00:00,Hydraulic pressure (bar),220.624,215.0,185.0,245.0,False
+ANM-0023,2026-07-21T01:00:00,Hydraulic pressure (bar),231.873,215.0,185.0,245.0,False
+ANM-0023,2026-07-21T02:00:00,Hydraulic pressure (bar),238.692,215.0,185.0,245.0,False
+ANM-0023,2026-07-21T03:00:00,Hydraulic pressure (bar),245.521,215.0,185.0,245.0,False
+ANM-0023,2026-07-21T04:00:00,Hydraulic pressure (bar),259.744,215.0,185.0,245.0,False
+ANM-0023,2026-07-21T05:00:00,Hydraulic pressure (bar),262.999,215.0,185.0,245.0,False
+ANM-0023,2026-07-21T06:00:00,Hydraulic pressure (bar),271.729,215.0,185.0,245.0,True
+ANM-0024,2026-07-20T01:00:00,Motor temperature (°C),66.943,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T02:00:00,Motor temperature (°C),68.768,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T03:00:00,Motor temperature (°C),68.512,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T04:00:00,Motor temperature (°C),67.204,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T05:00:00,Motor temperature (°C),67.496,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T06:00:00,Motor temperature (°C),68.524,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T07:00:00,Motor temperature (°C),70.066,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T08:00:00,Motor temperature (°C),66.414,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T09:00:00,Motor temperature (°C),68.932,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T10:00:00,Motor temperature (°C),68.667,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T11:00:00,Motor temperature (°C),68.43,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T12:00:00,Motor temperature (°C),67.735,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T13:00:00,Motor temperature (°C),67.39,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T14:00:00,Motor temperature (°C),66.84,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T15:00:00,Motor temperature (°C),67.805,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T16:00:00,Motor temperature (°C),68.182,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T17:00:00,Motor temperature (°C),67.621,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T18:00:00,Motor temperature (°C),68.56,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T19:00:00,Motor temperature (°C),65.804,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T20:00:00,Motor temperature (°C),67.28,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T21:00:00,Motor temperature (°C),66.291,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T22:00:00,Motor temperature (°C),65.404,68.0,40.0,82.0,False
+ANM-0024,2026-07-20T23:00:00,Motor temperature (°C),65.69,68.0,40.0,82.0,False
+ANM-0024,2026-07-21T00:00:00,Motor temperature (°C),66.385,68.0,40.0,82.0,False
+ANM-0024,2026-07-21T01:00:00,Motor temperature (°C),64.492,68.0,40.0,82.0,True
+ANM-0025,2026-07-21T10:00:00,Actual temperature (°C),-18.105,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-21T11:00:00,Actual temperature (°C),-17.718,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-21T12:00:00,Actual temperature (°C),-17.94,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-21T13:00:00,Actual temperature (°C),-17.992,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-21T14:00:00,Actual temperature (°C),-17.92,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-21T15:00:00,Actual temperature (°C),-17.979,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-21T16:00:00,Actual temperature (°C),-17.983,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-21T17:00:00,Actual temperature (°C),-18.017,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-21T18:00:00,Actual temperature (°C),-17.63,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-21T19:00:00,Actual temperature (°C),-17.984,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-21T20:00:00,Actual temperature (°C),-17.874,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-21T21:00:00,Actual temperature (°C),-18.145,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-21T22:00:00,Actual temperature (°C),-18.056,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-21T23:00:00,Actual temperature (°C),-17.998,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-22T00:00:00,Actual temperature (°C),-17.691,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-22T01:00:00,Actual temperature (°C),-17.838,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-22T02:00:00,Actual temperature (°C),-18.189,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-22T03:00:00,Actual temperature (°C),-17.764,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-22T04:00:00,Actual temperature (°C),-17.995,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-22T05:00:00,Actual temperature (°C),-18.214,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-22T06:00:00,Actual temperature (°C),-18.084,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-22T07:00:00,Actual temperature (°C),-18.411,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-22T08:00:00,Actual temperature (°C),-18.537,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-22T09:00:00,Actual temperature (°C),-18.726,-18.0,-22.0,-14.0,False
+ANM-0025,2026-07-22T10:00:00,Actual temperature (°C),-18.62,-18.0,-22.0,-14.0,True
+ANM-0026,2026-07-21T05:00:00,Set-point temperature (°C),-17.896,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T06:00:00,Set-point temperature (°C),-18.244,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T07:00:00,Set-point temperature (°C),-17.86,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T08:00:00,Set-point temperature (°C),-17.994,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T09:00:00,Set-point temperature (°C),-18.339,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T10:00:00,Set-point temperature (°C),-17.899,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T11:00:00,Set-point temperature (°C),-17.564,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T12:00:00,Set-point temperature (°C),-18.099,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T13:00:00,Set-point temperature (°C),-18.076,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T14:00:00,Set-point temperature (°C),-18.093,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T15:00:00,Set-point temperature (°C),-18.125,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T16:00:00,Set-point temperature (°C),-18.231,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T17:00:00,Set-point temperature (°C),-17.96,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T18:00:00,Set-point temperature (°C),-18.115,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T19:00:00,Set-point temperature (°C),-18.117,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T20:00:00,Set-point temperature (°C),-18.049,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T21:00:00,Set-point temperature (°C),-18.04,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T22:00:00,Set-point temperature (°C),-17.853,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-21T23:00:00,Set-point temperature (°C),-17.436,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-22T00:00:00,Set-point temperature (°C),-17.217,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-22T01:00:00,Set-point temperature (°C),-17.26,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-22T02:00:00,Set-point temperature (°C),-17.353,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-22T03:00:00,Set-point temperature (°C),-16.652,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-22T04:00:00,Set-point temperature (°C),-16.881,-18.0,-22.0,-14.0,False
+ANM-0026,2026-07-22T05:00:00,Set-point temperature (°C),-16.601,-18.0,-22.0,-14.0,True
+ANM-0027,2026-07-21T00:00:00,Supply-air temperature (°C),-18.88,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T01:00:00,Supply-air temperature (°C),-19.074,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T02:00:00,Supply-air temperature (°C),-19.095,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T03:00:00,Supply-air temperature (°C),-19.294,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T04:00:00,Supply-air temperature (°C),-19.215,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T05:00:00,Supply-air temperature (°C),-18.969,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T06:00:00,Supply-air temperature (°C),-19.183,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T07:00:00,Supply-air temperature (°C),-19.01,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T08:00:00,Supply-air temperature (°C),-18.76,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T09:00:00,Supply-air temperature (°C),-19.176,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T10:00:00,Supply-air temperature (°C),-19.195,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T11:00:00,Supply-air temperature (°C),-19.292,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T12:00:00,Supply-air temperature (°C),-18.89,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T13:00:00,Supply-air temperature (°C),-19.137,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T14:00:00,Supply-air temperature (°C),-18.812,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T15:00:00,Supply-air temperature (°C),-19.425,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T16:00:00,Supply-air temperature (°C),-18.954,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T17:00:00,Supply-air temperature (°C),-18.41,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T18:00:00,Supply-air temperature (°C),-19.644,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T19:00:00,Supply-air temperature (°C),-20.186,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T20:00:00,Supply-air temperature (°C),-20.322,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T21:00:00,Supply-air temperature (°C),-20.215,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T22:00:00,Supply-air temperature (°C),-21.109,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-21T23:00:00,Supply-air temperature (°C),-21.417,-19.0,-23.0,-15.0,False
+ANM-0027,2026-07-22T00:00:00,Supply-air temperature (°C),-21.546,-19.0,-23.0,-15.0,True
+ANM-0028,2026-07-20T19:00:00,Return-air temperature (°C),-16.16,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-20T20:00:00,Return-air temperature (°C),-16.019,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-20T21:00:00,Return-air temperature (°C),-15.822,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-20T22:00:00,Return-air temperature (°C),-15.933,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-20T23:00:00,Return-air temperature (°C),-16.021,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T00:00:00,Return-air temperature (°C),-16.035,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T01:00:00,Return-air temperature (°C),-15.967,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T02:00:00,Return-air temperature (°C),-16.226,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T03:00:00,Return-air temperature (°C),-15.903,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T04:00:00,Return-air temperature (°C),-16.061,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T05:00:00,Return-air temperature (°C),-16.098,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T06:00:00,Return-air temperature (°C),-15.92,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T07:00:00,Return-air temperature (°C),-16.114,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T08:00:00,Return-air temperature (°C),-16.149,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T09:00:00,Return-air temperature (°C),-16.18,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T10:00:00,Return-air temperature (°C),-16.22,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T11:00:00,Return-air temperature (°C),-16.184,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T12:00:00,Return-air temperature (°C),-15.929,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T13:00:00,Return-air temperature (°C),-15.284,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T14:00:00,Return-air temperature (°C),-14.702,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T15:00:00,Return-air temperature (°C),-14.498,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T16:00:00,Return-air temperature (°C),-14.022,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T17:00:00,Return-air temperature (°C),-13.231,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T18:00:00,Return-air temperature (°C),-12.401,-16.0,-20.0,-12.0,False
+ANM-0028,2026-07-21T19:00:00,Return-air temperature (°C),-12.129,-16.0,-20.0,-12.0,True
+ANM-0029,2026-07-20T14:00:00,Power status (%),100.657,100.0,95.0,100.0,False
+ANM-0029,2026-07-20T15:00:00,Power status (%),99.181,100.0,95.0,100.0,False
+ANM-0029,2026-07-20T16:00:00,Power status (%),98.264,100.0,95.0,100.0,False
+ANM-0029,2026-07-20T17:00:00,Power status (%),99.576,100.0,95.0,100.0,False
+ANM-0029,2026-07-20T18:00:00,Power status (%),100.701,100.0,95.0,100.0,False
+ANM-0029,2026-07-20T19:00:00,Power status (%),100.969,100.0,95.0,100.0,False
+ANM-0029,2026-07-20T20:00:00,Power status (%),100.052,100.0,95.0,100.0,False
+ANM-0029,2026-07-20T21:00:00,Power status (%),100.655,100.0,95.0,100.0,False
+ANM-0029,2026-07-20T22:00:00,Power status (%),97.239,100.0,95.0,100.0,False
+ANM-0029,2026-07-20T23:00:00,Power status (%),100.103,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T00:00:00,Power status (%),100.444,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T01:00:00,Power status (%),98.035,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T02:00:00,Power status (%),99.603,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T03:00:00,Power status (%),100.16,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T04:00:00,Power status (%),99.006,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T05:00:00,Power status (%),98.264,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T06:00:00,Power status (%),100.235,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T07:00:00,Power status (%),101.478,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T08:00:00,Power status (%),102.766,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T09:00:00,Power status (%),102.034,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T10:00:00,Power status (%),104.134,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T11:00:00,Power status (%),106.896,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T12:00:00,Power status (%),106.19,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T13:00:00,Power status (%),109.261,100.0,95.0,100.0,False
+ANM-0029,2026-07-21T14:00:00,Power status (%),111.611,100.0,95.0,100.0,True
+ANM-0030,2026-07-20T09:00:00,Actual temperature (°C),-17.961,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T10:00:00,Actual temperature (°C),-17.785,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T11:00:00,Actual temperature (°C),-18.321,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T12:00:00,Actual temperature (°C),-17.834,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T13:00:00,Actual temperature (°C),-17.886,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T14:00:00,Actual temperature (°C),-17.93,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T15:00:00,Actual temperature (°C),-18.089,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T16:00:00,Actual temperature (°C),-17.611,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T17:00:00,Actual temperature (°C),-17.926,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T18:00:00,Actual temperature (°C),-18.174,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T19:00:00,Actual temperature (°C),-18.128,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T20:00:00,Actual temperature (°C),-17.885,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T21:00:00,Actual temperature (°C),-18.088,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T22:00:00,Actual temperature (°C),-18.519,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-20T23:00:00,Actual temperature (°C),-18.096,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-21T00:00:00,Actual temperature (°C),-17.704,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-21T01:00:00,Actual temperature (°C),-18.227,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-21T02:00:00,Actual temperature (°C),-17.939,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-21T03:00:00,Actual temperature (°C),-17.968,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-21T04:00:00,Actual temperature (°C),-16.728,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-21T05:00:00,Actual temperature (°C),-16.861,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-21T06:00:00,Actual temperature (°C),-15.965,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-21T07:00:00,Actual temperature (°C),-15.685,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-21T08:00:00,Actual temperature (°C),-15.413,-18.0,-22.0,-14.0,False
+ANM-0030,2026-07-21T09:00:00,Actual temperature (°C),-14.786,-18.0,-22.0,-14.0,True
+ANM-0031,2026-07-20T04:00:00,Set-point temperature (°C),-18.123,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T05:00:00,Set-point temperature (°C),-18.231,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T06:00:00,Set-point temperature (°C),-18.069,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T07:00:00,Set-point temperature (°C),-17.938,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T08:00:00,Set-point temperature (°C),-17.859,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T09:00:00,Set-point temperature (°C),-18.098,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T10:00:00,Set-point temperature (°C),-18.282,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T11:00:00,Set-point temperature (°C),-17.916,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T12:00:00,Set-point temperature (°C),-18.329,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T13:00:00,Set-point temperature (°C),-17.985,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T14:00:00,Set-point temperature (°C),-17.773,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T15:00:00,Set-point temperature (°C),-17.914,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T16:00:00,Set-point temperature (°C),-17.942,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T17:00:00,Set-point temperature (°C),-18.032,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T18:00:00,Set-point temperature (°C),-18.069,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T19:00:00,Set-point temperature (°C),-18.136,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T20:00:00,Set-point temperature (°C),-17.863,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T21:00:00,Set-point temperature (°C),-17.953,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T22:00:00,Set-point temperature (°C),-18.604,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-20T23:00:00,Set-point temperature (°C),-19.507,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-21T00:00:00,Set-point temperature (°C),-20.039,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-21T01:00:00,Set-point temperature (°C),-20.555,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-21T02:00:00,Set-point temperature (°C),-21.512,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-21T03:00:00,Set-point temperature (°C),-22.207,-18.0,-22.0,-14.0,False
+ANM-0031,2026-07-21T04:00:00,Set-point temperature (°C),-22.853,-18.0,-22.0,-14.0,True
+ANM-0032,2026-07-19T23:00:00,Supply-air temperature (°C),-18.879,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T00:00:00,Supply-air temperature (°C),-18.653,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T01:00:00,Supply-air temperature (°C),-19.094,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T02:00:00,Supply-air temperature (°C),-19.149,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T03:00:00,Supply-air temperature (°C),-19.175,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T04:00:00,Supply-air temperature (°C),-19.241,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T05:00:00,Supply-air temperature (°C),-18.911,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T06:00:00,Supply-air temperature (°C),-18.944,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T07:00:00,Supply-air temperature (°C),-18.897,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T08:00:00,Supply-air temperature (°C),-19.174,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T09:00:00,Supply-air temperature (°C),-19.251,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T10:00:00,Supply-air temperature (°C),-19.139,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T11:00:00,Supply-air temperature (°C),-19.644,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T12:00:00,Supply-air temperature (°C),-19.087,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T13:00:00,Supply-air temperature (°C),-19.013,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T14:00:00,Supply-air temperature (°C),-18.971,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T15:00:00,Supply-air temperature (°C),-19.039,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T16:00:00,Supply-air temperature (°C),-18.802,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T17:00:00,Supply-air temperature (°C),-19.197,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T18:00:00,Supply-air temperature (°C),-18.617,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T19:00:00,Supply-air temperature (°C),-18.461,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T20:00:00,Supply-air temperature (°C),-18.407,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T21:00:00,Supply-air temperature (°C),-18.506,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T22:00:00,Supply-air temperature (°C),-18.191,-19.0,-23.0,-15.0,False
+ANM-0032,2026-07-20T23:00:00,Supply-air temperature (°C),-17.852,-19.0,-23.0,-15.0,True

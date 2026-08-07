@@ -1,0 +1,25 @@
+corrective_action_id,event_id,action,owner,due_date,status
+CA-0001,SE-0001,Synthetic corrective action,HSE Manager,2026-08-15,New
+CA-0002,SE-0002,Synthetic corrective action,HSE Manager,2026-08-05,Acknowledged
+CA-0003,SE-0003,Synthetic corrective action,HSE Manager,2026-07-18,Under Review
+CA-0004,SE-0004,Synthetic corrective action,HSE Manager,2026-07-31,In Progress
+CA-0005,SE-0005,Synthetic corrective action,HSE Manager,2026-08-14,Closed
+CA-0006,SE-0006,Synthetic corrective action,HSE Manager,2026-08-09,New
+CA-0007,SE-0007,Synthetic corrective action,HSE Manager,2026-08-11,Acknowledged
+CA-0008,SE-0008,Synthetic corrective action,HSE Manager,2026-08-14,Under Review
+CA-0009,SE-0009,Synthetic corrective action,HSE Manager,2026-07-21,In Progress
+CA-0010,SE-0010,Synthetic corrective action,HSE Manager,2026-07-16,Closed
+CA-0011,SE-0011,Synthetic corrective action,HSE Manager,2026-08-02,New
+CA-0012,SE-0012,Synthetic corrective action,HSE Manager,2026-08-13,Acknowledged
+CA-0013,SE-0013,Synthetic corrective action,HSE Manager,2026-07-12,Under Review
+CA-0014,SE-0014,Synthetic corrective action,HSE Manager,2026-07-20,In Progress
+CA-0015,SE-0015,Synthetic corrective action,HSE Manager,2026-08-14,Closed
+CA-0016,SE-0016,Synthetic corrective action,HSE Manager,2026-08-07,New
+CA-0017,SE-0017,Synthetic corrective action,HSE Manager,2026-08-09,Acknowledged
+CA-0018,SE-0018,Synthetic corrective action,HSE Manager,2026-07-18,Under Review
+CA-0019,SE-0019,Synthetic corrective action,HSE Manager,2026-07-14,In Progress
+CA-0020,SE-0020,Synthetic corrective action,HSE Manager,2026-08-02,Closed
+CA-0021,SE-0021,Synthetic corrective action,HSE Manager,2026-07-12,New
+CA-0022,SE-0022,Synthetic corrective action,HSE Manager,2026-08-15,Acknowledged
+CA-0023,SE-0023,Synthetic corrective action,HSE Manager,2026-08-03,Under Review
+CA-0024,SE-0024,Synthetic corrective action,HSE Manager,2026-08-15,In Progress

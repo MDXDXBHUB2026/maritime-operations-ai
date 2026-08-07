@@ -1,0 +1,81 @@
+history_id,asset_id,maintenance_date,maintenance_type,finding,downtime_hours
+MH-0001,MA-001,2025-08-01,Inspection,No defect found,20
+MH-0002,MA-002,2025-08-12,Preventive Service,Wear within illustrative tolerance,15
+MH-0003,MA-003,2025-08-23,Corrective Repair,Component replaced,29
+MH-0004,MA-004,2025-09-03,Inspection,No defect found,5
+MH-0005,MA-005,2025-09-14,Preventive Service,Wear within illustrative tolerance,18
+MH-0006,MA-006,2025-09-25,Corrective Repair,Component replaced,26
+MH-0007,MA-007,2025-10-06,Inspection,No defect found,18
+MH-0008,MA-008,2025-10-17,Preventive Service,Wear within illustrative tolerance,25
+MH-0009,MA-009,2025-10-28,Corrective Repair,Component replaced,4
+MH-0010,MA-010,2025-11-08,Inspection,No defect found,6
+MH-0011,MA-011,2025-11-19,Preventive Service,Wear within illustrative tolerance,29
+MH-0012,MA-012,2025-11-30,Corrective Repair,Component replaced,6
+MH-0013,MA-013,2025-12-11,Inspection,No defect found,16
+MH-0014,MA-014,2025-12-22,Preventive Service,Wear within illustrative tolerance,17
+MH-0015,MA-015,2026-01-02,Corrective Repair,Component replaced,4
+MH-0016,MA-016,2026-01-13,Inspection,No defect found,18
+MH-0017,MA-017,2026-01-24,Preventive Service,Wear within illustrative tolerance,8
+MH-0018,MA-018,2026-02-04,Corrective Repair,Component replaced,29
+MH-0019,MA-019,2026-02-15,Inspection,No defect found,29
+MH-0020,MA-020,2026-02-26,Preventive Service,Wear within illustrative tolerance,19
+MH-0021,MA-021,2026-03-09,Corrective Repair,Component replaced,23
+MH-0022,MA-022,2026-03-20,Inspection,No defect found,23
+MH-0023,MA-023,2026-03-31,Preventive Service,Wear within illustrative tolerance,9
+MH-0024,MA-024,2026-04-11,Corrective Repair,Component replaced,3
+MH-0025,MA-025,2026-04-22,Inspection,No defect found,16
+MH-0026,MA-026,2026-05-03,Preventive Service,Wear within illustrative tolerance,15
+MH-0027,MA-027,2026-05-14,Corrective Repair,Component replaced,24
+MH-0028,MA-028,2026-05-25,Inspection,No defect found,3
+MH-0029,MA-029,2026-06-05,Preventive Service,Wear within illustrative tolerance,13
+MH-0030,MA-030,2026-06-16,Corrective Repair,Component replaced,5
+MH-0031,MA-031,2026-06-27,Inspection,No defect found,25
+MH-0032,MA-032,2026-07-08,Preventive Service,Wear within illustrative tolerance,12
+MH-0033,MA-033,2026-07-19,Corrective Repair,Component replaced,16
+MH-0034,MA-034,2026-07-30,Inspection,No defect found,13
+MH-0035,MA-035,2026-08-10,Preventive Service,Wear within illustrative tolerance,14
+MH-0036,MA-036,2026-08-21,Corrective Repair,Component replaced,11
+MH-0037,MA-037,2026-09-01,Inspection,No defect found,4
+MH-0038,MA-038,2026-09-12,Preventive Service,Wear within illustrative tolerance,17
+MH-0039,MA-039,2026-09-23,Corrective Repair,Component replaced,4
+MH-0040,MA-040,2026-10-04,Inspection,No defect found,23
+MH-0041,MA-041,2026-10-15,Preventive Service,Wear within illustrative tolerance,4
+MH-0042,MA-042,2026-10-26,Corrective Repair,Component replaced,24
+MH-0043,MA-043,2026-11-06,Inspection,No defect found,14
+MH-0044,MA-044,2026-11-17,Preventive Service,Wear within illustrative tolerance,20
+MH-0045,MA-045,2026-11-28,Corrective Repair,Component replaced,12
+MH-0046,MA-046,2026-12-09,Inspection,No defect found,22
+MH-0047,MA-047,2026-12-20,Preventive Service,Wear within illustrative tolerance,11
+MH-0048,MA-048,2026-12-31,Corrective Repair,Component replaced,4
+MH-0049,MA-001,2027-01-11,Inspection,No defect found,15
+MH-0050,MA-002,2027-01-22,Preventive Service,Wear within illustrative tolerance,26
+MH-0051,MA-003,2027-02-02,Corrective Repair,Component replaced,29
+MH-0052,MA-004,2027-02-13,Inspection,No defect found,18
+MH-0053,MA-005,2027-02-24,Preventive Service,Wear within illustrative tolerance,17
+MH-0054,MA-006,2027-03-07,Corrective Repair,Component replaced,27
+MH-0055,MA-007,2027-03-18,Inspection,No defect found,13
+MH-0056,MA-008,2027-03-29,Preventive Service,Wear within illustrative tolerance,11
+MH-0057,MA-009,2027-04-09,Corrective Repair,Component replaced,27
+MH-0058,MA-010,2027-04-20,Inspection,No defect found,10
+MH-0059,MA-011,2027-05-01,Preventive Service,Wear within illustrative tolerance,15
+MH-0060,MA-012,2027-05-12,Corrective Repair,Component replaced,10
+MH-0061,MA-013,2027-05-23,Inspection,No defect found,28
+MH-0062,MA-014,2027-06-03,Preventive Service,Wear within illustrative tolerance,27
+MH-0063,MA-015,2027-06-14,Corrective Repair,Component replaced,3
+MH-0064,MA-016,2027-06-25,Inspection,No defect found,13
+MH-0065,MA-017,2027-07-06,Preventive Service,Wear within illustrative tolerance,2
+MH-0066,MA-018,2027-07-17,Corrective Repair,Component replaced,25
+MH-0067,MA-019,2027-07-28,Inspection,No defect found,12
+MH-0068,MA-020,2027-08-08,Preventive Service,Wear within illustrative tolerance,21
+MH-0069,MA-021,2027-08-19,Corrective Repair,Component replaced,27
+MH-0070,MA-022,2027-08-30,Inspection,No defect found,16
+MH-0071,MA-023,2027-09-10,Preventive Service,Wear within illustrative tolerance,13
+MH-0072,MA-024,2027-09-21,Corrective Repair,Component replaced,23
+MH-0073,MA-025,2027-10-02,Inspection,No defect found,27
+MH-0074,MA-026,2027-10-13,Preventive Service,Wear within illustrative tolerance,6
+MH-0075,MA-027,2027-10-24,Corrective Repair,Component replaced,6
+MH-0076,MA-028,2027-11-04,Inspection,No defect found,24
+MH-0077,MA-029,2027-11-15,Preventive Service,Wear within illustrative tolerance,26
+MH-0078,MA-030,2027-11-26,Corrective Repair,Component replaced,22
+MH-0079,MA-031,2027-12-07,Inspection,No defect found,12
+MH-0080,MA-032,2027-12-18,Preventive Service,Wear within illustrative tolerance,17

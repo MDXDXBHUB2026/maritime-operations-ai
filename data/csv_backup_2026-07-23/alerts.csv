@@ -1,0 +1,9 @@
+alert_id,severity,module,asset,description,probable_cause,recommended_action,owner,status,created_at
+ALT-001,Critical,Predictive Maintenance,Ship-to-shore crane 08,Hoist motor temperature trend exceeds limit,Bearing degradation,Schedule controlled shutdown and inspect bearing,Maintenance Lead,Open,2026-07-22T06:00:00
+ALT-002,High,Fleet,MV Blue Mariner,Fuel consumption is 8.3% above voyage plan,Adverse current and hull resistance,Review speed profile and trim settings,Fleet Performance,Under Review,2026-07-22T03:00:00
+ALT-003,Critical,Safety Monitoring,South Container Terminal,Restricted-zone proximity event detected,Temporary route obstruction,Secure area and complete supervisor review,Safety Manager,Open,2026-07-22T01:00:00
+ALT-004,Medium,Voyage Optimisation,MV Ocean Crest,Predicted arrival is five hours behind plan,Port congestion and headwinds,Assess revised arrival slot,Voyage Manager,Acknowledged,2026-07-21T21:00:00
+ALT-005,High,Predictive Maintenance,Rubber-tyred gantry 26,Hydraulic pressure variance increasing,Seal wear,Inspect hydraulic circuit within 24 hours,Unassigned,Open,2026-07-21T17:00:00
+ALT-006,Low,Fleet,MV Gulf Pioneer,Auxiliary engine load imbalance,Uneven hotel load,Monitor and rebalance loads,Chief Engineer,Monitoring,2026-07-21T12:00:00
+ALT-007,High,Safety Monitoring,North Container Terminal,Repeated pedestrian-route deviation,Wayfinding barrier displaced,Restore barrier and brief shift team,Shift Supervisor,Under Review,2026-07-21T06:00:00
+ALT-008,Medium,Automation Centre,Terminal tractor 15,Telematics feed intermittent,Weak network coverage,Check antenna and access-point coverage,IT Operations,Open,2026-07-21T00:00:00

@@ -1,0 +1,13 @@
+work_order_reference,asset_id,created_date,status,owner
+WO-2026-0001,MA-001,2026-07-01,Open,Maintenance Planning
+WO-2026-0002,MA-002,2026-07-02,In Progress,Maintenance Planning
+WO-2026-0003,MA-003,2026-07-03,Completed,Maintenance Planning
+WO-2026-0004,MA-004,2026-07-04,Open,Maintenance Planning
+WO-2026-0005,MA-005,2026-07-05,In Progress,Maintenance Planning
+WO-2026-0006,MA-006,2026-07-06,Completed,Maintenance Planning
+WO-2026-0007,MA-007,2026-07-07,Open,Maintenance Planning
+WO-2026-0008,MA-008,2026-07-08,In Progress,Maintenance Planning
+WO-2026-0009,MA-009,2026-07-09,Completed,Maintenance Planning
+WO-2026-0010,MA-010,2026-07-10,Open,Maintenance Planning
+WO-2026-0011,MA-011,2026-07-11,In Progress,Maintenance Planning
+WO-2026-0012,MA-012,2026-07-12,Completed,Maintenance Planning
