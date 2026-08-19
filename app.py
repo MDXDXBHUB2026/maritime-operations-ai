@@ -52,6 +52,29 @@ except Exception as exc:
 
 st.markdown("""
 <style>
+    /* Hide Streamlit Community Cloud toolbar / developer chrome */
+[data-testid="stToolbar"] {
+    display: none !important;
+}
+
+[data-testid="stHeaderActionElements"] {
+    display: none !important;
+}
+
+#MainMenu {
+    visibility: hidden !important;
+    display: none !important;
+}
+
+[data-testid="stDecoration"] {
+    display: none !important;
+}
+
+/* Keep header visually clean */
+header[data-testid="stHeader"] {
+    background: transparent !important;
+}
+    
     :root { --navy:#07111f; --panel:#101d2f; --line:#24334a; --text:#e8f0fa; --muted:#93a6bd; --cyan:#23b9c3; }
     .stApp { background: radial-gradient(circle at 70% 0%, #13273d 0%, #07111f 36%, #060d18 100%); color:var(--text); }
     [data-testid="stSidebar"] { background:#07111f; border-right:1px solid #1c2c42; color:#E6EEF8; }
