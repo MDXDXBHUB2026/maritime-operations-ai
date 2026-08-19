@@ -21,7 +21,8 @@ from utils.data_generator import generate_data
 
 
 st.set_page_config(page_title="Maritime AI Control Tower", page_icon="⚓", layout="wide", initial_sidebar_state="expanded")
-
+# Reduce Streamlit toolbar options
+st.set_option("client.toolbarMode", "minimal")
 # Generate deterministic synthetic inputs on first run if they are absent.
 data_dir = Path(__file__).parent / "data"
 required_files = ["vessels.csv", "voyages.csv", "equipment.csv", "alerts.csv", "safety_events.csv"]
