@@ -3,7 +3,7 @@
 from pathlib import Path
 
 import streamlit as st
-
+st.set_option("client.toolbarMode", "minimal")
 from pages.executive_dashboard import render as render_executive_dashboard
 from pages.anomaly_detection import render as render_anomaly_detection
 from pages.fleet_overview import render as render_fleet_overview
