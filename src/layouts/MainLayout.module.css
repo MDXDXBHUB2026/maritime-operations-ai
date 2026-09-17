@@ -1,0 +1,158 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background: #07111f;
+  border-right: 1px solid #1c2c42;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 100;
+  transition: transform 0.2s ease;
+}
+
+.sidebarHeader {
+  padding: 1.25rem 1.25rem 1rem;
+  border-bottom: 1px solid #1a2a3f;
+}
+
+.brandTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+.brandSubtitle {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #25c2d8;
+  letter-spacing: 0.12em;
+  margin-top: 0.15rem;
+}
+
+.nav {
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 7px;
+  color: #9fb3c8;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.navItem:hover {
+  background: #102b45;
+  color: #ffffff;
+}
+
+.navItem.active {
+  background: #17324d;
+  color: #ffffff;
+  font-weight: 600;
+  border-left: 3px solid #25c2d8;
+}
+
+.assuranceItem {
+  margin-top: 0.5rem;
+  border-top: 1px solid #1a2a3f;
+  padding-top: 0.85rem;
+}
+
+.sidebarFooter {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid #1a2a3f;
+  background: #060e19;
+}
+
+.sidebarDisclaimer {
+  font-size: 0.7rem;
+  color: #7b90a8;
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+}
+
+.versionBadge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  color: #556c86;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topBar {
+  padding: 0.75rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(28, 44, 66, 0.6);
+  background: rgba(7, 17, 31, 0.7);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.mobileToggle {
+  display: none;
+  background: #102b45;
+  border: 1px solid #1c2c42;
+  color: #e6eef8;
+  padding: 0.4rem;
+  border-radius: 6px;
+}
+
+.pageBody {
+  padding: 1.5rem 1.75rem 3rem;
+  flex: 1;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 860px) {
+  .mobileToggle {
+    display: flex;
+  }
+
+  .sidebar {
+    position: fixed;
+    transform: translateX(-100%);
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.5);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .pageBody {
+    padding: 1rem;
+  }
+}

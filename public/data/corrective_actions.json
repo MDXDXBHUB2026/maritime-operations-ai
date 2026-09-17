@@ -1,0 +1,194 @@
+[
+  {
+    "corrective_action_id": "CA-0001",
+    "event_id": "SE-0001",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-15",
+    "status": "New"
+  },
+  {
+    "corrective_action_id": "CA-0002",
+    "event_id": "SE-0002",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-05",
+    "status": "Acknowledged"
+  },
+  {
+    "corrective_action_id": "CA-0003",
+    "event_id": "SE-0003",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-07-18",
+    "status": "Under Review"
+  },
+  {
+    "corrective_action_id": "CA-0004",
+    "event_id": "SE-0004",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-07-31",
+    "status": "In Progress"
+  },
+  {
+    "corrective_action_id": "CA-0005",
+    "event_id": "SE-0005",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-14",
+    "status": "Closed"
+  },
+  {
+    "corrective_action_id": "CA-0006",
+    "event_id": "SE-0006",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-09",
+    "status": "New"
+  },
+  {
+    "corrective_action_id": "CA-0007",
+    "event_id": "SE-0007",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-11",
+    "status": "Acknowledged"
+  },
+  {
+    "corrective_action_id": "CA-0008",
+    "event_id": "SE-0008",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-14",
+    "status": "Under Review"
+  },
+  {
+    "corrective_action_id": "CA-0009",
+    "event_id": "SE-0009",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-07-21",
+    "status": "In Progress"
+  },
+  {
+    "corrective_action_id": "CA-0010",
+    "event_id": "SE-0010",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-07-16",
+    "status": "Closed"
+  },
+  {
+    "corrective_action_id": "CA-0011",
+    "event_id": "SE-0011",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-02",
+    "status": "New"
+  },
+  {
+    "corrective_action_id": "CA-0012",
+    "event_id": "SE-0012",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-13",
+    "status": "Acknowledged"
+  },
+  {
+    "corrective_action_id": "CA-0013",
+    "event_id": "SE-0013",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-07-12",
+    "status": "Under Review"
+  },
+  {
+    "corrective_action_id": "CA-0014",
+    "event_id": "SE-0014",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-07-20",
+    "status": "In Progress"
+  },
+  {
+    "corrective_action_id": "CA-0015",
+    "event_id": "SE-0015",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-14",
+    "status": "Closed"
+  },
+  {
+    "corrective_action_id": "CA-0016",
+    "event_id": "SE-0016",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-07",
+    "status": "New"
+  },
+  {
+    "corrective_action_id": "CA-0017",
+    "event_id": "SE-0017",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-09",
+    "status": "Acknowledged"
+  },
+  {
+    "corrective_action_id": "CA-0018",
+    "event_id": "SE-0018",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-07-18",
+    "status": "Under Review"
+  },
+  {
+    "corrective_action_id": "CA-0019",
+    "event_id": "SE-0019",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-07-14",
+    "status": "In Progress"
+  },
+  {
+    "corrective_action_id": "CA-0020",
+    "event_id": "SE-0020",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-02",
+    "status": "Closed"
+  },
+  {
+    "corrective_action_id": "CA-0021",
+    "event_id": "SE-0021",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-07-12",
+    "status": "New"
+  },
+  {
+    "corrective_action_id": "CA-0022",
+    "event_id": "SE-0022",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-15",
+    "status": "Acknowledged"
+  },
+  {
+    "corrective_action_id": "CA-0023",
+    "event_id": "SE-0023",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-03",
+    "status": "Under Review"
+  },
+  {
+    "corrective_action_id": "CA-0024",
+    "event_id": "SE-0024",
+    "action": "Synthetic corrective action",
+    "owner": "HSE Manager",
+    "due_date": "2026-08-15",
+    "status": "In Progress"
+  }
+]

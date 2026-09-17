@@ -1,0 +1,98 @@
+[
+  {
+    "alert_id": "ALT-001",
+    "severity": "Critical",
+    "module": "Predictive Maintenance",
+    "asset": "Ship-to-shore crane 08",
+    "description": "Hoist motor temperature trend exceeds limit",
+    "probable_cause": "Bearing degradation",
+    "recommended_action": "Schedule controlled shutdown and inspect bearing",
+    "owner": "Maintenance Lead",
+    "status": "Open",
+    "created_at": "2026-07-22T06:00:00"
+  },
+  {
+    "alert_id": "ALT-002",
+    "severity": "High",
+    "module": "Fleet",
+    "asset": "MV Blue Mariner",
+    "description": "Fuel consumption is 8.3% above voyage plan",
+    "probable_cause": "Adverse current and hull resistance",
+    "recommended_action": "Review speed profile and trim settings",
+    "owner": "Fleet Performance",
+    "status": "Under Review",
+    "created_at": "2026-07-22T03:00:00"
+  },
+  {
+    "alert_id": "ALT-003",
+    "severity": "Critical",
+    "module": "Safety Monitoring",
+    "asset": "South Container Terminal",
+    "description": "Restricted-zone proximity event detected",
+    "probable_cause": "Temporary route obstruction",
+    "recommended_action": "Secure area and complete supervisor review",
+    "owner": "Safety Manager",
+    "status": "Open",
+    "created_at": "2026-07-22T01:00:00"
+  },
+  {
+    "alert_id": "ALT-004",
+    "severity": "Medium",
+    "module": "Voyage Optimisation",
+    "asset": "MV Ocean Crest",
+    "description": "Predicted arrival is five hours behind plan",
+    "probable_cause": "Port congestion and headwinds",
+    "recommended_action": "Assess revised arrival slot",
+    "owner": "Voyage Manager",
+    "status": "Acknowledged",
+    "created_at": "2026-07-21T21:00:00"
+  },
+  {
+    "alert_id": "ALT-005",
+    "severity": "High",
+    "module": "Predictive Maintenance",
+    "asset": "Rubber-tyred gantry 26",
+    "description": "Hydraulic pressure variance increasing",
+    "probable_cause": "Seal wear",
+    "recommended_action": "Inspect hydraulic circuit within 24 hours",
+    "owner": "Unassigned",
+    "status": "Open",
+    "created_at": "2026-07-21T17:00:00"
+  },
+  {
+    "alert_id": "ALT-006",
+    "severity": "Low",
+    "module": "Fleet",
+    "asset": "MV Gulf Pioneer",
+    "description": "Auxiliary engine load imbalance",
+    "probable_cause": "Uneven hotel load",
+    "recommended_action": "Monitor and rebalance loads",
+    "owner": "Chief Engineer",
+    "status": "Monitoring",
+    "created_at": "2026-07-21T12:00:00"
+  },
+  {
+    "alert_id": "ALT-007",
+    "severity": "High",
+    "module": "Safety Monitoring",
+    "asset": "North Container Terminal",
+    "description": "Repeated pedestrian-route deviation",
+    "probable_cause": "Wayfinding barrier displaced",
+    "recommended_action": "Restore barrier and brief shift team",
+    "owner": "Shift Supervisor",
+    "status": "Under Review",
+    "created_at": "2026-07-21T06:00:00"
+  },
+  {
+    "alert_id": "ALT-008",
+    "severity": "Medium",
+    "module": "Automation Centre",
+    "asset": "Terminal tractor 15",
+    "description": "Telematics feed intermittent",
+    "probable_cause": "Weak network coverage",
+    "recommended_action": "Check antenna and access-point coverage",
+    "owner": "IT Operations",
+    "status": "Open",
+    "created_at": "2026-07-21T00:00:00"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "voyage_id": "VP-2601",
+    "planned_fuel_tonnes": 124,
+    "predicted_fuel_tonnes": 119.0,
+    "potential_saving_tonnes": 5.0
+  },
+  {
+    "voyage_id": "VP-2602",
+    "planned_fuel_tonnes": 96,
+    "predicted_fuel_tonnes": 100.8,
+    "potential_saving_tonnes": 0.0
+  },
+  {
+    "voyage_id": "VP-2603",
+    "planned_fuel_tonnes": 310,
+    "predicted_fuel_tonnes": 303.8,
+    "potential_saving_tonnes": 6.2
+  },
+  {
+    "voyage_id": "VP-2604",
+    "planned_fuel_tonnes": 118,
+    "predicted_fuel_tonnes": 128.6,
+    "potential_saving_tonnes": 0.0
+  },
+  {
+    "voyage_id": "VP-2605",
+    "planned_fuel_tonnes": 182,
+    "predicted_fuel_tonnes": 187.5,
+    "potential_saving_tonnes": 0.0
+  },
+  {
+    "voyage_id": "VP-2606",
+    "planned_fuel_tonnes": 220,
+    "predicted_fuel_tonnes": 209.0,
+    "potential_saving_tonnes": 11.0
+  },
+  {
+    "voyage_id": "VP-2607",
+    "planned_fuel_tonnes": 275,
+    "predicted_fuel_tonnes": 291.5,
+    "potential_saving_tonnes": 0.0
+  },
+  {
+    "voyage_id": "VP-2608",
+    "planned_fuel_tonnes": 104,
+    "predicted_fuel_tonnes": 103.0,
+    "potential_saving_tonnes": 1.0
+  }
+]

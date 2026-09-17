@@ -1,0 +1,642 @@
+[
+  {
+    "history_id": "MH-0001",
+    "asset_id": "MA-001",
+    "maintenance_date": "2025-08-01",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 20
+  },
+  {
+    "history_id": "MH-0002",
+    "asset_id": "MA-002",
+    "maintenance_date": "2025-08-12",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 15
+  },
+  {
+    "history_id": "MH-0003",
+    "asset_id": "MA-003",
+    "maintenance_date": "2025-08-23",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 29
+  },
+  {
+    "history_id": "MH-0004",
+    "asset_id": "MA-004",
+    "maintenance_date": "2025-09-03",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 5
+  },
+  {
+    "history_id": "MH-0005",
+    "asset_id": "MA-005",
+    "maintenance_date": "2025-09-14",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 18
+  },
+  {
+    "history_id": "MH-0006",
+    "asset_id": "MA-006",
+    "maintenance_date": "2025-09-25",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 26
+  },
+  {
+    "history_id": "MH-0007",
+    "asset_id": "MA-007",
+    "maintenance_date": "2025-10-06",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 18
+  },
+  {
+    "history_id": "MH-0008",
+    "asset_id": "MA-008",
+    "maintenance_date": "2025-10-17",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 25
+  },
+  {
+    "history_id": "MH-0009",
+    "asset_id": "MA-009",
+    "maintenance_date": "2025-10-28",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 4
+  },
+  {
+    "history_id": "MH-0010",
+    "asset_id": "MA-010",
+    "maintenance_date": "2025-11-08",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 6
+  },
+  {
+    "history_id": "MH-0011",
+    "asset_id": "MA-011",
+    "maintenance_date": "2025-11-19",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 29
+  },
+  {
+    "history_id": "MH-0012",
+    "asset_id": "MA-012",
+    "maintenance_date": "2025-11-30",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 6
+  },
+  {
+    "history_id": "MH-0013",
+    "asset_id": "MA-013",
+    "maintenance_date": "2025-12-11",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 16
+  },
+  {
+    "history_id": "MH-0014",
+    "asset_id": "MA-014",
+    "maintenance_date": "2025-12-22",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 17
+  },
+  {
+    "history_id": "MH-0015",
+    "asset_id": "MA-015",
+    "maintenance_date": "2026-01-02",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 4
+  },
+  {
+    "history_id": "MH-0016",
+    "asset_id": "MA-016",
+    "maintenance_date": "2026-01-13",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 18
+  },
+  {
+    "history_id": "MH-0017",
+    "asset_id": "MA-017",
+    "maintenance_date": "2026-01-24",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 8
+  },
+  {
+    "history_id": "MH-0018",
+    "asset_id": "MA-018",
+    "maintenance_date": "2026-02-04",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 29
+  },
+  {
+    "history_id": "MH-0019",
+    "asset_id": "MA-019",
+    "maintenance_date": "2026-02-15",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 29
+  },
+  {
+    "history_id": "MH-0020",
+    "asset_id": "MA-020",
+    "maintenance_date": "2026-02-26",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 19
+  },
+  {
+    "history_id": "MH-0021",
+    "asset_id": "MA-021",
+    "maintenance_date": "2026-03-09",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 23
+  },
+  {
+    "history_id": "MH-0022",
+    "asset_id": "MA-022",
+    "maintenance_date": "2026-03-20",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 23
+  },
+  {
+    "history_id": "MH-0023",
+    "asset_id": "MA-023",
+    "maintenance_date": "2026-03-31",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 9
+  },
+  {
+    "history_id": "MH-0024",
+    "asset_id": "MA-024",
+    "maintenance_date": "2026-04-11",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 3
+  },
+  {
+    "history_id": "MH-0025",
+    "asset_id": "MA-025",
+    "maintenance_date": "2026-04-22",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 16
+  },
+  {
+    "history_id": "MH-0026",
+    "asset_id": "MA-026",
+    "maintenance_date": "2026-05-03",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 15
+  },
+  {
+    "history_id": "MH-0027",
+    "asset_id": "MA-027",
+    "maintenance_date": "2026-05-14",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 24
+  },
+  {
+    "history_id": "MH-0028",
+    "asset_id": "MA-028",
+    "maintenance_date": "2026-05-25",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 3
+  },
+  {
+    "history_id": "MH-0029",
+    "asset_id": "MA-029",
+    "maintenance_date": "2026-06-05",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 13
+  },
+  {
+    "history_id": "MH-0030",
+    "asset_id": "MA-030",
+    "maintenance_date": "2026-06-16",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 5
+  },
+  {
+    "history_id": "MH-0031",
+    "asset_id": "MA-031",
+    "maintenance_date": "2026-06-27",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 25
+  },
+  {
+    "history_id": "MH-0032",
+    "asset_id": "MA-032",
+    "maintenance_date": "2026-07-08",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 12
+  },
+  {
+    "history_id": "MH-0033",
+    "asset_id": "MA-033",
+    "maintenance_date": "2026-07-19",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 16
+  },
+  {
+    "history_id": "MH-0034",
+    "asset_id": "MA-034",
+    "maintenance_date": "2026-07-30",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 13
+  },
+  {
+    "history_id": "MH-0035",
+    "asset_id": "MA-035",
+    "maintenance_date": "2026-08-10",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 14
+  },
+  {
+    "history_id": "MH-0036",
+    "asset_id": "MA-036",
+    "maintenance_date": "2026-08-21",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 11
+  },
+  {
+    "history_id": "MH-0037",
+    "asset_id": "MA-037",
+    "maintenance_date": "2026-09-01",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 4
+  },
+  {
+    "history_id": "MH-0038",
+    "asset_id": "MA-038",
+    "maintenance_date": "2026-09-12",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 17
+  },
+  {
+    "history_id": "MH-0039",
+    "asset_id": "MA-039",
+    "maintenance_date": "2026-09-23",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 4
+  },
+  {
+    "history_id": "MH-0040",
+    "asset_id": "MA-040",
+    "maintenance_date": "2026-10-04",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 23
+  },
+  {
+    "history_id": "MH-0041",
+    "asset_id": "MA-041",
+    "maintenance_date": "2026-10-15",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 4
+  },
+  {
+    "history_id": "MH-0042",
+    "asset_id": "MA-042",
+    "maintenance_date": "2026-10-26",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 24
+  },
+  {
+    "history_id": "MH-0043",
+    "asset_id": "MA-043",
+    "maintenance_date": "2026-11-06",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 14
+  },
+  {
+    "history_id": "MH-0044",
+    "asset_id": "MA-044",
+    "maintenance_date": "2026-11-17",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 20
+  },
+  {
+    "history_id": "MH-0045",
+    "asset_id": "MA-045",
+    "maintenance_date": "2026-11-28",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 12
+  },
+  {
+    "history_id": "MH-0046",
+    "asset_id": "MA-046",
+    "maintenance_date": "2026-12-09",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 22
+  },
+  {
+    "history_id": "MH-0047",
+    "asset_id": "MA-047",
+    "maintenance_date": "2026-12-20",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 11
+  },
+  {
+    "history_id": "MH-0048",
+    "asset_id": "MA-048",
+    "maintenance_date": "2026-12-31",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 4
+  },
+  {
+    "history_id": "MH-0049",
+    "asset_id": "MA-001",
+    "maintenance_date": "2027-01-11",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 15
+  },
+  {
+    "history_id": "MH-0050",
+    "asset_id": "MA-002",
+    "maintenance_date": "2027-01-22",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 26
+  },
+  {
+    "history_id": "MH-0051",
+    "asset_id": "MA-003",
+    "maintenance_date": "2027-02-02",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 29
+  },
+  {
+    "history_id": "MH-0052",
+    "asset_id": "MA-004",
+    "maintenance_date": "2027-02-13",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 18
+  },
+  {
+    "history_id": "MH-0053",
+    "asset_id": "MA-005",
+    "maintenance_date": "2027-02-24",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 17
+  },
+  {
+    "history_id": "MH-0054",
+    "asset_id": "MA-006",
+    "maintenance_date": "2027-03-07",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 27
+  },
+  {
+    "history_id": "MH-0055",
+    "asset_id": "MA-007",
+    "maintenance_date": "2027-03-18",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 13
+  },
+  {
+    "history_id": "MH-0056",
+    "asset_id": "MA-008",
+    "maintenance_date": "2027-03-29",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 11
+  },
+  {
+    "history_id": "MH-0057",
+    "asset_id": "MA-009",
+    "maintenance_date": "2027-04-09",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 27
+  },
+  {
+    "history_id": "MH-0058",
+    "asset_id": "MA-010",
+    "maintenance_date": "2027-04-20",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 10
+  },
+  {
+    "history_id": "MH-0059",
+    "asset_id": "MA-011",
+    "maintenance_date": "2027-05-01",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 15
+  },
+  {
+    "history_id": "MH-0060",
+    "asset_id": "MA-012",
+    "maintenance_date": "2027-05-12",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 10
+  },
+  {
+    "history_id": "MH-0061",
+    "asset_id": "MA-013",
+    "maintenance_date": "2027-05-23",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 28
+  },
+  {
+    "history_id": "MH-0062",
+    "asset_id": "MA-014",
+    "maintenance_date": "2027-06-03",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 27
+  },
+  {
+    "history_id": "MH-0063",
+    "asset_id": "MA-015",
+    "maintenance_date": "2027-06-14",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 3
+  },
+  {
+    "history_id": "MH-0064",
+    "asset_id": "MA-016",
+    "maintenance_date": "2027-06-25",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 13
+  },
+  {
+    "history_id": "MH-0065",
+    "asset_id": "MA-017",
+    "maintenance_date": "2027-07-06",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 2
+  },
+  {
+    "history_id": "MH-0066",
+    "asset_id": "MA-018",
+    "maintenance_date": "2027-07-17",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 25
+  },
+  {
+    "history_id": "MH-0067",
+    "asset_id": "MA-019",
+    "maintenance_date": "2027-07-28",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 12
+  },
+  {
+    "history_id": "MH-0068",
+    "asset_id": "MA-020",
+    "maintenance_date": "2027-08-08",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 21
+  },
+  {
+    "history_id": "MH-0069",
+    "asset_id": "MA-021",
+    "maintenance_date": "2027-08-19",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 27
+  },
+  {
+    "history_id": "MH-0070",
+    "asset_id": "MA-022",
+    "maintenance_date": "2027-08-30",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 16
+  },
+  {
+    "history_id": "MH-0071",
+    "asset_id": "MA-023",
+    "maintenance_date": "2027-09-10",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 13
+  },
+  {
+    "history_id": "MH-0072",
+    "asset_id": "MA-024",
+    "maintenance_date": "2027-09-21",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 23
+  },
+  {
+    "history_id": "MH-0073",
+    "asset_id": "MA-025",
+    "maintenance_date": "2027-10-02",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 27
+  },
+  {
+    "history_id": "MH-0074",
+    "asset_id": "MA-026",
+    "maintenance_date": "2027-10-13",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 6
+  },
+  {
+    "history_id": "MH-0075",
+    "asset_id": "MA-027",
+    "maintenance_date": "2027-10-24",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 6
+  },
+  {
+    "history_id": "MH-0076",
+    "asset_id": "MA-028",
+    "maintenance_date": "2027-11-04",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 24
+  },
+  {
+    "history_id": "MH-0077",
+    "asset_id": "MA-029",
+    "maintenance_date": "2027-11-15",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 26
+  },
+  {
+    "history_id": "MH-0078",
+    "asset_id": "MA-030",
+    "maintenance_date": "2027-11-26",
+    "maintenance_type": "Corrective Repair",
+    "finding": "Component replaced",
+    "downtime_hours": 22
+  },
+  {
+    "history_id": "MH-0079",
+    "asset_id": "MA-031",
+    "maintenance_date": "2027-12-07",
+    "maintenance_type": "Inspection",
+    "finding": "No defect found",
+    "downtime_hours": 12
+  },
+  {
+    "history_id": "MH-0080",
+    "asset_id": "MA-032",
+    "maintenance_date": "2027-12-18",
+    "maintenance_type": "Preventive Service",
+    "finding": "Wear within illustrative tolerance",
+    "downtime_hours": 17
+  }
+]

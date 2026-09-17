@@ -1,0 +1,50 @@
+[
+  {
+    "voyage_id": "VP-2601",
+    "weather_risk": "Low",
+    "sea_state": 2,
+    "wind_factor": 1.0
+  },
+  {
+    "voyage_id": "VP-2602",
+    "weather_risk": "Medium",
+    "sea_state": 3,
+    "wind_factor": 1.08
+  },
+  {
+    "voyage_id": "VP-2603",
+    "weather_risk": "Low",
+    "sea_state": 2,
+    "wind_factor": 0.98
+  },
+  {
+    "voyage_id": "VP-2604",
+    "weather_risk": "High",
+    "sea_state": 5,
+    "wind_factor": 1.2
+  },
+  {
+    "voyage_id": "VP-2605",
+    "weather_risk": "Medium",
+    "sea_state": 4,
+    "wind_factor": 1.1
+  },
+  {
+    "voyage_id": "VP-2606",
+    "weather_risk": "Low",
+    "sea_state": 2,
+    "wind_factor": 0.96
+  },
+  {
+    "voyage_id": "VP-2607",
+    "weather_risk": "High",
+    "sea_state": 5,
+    "wind_factor": 1.18
+  },
+  {
+    "voyage_id": "VP-2608",
+    "weather_risk": "Medium",
+    "sea_state": 3,
+    "wind_factor": 1.05
+  }
+]

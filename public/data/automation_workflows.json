@@ -1,0 +1,62 @@
+[
+  {
+    "workflow_name": "Maintenance work-order drafting",
+    "automation_level": "Level 1: Administrative assistance",
+    "enabled": true
+  },
+  {
+    "workflow_name": "Alert classification",
+    "automation_level": "Level 2: Decision recommendation",
+    "enabled": true
+  },
+  {
+    "workflow_name": "Voyage-delay notification",
+    "automation_level": "Level 3: Controlled execution after approval",
+    "enabled": true
+  },
+  {
+    "workflow_name": "Berth-plan adjustment recommendation",
+    "automation_level": "Level 1: Administrative assistance",
+    "enabled": true
+  },
+  {
+    "workflow_name": "Fuel-deviation review",
+    "automation_level": "Level 2: Decision recommendation",
+    "enabled": true
+  },
+  {
+    "workflow_name": "Safety observation classification",
+    "automation_level": "Level 3: Controlled execution after approval",
+    "enabled": true
+  },
+  {
+    "workflow_name": "Corrective-action reminder",
+    "automation_level": "Level 1: Administrative assistance",
+    "enabled": true
+  },
+  {
+    "workflow_name": "Invoice exception review",
+    "automation_level": "Level 2: Decision recommendation",
+    "enabled": true
+  },
+  {
+    "workflow_name": "Cargo-document validation",
+    "automation_level": "Level 3: Controlled execution after approval",
+    "enabled": true
+  },
+  {
+    "workflow_name": "Reefer inspection request",
+    "automation_level": "Level 1: Administrative assistance",
+    "enabled": true
+  },
+  {
+    "workflow_name": "Daily management summary preparation",
+    "automation_level": "Level 2: Decision recommendation",
+    "enabled": true
+  },
+  {
+    "workflow_name": "Spare-parts reorder recommendation",
+    "automation_level": "Level 3: Controlled execution after approval",
+    "enabled": true
+  }
+]

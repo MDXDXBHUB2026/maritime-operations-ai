@@ -1,0 +1,434 @@
+[
+  {
+    "event_id": "SE-0001",
+    "timestamp": "2026-07-23T08:00:00",
+    "event_type": "Missing PPE",
+    "vessel_or_terminal": "North Container Terminal",
+    "location": "Berth 1",
+    "severity": "Low",
+    "description": "Synthetic missing ppe observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0002",
+    "timestamp": "2026-07-23T04:00:00",
+    "event_type": "Worker and vehicle proximity",
+    "vessel_or_terminal": "South Container Terminal",
+    "location": "Yard A",
+    "severity": "Medium",
+    "description": "Synthetic worker and vehicle proximity observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0003",
+    "timestamp": "2026-07-23T00:00:00",
+    "event_type": "Restricted-area entry",
+    "vessel_or_terminal": "MV Horizon Star",
+    "location": "Workshop",
+    "severity": "High",
+    "description": "Synthetic restricted-area entry observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0004",
+    "timestamp": "2026-07-22T20:00:00",
+    "event_type": "Unsafe lifting activity",
+    "vessel_or_terminal": "MV Meridian",
+    "location": "Reefer Stack",
+    "severity": "Critical",
+    "description": "Synthetic unsafe lifting activity observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0005",
+    "timestamp": "2026-07-22T16:00:00",
+    "event_type": "Person below suspended load",
+    "vessel_or_terminal": "North Container Terminal",
+    "location": "Engine Room",
+    "severity": "Low",
+    "description": "Synthetic person below suspended load observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0006",
+    "timestamp": "2026-07-22T12:00:00",
+    "event_type": "Vehicle speeding",
+    "vessel_or_terminal": "South Container Terminal",
+    "location": "Access Gate",
+    "severity": "Medium",
+    "description": "Synthetic vehicle speeding observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0007",
+    "timestamp": "2026-07-22T08:00:00",
+    "event_type": "Fire or smoke observation",
+    "vessel_or_terminal": "MV Horizon Star",
+    "location": "Berth 1",
+    "severity": "High",
+    "description": "Synthetic fire or smoke observation observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0008",
+    "timestamp": "2026-07-22T04:00:00",
+    "event_type": "Oil or chemical spill",
+    "vessel_or_terminal": "MV Meridian",
+    "location": "Yard A",
+    "severity": "Critical",
+    "description": "Synthetic oil or chemical spill observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0009",
+    "timestamp": "2026-07-22T00:00:00",
+    "event_type": "Unsafe working at height",
+    "vessel_or_terminal": "North Container Terminal",
+    "location": "Workshop",
+    "severity": "Low",
+    "description": "Synthetic unsafe working at height observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0010",
+    "timestamp": "2026-07-21T20:00:00",
+    "event_type": "Fatigue or excessive overtime",
+    "vessel_or_terminal": "South Container Terminal",
+    "location": "Reefer Stack",
+    "severity": "Medium",
+    "description": "Synthetic fatigue or excessive overtime observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0011",
+    "timestamp": "2026-07-21T16:00:00",
+    "event_type": "Near miss",
+    "vessel_or_terminal": "MV Horizon Star",
+    "location": "Engine Room",
+    "severity": "High",
+    "description": "Synthetic near miss observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0012",
+    "timestamp": "2026-07-21T12:00:00",
+    "event_type": "Equipment safety interlock alarm",
+    "vessel_or_terminal": "MV Meridian",
+    "location": "Access Gate",
+    "severity": "Critical",
+    "description": "Synthetic equipment safety interlock alarm observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0013",
+    "timestamp": "2026-07-21T08:00:00",
+    "event_type": "Missing PPE",
+    "vessel_or_terminal": "North Container Terminal",
+    "location": "Berth 1",
+    "severity": "Low",
+    "description": "Synthetic missing ppe observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0014",
+    "timestamp": "2026-07-21T04:00:00",
+    "event_type": "Worker and vehicle proximity",
+    "vessel_or_terminal": "South Container Terminal",
+    "location": "Yard A",
+    "severity": "Medium",
+    "description": "Synthetic worker and vehicle proximity observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0015",
+    "timestamp": "2026-07-21T00:00:00",
+    "event_type": "Restricted-area entry",
+    "vessel_or_terminal": "MV Horizon Star",
+    "location": "Workshop",
+    "severity": "High",
+    "description": "Synthetic restricted-area entry observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0016",
+    "timestamp": "2026-07-20T20:00:00",
+    "event_type": "Unsafe lifting activity",
+    "vessel_or_terminal": "MV Meridian",
+    "location": "Reefer Stack",
+    "severity": "Critical",
+    "description": "Synthetic unsafe lifting activity observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0017",
+    "timestamp": "2026-07-20T16:00:00",
+    "event_type": "Person below suspended load",
+    "vessel_or_terminal": "North Container Terminal",
+    "location": "Engine Room",
+    "severity": "Low",
+    "description": "Synthetic person below suspended load observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0018",
+    "timestamp": "2026-07-20T12:00:00",
+    "event_type": "Vehicle speeding",
+    "vessel_or_terminal": "South Container Terminal",
+    "location": "Access Gate",
+    "severity": "Medium",
+    "description": "Synthetic vehicle speeding observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0019",
+    "timestamp": "2026-07-20T08:00:00",
+    "event_type": "Fire or smoke observation",
+    "vessel_or_terminal": "MV Horizon Star",
+    "location": "Berth 1",
+    "severity": "High",
+    "description": "Synthetic fire or smoke observation observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0020",
+    "timestamp": "2026-07-20T04:00:00",
+    "event_type": "Oil or chemical spill",
+    "vessel_or_terminal": "MV Meridian",
+    "location": "Yard A",
+    "severity": "Critical",
+    "description": "Synthetic oil or chemical spill observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0021",
+    "timestamp": "2026-07-20T00:00:00",
+    "event_type": "Unsafe working at height",
+    "vessel_or_terminal": "North Container Terminal",
+    "location": "Workshop",
+    "severity": "Low",
+    "description": "Synthetic unsafe working at height observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0022",
+    "timestamp": "2026-07-19T20:00:00",
+    "event_type": "Fatigue or excessive overtime",
+    "vessel_or_terminal": "South Container Terminal",
+    "location": "Reefer Stack",
+    "severity": "Medium",
+    "description": "Synthetic fatigue or excessive overtime observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0023",
+    "timestamp": "2026-07-19T16:00:00",
+    "event_type": "Near miss",
+    "vessel_or_terminal": "MV Horizon Star",
+    "location": "Engine Room",
+    "severity": "High",
+    "description": "Synthetic near miss observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0024",
+    "timestamp": "2026-07-19T12:00:00",
+    "event_type": "Equipment safety interlock alarm",
+    "vessel_or_terminal": "MV Meridian",
+    "location": "Access Gate",
+    "severity": "Critical",
+    "description": "Synthetic equipment safety interlock alarm observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0025",
+    "timestamp": "2026-07-19T08:00:00",
+    "event_type": "Missing PPE",
+    "vessel_or_terminal": "North Container Terminal",
+    "location": "Berth 1",
+    "severity": "Low",
+    "description": "Synthetic missing ppe observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0026",
+    "timestamp": "2026-07-19T04:00:00",
+    "event_type": "Worker and vehicle proximity",
+    "vessel_or_terminal": "South Container Terminal",
+    "location": "Yard A",
+    "severity": "Medium",
+    "description": "Synthetic worker and vehicle proximity observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0027",
+    "timestamp": "2026-07-19T00:00:00",
+    "event_type": "Restricted-area entry",
+    "vessel_or_terminal": "MV Horizon Star",
+    "location": "Workshop",
+    "severity": "High",
+    "description": "Synthetic restricted-area entry observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0028",
+    "timestamp": "2026-07-18T20:00:00",
+    "event_type": "Unsafe lifting activity",
+    "vessel_or_terminal": "MV Meridian",
+    "location": "Reefer Stack",
+    "severity": "Critical",
+    "description": "Synthetic unsafe lifting activity observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0029",
+    "timestamp": "2026-07-18T16:00:00",
+    "event_type": "Person below suspended load",
+    "vessel_or_terminal": "North Container Terminal",
+    "location": "Engine Room",
+    "severity": "Low",
+    "description": "Synthetic person below suspended load observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0030",
+    "timestamp": "2026-07-18T12:00:00",
+    "event_type": "Vehicle speeding",
+    "vessel_or_terminal": "South Container Terminal",
+    "location": "Access Gate",
+    "severity": "Medium",
+    "description": "Synthetic vehicle speeding observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0031",
+    "timestamp": "2026-07-18T08:00:00",
+    "event_type": "Fire or smoke observation",
+    "vessel_or_terminal": "MV Horizon Star",
+    "location": "Berth 1",
+    "severity": "High",
+    "description": "Synthetic fire or smoke observation observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0032",
+    "timestamp": "2026-07-18T04:00:00",
+    "event_type": "Oil or chemical spill",
+    "vessel_or_terminal": "MV Meridian",
+    "location": "Yard A",
+    "severity": "Critical",
+    "description": "Synthetic oil or chemical spill observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0033",
+    "timestamp": "2026-07-18T00:00:00",
+    "event_type": "Unsafe working at height",
+    "vessel_or_terminal": "North Container Terminal",
+    "location": "Workshop",
+    "severity": "Low",
+    "description": "Synthetic unsafe working at height observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0034",
+    "timestamp": "2026-07-17T20:00:00",
+    "event_type": "Fatigue or excessive overtime",
+    "vessel_or_terminal": "South Container Terminal",
+    "location": "Reefer Stack",
+    "severity": "Medium",
+    "description": "Synthetic fatigue or excessive overtime observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0035",
+    "timestamp": "2026-07-17T16:00:00",
+    "event_type": "Near miss",
+    "vessel_or_terminal": "MV Horizon Star",
+    "location": "Engine Room",
+    "severity": "High",
+    "description": "Synthetic near miss observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0036",
+    "timestamp": "2026-07-17T12:00:00",
+    "event_type": "Equipment safety interlock alarm",
+    "vessel_or_terminal": "MV Meridian",
+    "location": "Access Gate",
+    "severity": "Critical",
+    "description": "Synthetic equipment safety interlock alarm observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0037",
+    "timestamp": "2026-07-17T08:00:00",
+    "event_type": "Missing PPE",
+    "vessel_or_terminal": "North Container Terminal",
+    "location": "Berth 1",
+    "severity": "Low",
+    "description": "Synthetic missing ppe observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0038",
+    "timestamp": "2026-07-17T04:00:00",
+    "event_type": "Worker and vehicle proximity",
+    "vessel_or_terminal": "South Container Terminal",
+    "location": "Yard A",
+    "severity": "Medium",
+    "description": "Synthetic worker and vehicle proximity observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0039",
+    "timestamp": "2026-07-17T00:00:00",
+    "event_type": "Restricted-area entry",
+    "vessel_or_terminal": "MV Horizon Star",
+    "location": "Workshop",
+    "severity": "High",
+    "description": "Synthetic restricted-area entry observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0040",
+    "timestamp": "2026-07-16T20:00:00",
+    "event_type": "Unsafe lifting activity",
+    "vessel_or_terminal": "MV Meridian",
+    "location": "Reefer Stack",
+    "severity": "Critical",
+    "description": "Synthetic unsafe lifting activity observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0041",
+    "timestamp": "2026-07-16T16:00:00",
+    "event_type": "Person below suspended load",
+    "vessel_or_terminal": "North Container Terminal",
+    "location": "Engine Room",
+    "severity": "Low",
+    "description": "Synthetic person below suspended load observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0042",
+    "timestamp": "2026-07-16T12:00:00",
+    "event_type": "Vehicle speeding",
+    "vessel_or_terminal": "South Container Terminal",
+    "location": "Access Gate",
+    "severity": "Medium",
+    "description": "Synthetic vehicle speeding observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0043",
+    "timestamp": "2026-07-16T08:00:00",
+    "event_type": "Fire or smoke observation",
+    "vessel_or_terminal": "MV Horizon Star",
+    "location": "Berth 1",
+    "severity": "High",
+    "description": "Synthetic fire or smoke observation observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0044",
+    "timestamp": "2026-07-16T04:00:00",
+    "event_type": "Oil or chemical spill",
+    "vessel_or_terminal": "MV Meridian",
+    "location": "Yard A",
+    "severity": "Critical",
+    "description": "Synthetic oil or chemical spill observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0045",
+    "timestamp": "2026-07-16T00:00:00",
+    "event_type": "Unsafe working at height",
+    "vessel_or_terminal": "North Container Terminal",
+    "location": "Workshop",
+    "severity": "Low",
+    "description": "Synthetic unsafe working at height observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0046",
+    "timestamp": "2026-07-15T20:00:00",
+    "event_type": "Fatigue or excessive overtime",
+    "vessel_or_terminal": "South Container Terminal",
+    "location": "Reefer Stack",
+    "severity": "Medium",
+    "description": "Synthetic fatigue or excessive overtime observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0047",
+    "timestamp": "2026-07-15T16:00:00",
+    "event_type": "Near miss",
+    "vessel_or_terminal": "MV Horizon Star",
+    "location": "Engine Room",
+    "severity": "High",
+    "description": "Synthetic near miss observation for workflow demonstration"
+  },
+  {
+    "event_id": "SE-0048",
+    "timestamp": "2026-07-15T12:00:00",
+    "event_type": "Equipment safety interlock alarm",
+    "vessel_or_terminal": "MV Meridian",
+    "location": "Access Gate",
+    "severity": "Critical",
+    "description": "Synthetic equipment safety interlock alarm observation for workflow demonstration"
+  }
+]

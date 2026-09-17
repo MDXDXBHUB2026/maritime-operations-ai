@@ -1,0 +1,74 @@
+[
+  {
+    "voyage_id": "VOY-2401",
+    "vessel_name": "MV Horizon Star",
+    "origin": "Dubai Anchorage",
+    "destination": "Jebel Ali",
+    "planned_fuel_tonnes": 128,
+    "actual_fuel_tonnes": 124,
+    "planned_eta": "2026-07-23T14:00:00",
+    "predicted_eta": "2026-07-23T12:00:00",
+    "potential_fuel_saving_pct": 4.2,
+    "progress_pct": 72
+  },
+  {
+    "voyage_id": "VOY-2402",
+    "vessel_name": "MV Ocean Crest",
+    "origin": "Jebel Ali",
+    "destination": "Khalifa Port",
+    "planned_fuel_tonnes": 154,
+    "actual_fuel_tonnes": 163,
+    "planned_eta": "2026-07-24T03:00:00",
+    "predicted_eta": "2026-07-24T08:00:00",
+    "potential_fuel_saving_pct": 6.8,
+    "progress_pct": 48
+  },
+  {
+    "voyage_id": "VOY-2403",
+    "vessel_name": "MV Meridian",
+    "origin": "Strait of Hormuz",
+    "destination": "Singapore",
+    "planned_fuel_tonnes": 212,
+    "actual_fuel_tonnes": 207,
+    "planned_eta": "2026-07-24T16:00:00",
+    "predicted_eta": "2026-07-24T16:00:00",
+    "potential_fuel_saving_pct": 3.1,
+    "progress_pct": 84
+  },
+  {
+    "voyage_id": "VOY-2404",
+    "vessel_name": "MV Blue Mariner",
+    "origin": "Muscat",
+    "destination": "Salalah",
+    "planned_fuel_tonnes": 96,
+    "actual_fuel_tonnes": 104,
+    "planned_eta": "2026-07-25T05:00:00",
+    "predicted_eta": "2026-07-25T14:00:00",
+    "potential_fuel_saving_pct": 8.5,
+    "progress_pct": 31
+  },
+  {
+    "voyage_id": "VOY-2405",
+    "vessel_name": "MV Atlas Wind",
+    "origin": "Mumbai",
+    "destination": "Khor Fakkan",
+    "planned_fuel_tonnes": 177,
+    "actual_fuel_tonnes": 173,
+    "planned_eta": "2026-07-25T18:00:00",
+    "predicted_eta": "2026-07-25T17:00:00",
+    "potential_fuel_saving_pct": 5.4,
+    "progress_pct": 66
+  },
+  {
+    "voyage_id": "VOY-2406",
+    "vessel_name": "MV Gulf Pioneer",
+    "origin": "Chennai",
+    "destination": "Mumbai",
+    "planned_fuel_tonnes": 143,
+    "actual_fuel_tonnes": 151,
+    "planned_eta": "2026-07-26T07:00:00",
+    "predicted_eta": "2026-07-26T11:00:00",
+    "potential_fuel_saving_pct": 7.2,
+    "progress_pct": 57
+  }
+]
