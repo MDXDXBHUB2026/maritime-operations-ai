@@ -45,7 +45,11 @@ test.describe('Maritime AI Control Tower Navigation & Parity E2E Tests', () => {
     await expect(page.locator('h1')).toContainText('Maritime Operations Control Tower');
     await expect(page.locator('text=Active vessels')).toBeVisible();
     await expect(page.locator('text=Critical alerts')).toBeVisible();
-    await expect(page.locator('svg').first()).toBeVisible();
+    // Verify interactive maritime map and basemap vector rendering
+    await expect(page.locator('[data-testid="interactive-map"]')).toBeVisible();
+    await expect(page.locator('[data-testid="basemap-land"]').first()).toBeVisible();
+    expect(await page.locator('[data-testid="basemap-land"]').count()).toBeGreaterThan(5);
+    await expect(page.locator('[data-testid="vessel-marker"]')).toHaveCount(10);
   });
 
   test('navigates to Fleet Overview, updates status, persists in localStorage, and tests Reset Demo', async ({
@@ -53,6 +57,32 @@ test.describe('Maritime AI Control Tower Navigation & Parity E2E Tests', () => {
   }) => {
     await page.goto('#/fleet');
     await expect(page.locator('h1')).toContainText('Fleet Overview');
+
+    // Verify geographic basemap and interactive vessel markers
+    const map = page.locator('[data-testid="interactive-map"]');
+    await map.scrollIntoViewIfNeeded();
+    await expect(map).toBeVisible();
+    await expect(map.locator('[data-testid="basemap-land"]').first()).toBeVisible();
+    const markers = map.locator('[data-testid="vessel-marker"]');
+    await expect(markers).toHaveCount(10);
+
+    // Test selecting a vessel marker on map updates selected state
+    const meridianMarker = map.locator('[data-testid="vessel-marker"][data-vessel-id="VES-003"]');
+    await meridianMarker.dispatchEvent('click');
+    await expect(meridianMarker).toHaveAttribute('aria-selected', 'true');
+
+    // Test filtering changes visible marker set on map
+    const opsFilter = page.locator('.filter-item:has-text("Operational Status") select');
+    await opsFilter.selectOption('In Port');
+    await expect(map.locator('[data-testid="vessel-marker"]')).toHaveCount(3);
+    await opsFilter.selectOption('All');
+    await expect(map.locator('[data-testid="vessel-marker"]')).toHaveCount(10);
+
+    // Test map preset controls
+    const gulfBtn = map.locator('button:has-text("Arabian Gulf")');
+    await gulfBtn.click({ force: true });
+    await expect(gulfBtn).toHaveClass(/active/);
+
     await expect(page.locator('text=Update operational status:')).toBeVisible();
 
     // Select status via the adjacent sibling of the status label
