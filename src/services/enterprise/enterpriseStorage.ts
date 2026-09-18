@@ -42,11 +42,11 @@ export function notifyEnterpriseStateChanged(): void {
 function getItem<T>(key: string, defaultValue: T): T {
   try {
     const raw = localStorage.getItem(PREFIX + key);
-    if (!raw) return defaultValue;
+    if (!raw) return JSON.parse(JSON.stringify(defaultValue)) as T;
     return JSON.parse(raw) as T;
   } catch (err) {
     console.warn(`Error reading enterprise storage key ${key}:`, err);
-    return defaultValue;
+    return JSON.parse(JSON.stringify(defaultValue)) as T;
   }
 }
 

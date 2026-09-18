@@ -7,6 +7,7 @@ import {
   Severity,
   WorkOrder,
 } from '../types/maritime';
+import { EnterpriseStorage } from './enterprise/enterpriseStorage';
 
 const PREFIX = 'maritime_ai_state_';
 
@@ -207,5 +208,6 @@ export const StorageService = {
         localStorage.removeItem(k);
       }
     }
+    EnterpriseStorage.resetAll();
   },
 };
