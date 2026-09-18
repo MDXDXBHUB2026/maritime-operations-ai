@@ -16,13 +16,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
+  validate-and-build:
+    name: Mandatory QA, Security & E2E Validation Gate
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -36,25 +32,64 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Assurance Gates (QA + Security + Verifier)
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Security assurance
         run: npm run assurance
 
-      - name: Build Application for GitHub Pages
+      - name: Build Application
         run: npm run build
 
-      - name: Ensure Assurance Report in Distribution
+      - name: Ensure Current Assurance Report in Distribution
         run: |
           mkdir -p dist/assurance
-          cp public/assurance/latest.json dist/assurance/latest.json
+          if [ -f public/assurance/latest.json ]; then
+            cp public/assurance/latest.json dist/assurance/latest.json
+          fi
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
 
-      - name: Upload Built Application Artifact
+      - name: Playwright E2E Validation
+        run: npm run test:e2e
+
+      - name: Upload Build Artifact for Pages Deployment
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
+      - name: Publish Assurance Summary to Step Summary
+        if: always()
+        run: |
+          if [ -f assurance-results/report.md ]; then
+            cat assurance-results/report.md >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload Assurance Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: assurance-pipeline-report
+          path: |
+            public/assurance/latest.json
+            assurance-results/report.md
+            playwright-report/
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: validate-and-build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

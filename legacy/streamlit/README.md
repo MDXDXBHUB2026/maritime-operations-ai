@@ -1,15 +1,25 @@
-# Legacy Streamlit Implementation
+# Legacy Streamlit Architecture Archive
 
-This directory preserves the historical Streamlit Python implementation of the Maritime Operations AI Control Tower for reference and audit purposes.
+This directory contains the complete, coherent historical Python & Streamlit implementation of the Maritime Operations AI Control Tower for reference and archival purposes.
 
-## Migration Notice
-As part of the production migration to a static Single-Page Application (SPA) deployed on GitHub Pages, the application architecture has been transitioned to:
-- **Frontend Framework**: React 18 with TypeScript in strict mode
-- **Bundler & Tooling**: Vite 6, React Router (HashRouter)
-- **Styling**: Modern, responsive vanilla CSS design system
-- **Deployment**: Static hosting on GitHub Pages via GitHub Actions
-- **Quality & Assurance**: Vitest, React Testing Library, Playwright E2E across desktop, tablet, and mobile, ESLint, Prettier, and CI Application Assurance Platform (QA Agent, Security Agent, Finding Verifier).
+## Migration Context
+As part of the production migration to a static Single-Page Application (SPA) deployed to GitHub Pages, the application architecture transitioned to React 18, TypeScript (strict mode), Vite 6, and modern CSS.
 
-## Historical Files
-- `app.py`: Original Streamlit entrypoint
-- `pages/`: Original Streamlit multi-page module implementations
+Streamlit is no longer the active application architecture.
+
+## Archived Components
+- `app.py`: Original Streamlit entrypoint and navigation shell
+- `pages/`: Original 7 Streamlit module implementations:
+  - `executive_dashboard.py`
+  - `fleet_overview.py`
+  - `anomaly_detection.py`
+  - `predictive_maintenance.py`
+  - `voyage_optimisation.py`
+  - `safety_monitoring.py`
+  - `automation_centre.py`
+- `database/`: Historical SQLite connection handling, schema definitions, and repositories
+- `utils/`: Data generators, calculations, and UI helper functions
+- `tests/`: Original Python pytest test suite for Streamlit & SQLite logic
+- `scripts/initialise_database.py`: Database initialization script
+- `requirements.txt`: Python package dependencies for running the Streamlit prototype
+- `.streamlit/`: Streamlit configuration and theme settings

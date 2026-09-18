@@ -31,16 +31,34 @@ const DANGEROUS_PATTERNS = [
   { name: 'Dynamic Function() constructor', regex: /new\s+Function\s*\(/g, severity: 'High', desc: 'Dynamic code execution risk' },
 ];
 
-const SCAN_EXTENSIONS = ['.ts', '.tsx', '.js', '.jsx', '.json', '.html', '.css', '.env', '.yaml', '.yml'];
+const SCAN_EXTENSIONS = [
+  '.ts',
+  '.tsx',
+  '.js',
+  '.jsx',
+  '.json',
+  '.html',
+  '.css',
+  '.env',
+  '.yaml',
+  '.yml',
+  '.py',
+  '.toml',
+  '.md',
+  '.txt',
+  '.ini',
+  '.cfg',
+  '.sh',
+  '.ps1',
+];
+
 const IGNORED_DIRS = [
   'node_modules',
   '.git',
   'dist',
   '.pytest_cache',
-  'legacy',
   'coverage',
   'assurance-results',
-  'assurance',
   'playwright-report',
   'test-results',
 ];
@@ -64,6 +82,80 @@ function walkFiles(dir, fileList = []) {
   return fileList;
 }
 
+/**
+ * Determine if package is devDependency or production runtime dependency.
+ */
+function resolveDependencyScope(pkgName, vuln, pkgJson, allVulns = {}) {
+  const isDirectDev = Boolean(pkgJson.devDependencies && pkgJson.devDependencies[pkgName]);
+  const isDirectProd = Boolean(pkgJson.dependencies && pkgJson.dependencies[pkgName]);
+
+  if (isDirectProd) return { type: 'Production', label: 'production runtime dependency' };
+  if (isDirectDev) return { type: 'Development', label: 'devDependencies (build/test tooling only)' };
+
+  // Trace effects
+  if (vuln.effects && vuln.effects.length > 0) {
+    for (const parent of vuln.effects) {
+      if (pkgJson.dependencies && pkgJson.dependencies[parent]) {
+        return { type: 'Production', label: `transitive dependency of production package '${parent}'` };
+      }
+    }
+    for (const parent of vuln.effects) {
+      if (pkgJson.devDependencies && pkgJson.devDependencies[parent]) {
+        return { type: 'Development', label: `transitive devDependency of test/build tool '${parent}'` };
+      }
+    }
+  }
+
+  return { type: 'Development', label: 'transitive development tooling' };
+}
+
+/**
+ * Thoroughly verify public/ and public/data/ for absence of keys, DBs, and credentials.
+ */
+function verifyPublicDataIsolation(rootDir) {
+  const publicDir = path.join(rootDir, 'public');
+  if (!fs.existsSync(publicDir)) return { passed: true, details: 'public directory does not exist' };
+
+  const forbiddenExts = ['.db', '.sqlite', '.sqlite3', '.pem', '.key', '.p12', '.pfx'];
+  const violations = [];
+
+  function checkDir(dir) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        checkDir(fullPath);
+      } else if (entry.isFile()) {
+        const lower = entry.name.toLowerCase();
+        if (forbiddenExts.some((ext) => lower.endsWith(ext)) || lower.startsWith('.env')) {
+          violations.push(path.relative(rootDir, fullPath));
+        } else if (lower.endsWith('.json') || lower.endsWith('.txt') || lower.endsWith('.csv')) {
+          try {
+            const content = fs.readFileSync(fullPath, 'utf-8');
+            if (
+              /-----BEGIN [A-Z ]*PRIVATE KEY-----/.test(content) ||
+              /(?:postgres|mysql|sqlite):\/\/[^\s]+:[^\s]+@/i.test(content)
+            ) {
+              violations.push(path.relative(rootDir, fullPath) + ' (credentials detected)');
+            }
+          } catch {
+            // Ignore unreadable
+          }
+        }
+      }
+    }
+  }
+
+  checkDir(publicDir);
+  return {
+    passed: violations.length === 0,
+    details:
+      violations.length === 0
+        ? 'Verified: zero database binaries, private keys, .env files, or embedded credentials in public/'
+        : `Violations found: ${violations.join(', ')}`,
+  };
+}
+
 export function runSecurity() {
   const rootDir = process.cwd();
   const startTime = Date.now();
@@ -72,36 +164,103 @@ export function runSecurity() {
   let isFailed = false;
   let isWarning = false;
 
+  // Read package.json to distinguish dev vs production dependencies
+  let pkgJson = {};
+  try {
+    pkgJson = JSON.parse(fs.readFileSync(path.join(rootDir, 'package.json'), 'utf-8'));
+  } catch {
+    pkgJson = {};
+  }
+
   // 1. Dependency Audit (npm audit --json)
-  const auditStart = Date.now();
   let auditCount = 0;
+  let parsedAuditData = null;
+
   try {
     const auditRaw = execSync('npm audit --json', { cwd: rootDir, stdio: 'pipe' });
-    const auditData = JSON.parse(auditRaw.toString());
-    const vulns = auditData.metadata?.vulnerabilities || {};
-    const critical = vulns.critical || 0;
-    const high = vulns.high || 0;
-    const moderate = vulns.moderate || 0;
-    auditCount = critical + high + moderate;
+    parsedAuditData = JSON.parse(auditRaw.toString());
+  } catch (err) {
+    try {
+      const output = err.stdout?.toString() || '';
+      parsedAuditData = JSON.parse(output);
+    } catch {
+      parsedAuditData = null;
+    }
+  }
+
+  if (parsedAuditData) {
+    const vulnsMeta = parsedAuditData.metadata?.vulnerabilities || {};
+    const critical = vulnsMeta.critical || 0;
+    const high = vulnsMeta.high || 0;
+    const moderate = vulnsMeta.moderate || 0;
+    const low = vulnsMeta.low || 0;
+    const info = vulnsMeta.info || 0;
+    auditCount = critical + high + moderate + low + info;
 
     if (critical > 0 || high > 0) {
       isFailed = true;
+    } else if (moderate > 0) {
+      isWarning = true;
+    }
+
+    // Parse specific vulnerabilities for useful evidence and structured findings
+    const vulnerabilities = parsedAuditData.vulnerabilities || {};
+    let depFindingIndex = 0;
+
+    for (const [pkgName, vuln] of Object.entries(vulnerabilities)) {
+      depFindingIndex++;
+      const depScope = resolveDependencyScope(pkgName, vuln, pkgJson, vulnerabilities);
+      const rawSeverity = (vuln.severity || 'moderate').toLowerCase();
+
+      let severity = 'Medium';
+      if (rawSeverity === 'critical') severity = 'Critical';
+      else if (rawSeverity === 'high') severity = 'High';
+      else if (rawSeverity === 'moderate') severity = 'Medium';
+      else if (rawSeverity === 'low') severity = 'Low';
+      else if (rawSeverity === 'info') severity = 'Informational';
+
+      // Extract advisory metadata
+      const advisoryItems = Array.isArray(vuln.via)
+        ? vuln.via.filter((v) => typeof v === 'object' && v !== null)
+        : [];
+      const primaryAdvisory = advisoryItems[0] || null;
+      const advisoryTitle = primaryAdvisory?.title || `Advisory in ${pkgName}`;
+      const advisoryUrl = primaryAdvisory?.url || (primaryAdvisory?.source ? `Advisory ID: ${primaryAdvisory.source}` : 'N/A');
+      const cweList = primaryAdvisory?.cwe || [];
+      const fix = vuln.fixAvailable;
+      const fixText = fix
+        ? typeof fix === 'object'
+          ? `Upgrade ${fix.name} to ${fix.version}${fix.isSemVerMajor ? ' (requires major semver upgrade)' : ''}`
+          : 'Fix available via npm audit fix'
+        : 'No automated fix available; manual review or patch required';
+
+      const isRuntime = depScope.type === 'Production';
+      const runtimeNote = isRuntime
+        ? 'Affects production runtime dependency bundled in the application.'
+        : 'Development/test tooling only; not included in production static client bundle.';
+
       findings.push({
-        id: 'SEC-AUDIT-001',
+        id: `SEC-DEP-${depFindingIndex.toString().padStart(3, '0')}`,
         agent: 'Security Agent',
-        title: 'High/Critical Vulnerabilities in Dependencies',
+        title: `${pkgName}: ${advisoryTitle}`,
         category: 'Software Supply Chain',
-        severity: critical > 0 ? 'Critical' : 'High',
+        severity,
         confidence: 0.95,
         verificationStatus: 'Confirmed',
-        affectedArea: 'package.json',
-        description: `Dependency audit detected ${critical} critical and ${high} high severity vulnerabilities.`,
-        evidence: `npm audit reported critical: ${critical}, high: ${high}, moderate: ${moderate}`,
-        impact: 'Vulnerabilities in third-party packages could be leveraged against the application.',
-        reproductionSteps: ['Run npm audit'],
-        expectedResult: 'Zero high or critical vulnerabilities.',
-        actualResult: `${auditCount} vulnerabilities identified.`,
-        remediation: 'Update vulnerable packages using npm update or address specific CVEs.',
+        affectedArea: `package.json (${pkgName})`,
+        description: `Dependency vulnerability detected in package '${pkgName}' (${vuln.range}). Scope: ${depScope.label}. ${runtimeNote}`,
+        evidence: `Package: ${pkgName}@${vuln.range} | Severity: ${vuln.severity} | Scope: ${depScope.label} | Advisory: ${advisoryUrl} | CWE: ${cweList.join(', ') || 'N/A'} | Fix: ${fixText}`,
+        impact: isRuntime
+          ? `Production dependency issue: ${advisoryTitle}. Potential security exposure if vulnerable code path is reached.`
+          : `Non-production build/test dependency issue: ${advisoryTitle}. Does not affect deployed static client bundle.`,
+        reproductionSteps: [
+          'Run npm audit --json in repository root',
+          `Inspect entry for "${pkgName}" under vulnerabilities`,
+        ],
+        expectedResult: 'No vulnerabilities identified in dependency graph.',
+        actualResult: `Detected ${vuln.severity} vulnerability in ${pkgName} (${depScope.type} scope).`,
+        remediation: fixText,
+        verificationGuidance: `Run 'npm audit' to inspect advisory details. Retest with 'npm run assurance' after package updates.`,
         owaspMapping: 'A06:2021-Vulnerable and Outdated Components',
       });
     }
@@ -110,58 +269,18 @@ export function runSecurity() {
       check: 'npm dependency audit',
       status: critical > 0 || high > 0 ? 'failed' : moderate > 0 ? 'warning' : 'passed',
       findingsCount: auditCount,
-      details: `Vulnerabilities: ${critical} critical, ${high} high, ${moderate} moderate, ${vulns.low || 0} low`,
+      details: `Vulnerabilities: ${critical} critical, ${high} high, ${moderate} moderate, ${low} low. Parsed ${depFindingIndex} advisory record(s).`,
     };
-  } catch (err) {
-    // npm audit returns exit code 1 if vulnerabilities exist
-    try {
-      const output = err.stdout?.toString() || '';
-      const auditData = JSON.parse(output);
-      const vulns = auditData.metadata?.vulnerabilities || {};
-      const critical = vulns.critical || 0;
-      const high = vulns.high || 0;
-      const moderate = vulns.moderate || 0;
-      auditCount = critical + high + moderate;
-
-      if (critical > 0 || high > 0) {
-        isFailed = true;
-        findings.push({
-          id: 'SEC-AUDIT-001',
-          agent: 'Security Agent',
-          title: 'High/Critical Vulnerabilities in Dependencies',
-          category: 'Software Supply Chain',
-          severity: critical > 0 ? 'Critical' : 'High',
-          confidence: 0.95,
-          verificationStatus: 'Confirmed',
-          affectedArea: 'package.json',
-          description: `Dependency audit detected ${critical} critical and ${high} high severity vulnerabilities.`,
-          evidence: `npm audit reported critical: ${critical}, high: ${high}, moderate: ${moderate}`,
-          impact: 'Vulnerabilities in third-party packages could be leveraged against the application.',
-          reproductionSteps: ['Run npm audit'],
-          expectedResult: 'Zero high or critical vulnerabilities.',
-          actualResult: `${auditCount} vulnerabilities identified.`,
-          remediation: 'Update vulnerable packages using npm update or address specific CVEs.',
-          owaspMapping: 'A06:2021-Vulnerable and Outdated Components',
-        });
-      }
-
-      checks['dependency_audit'] = {
-        check: 'npm dependency audit',
-        status: critical > 0 || high > 0 ? 'failed' : moderate > 0 ? 'warning' : 'passed',
-        findingsCount: auditCount,
-        details: `Vulnerabilities: ${critical} critical, ${high} high, ${moderate} moderate`,
-      };
-    } catch {
-      checks['dependency_audit'] = {
-        check: 'npm dependency audit',
-        status: 'passed',
-        findingsCount: 0,
-        details: 'Audit completed or npm audit unparseable.',
-      };
-    }
+  } else {
+    checks['dependency_audit'] = {
+      check: 'npm dependency audit',
+      status: 'passed',
+      findingsCount: 0,
+      details: 'Audit completed or npm audit unparseable.',
+    };
   }
 
-  // 2. Secret Scan
+  // 2. Secret Scan (Scans entire repo including legacy/ and Python files, excluding test mocks)
   const files = walkFiles(rootDir);
   let secretFindingsCount = 0;
   const selfPath = path.resolve('tools/assurance/security-agent/run-security.js');
@@ -172,11 +291,33 @@ export function runSecurity() {
       const content = fs.readFileSync(filePath, 'utf-8');
       const relPath = path.relative(rootDir, filePath).replace(/\\/g, '/');
 
+      // Skip synthetic test mocks / documentation examples
+      const isTestOrDoc =
+        relPath.startsWith('tests/') ||
+        relPath.startsWith('src/tests/') ||
+        relPath.includes('.test.') ||
+        relPath.includes('.spec.') ||
+        relPath.endsWith('.md');
+
       for (const pattern of SECRET_PATTERNS) {
         pattern.regex.lastIndex = 0;
         let match;
         while ((match = pattern.regex.exec(content)) !== null) {
           const rawMatch = match[0];
+
+          // If in test/doc file, ignore synthetic/mock example tokens
+          if (
+            isTestOrDoc &&
+            (rawMatch.includes('12345678') ||
+              rawMatch.includes('dummy') ||
+              rawMatch.includes('test') ||
+              rawMatch.includes('sample') ||
+              rawMatch.includes('fake') ||
+              rawMatch.includes('abcd********wxyz'))
+          ) {
+            continue;
+          }
+
           const redacted = redactSecret(rawMatch);
           secretFindingsCount++;
           isFailed = true;
@@ -211,10 +352,10 @@ export function runSecurity() {
     check: 'hardcoded secret scan',
     status: secretFindingsCount > 0 ? 'failed' : 'passed',
     findingsCount: secretFindingsCount,
-    details: `${files.length} files scanned across repository. Found ${secretFindingsCount} exposed secrets.`,
+    details: `${files.length} text source/config files scanned across entire repository (including legacy/ and Python). Found ${secretFindingsCount} exposed secrets.`,
   };
 
-  // 3. Static Source Code Analysis (eval, dangerouslySetInnerHTML, etc.)
+  // 3. Static Source Code Analysis (eval, dangerouslySetInnerHTML, scoped strictly to active client src/)
   let staticFindingsCount = 0;
   for (const filePath of files) {
     if (path.resolve(filePath) === selfPath) continue;
@@ -261,12 +402,14 @@ export function runSecurity() {
     check: 'static source code audit',
     status: staticFindingsCount > 0 ? (isFailed ? 'failed' : 'warning') : 'passed',
     findingsCount: staticFindingsCount,
-    details: `Scanned client source files for eval(), dangerouslySetInnerHTML, and unsafe execution. Found ${staticFindingsCount} issues.`,
+    details: `Scanned active client source files (src/) for eval(), dangerouslySetInnerHTML, and unsafe execution. Found ${staticFindingsCount} issues.`,
   };
 
   // 4. Positive Controls (deterministic proof that security controls work)
   const mockToken = 'gh' + 'p_1234567890abcdefghijklmnopqrstuvwxyz';
   const expectedMasked = 'gh' + 'p_********wxyz';
+  const isolationCheck = verifyPublicDataIsolation(rootDir);
+
   const positiveControls = [
     {
       id: 'PC-REDACT-001',
@@ -278,9 +421,9 @@ export function runSecurity() {
     {
       id: 'PC-ENV-001',
       category: 'Client Secret Isolation',
-      description: 'Verifies no production private keys or database passwords exist in public/data',
-      verificationMethod: 'Public directory inspection for SQLite databases or sensitive backend files',
-      status: !fs.existsSync(path.join(rootDir, 'public', 'database.sqlite')) ? 'Passed' : 'Active',
+      description: 'Verifies no production private keys, database passwords, or runtime database files exist in public or public/data',
+      verificationMethod: 'Recursive inspection of public/ and public/data for database binaries (.sqlite, .db), private key certificates (.pem, .key), .env files, and embedded credentials',
+      status: isolationCheck.passed ? 'Passed' : 'Active',
     },
     {
       id: 'PC-STATIC-001',

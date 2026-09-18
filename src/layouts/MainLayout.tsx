@@ -115,6 +115,25 @@ export const MainLayout: React.FC = () => {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <button
+              onClick={handleResetDemo}
+              title="Reset simulated actions"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                fontSize: '0.75rem',
+                padding: '0.28rem 0.6rem',
+                background: 'rgba(37, 194, 216, 0.12)',
+                color: '#25c2d8',
+                border: '1px solid rgba(37, 194, 216, 0.3)',
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }}
+            >
+              <RotateCcw size={12} />
+              <span>Reset Demo</span>
+            </button>
             <NavLink
               to="/assurance"
               className="pill low"

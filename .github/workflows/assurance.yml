@@ -33,8 +33,20 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
 
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm test
+
       - name: Run Assurance Orchestrator (QA + Security + Verifier)
         run: npm run assurance
+
+      - name: Build Application
+        run: npm run build
 
       - name: Run Playwright E2E Tests
         run: npm run test:e2e

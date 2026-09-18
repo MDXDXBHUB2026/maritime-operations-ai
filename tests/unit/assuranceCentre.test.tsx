@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { AssuranceCentrePage } from '../../src/modules/assurance/AssuranceCentrePage';
 import { AssuranceReport } from '../../src/types/assurance';
 
@@ -141,5 +141,30 @@ describe('AssuranceCentrePage Component Tests', () => {
     });
 
     expect(screen.getByText(/Malformed assurance report JSON structure/i)).toBeInTheDocument();
+  });
+
+  it('correctly displays normalized finding confidence formatted as percentage (90%, not 0.9%)', async () => {
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => mockReport,
+    } as Response);
+
+    render(<AssuranceCentrePage />);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Sample Test Finding/i)).toBeInTheDocument();
+    });
+
+    // Expand finding detail
+    const row = screen.getByText(/Sample Test Finding/i).closest('tr');
+    expect(row).toBeInTheDocument();
+    fireEvent.click(row!);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Confidence:/i)).toBeInTheDocument();
+    });
+
+    expect(screen.getByText(/90%/i)).toBeInTheDocument();
+    expect(screen.queryByText(/0\.9%/)).not.toBeInTheDocument();
   });
 });

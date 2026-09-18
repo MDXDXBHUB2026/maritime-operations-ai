@@ -27,8 +27,13 @@ export const AssuranceCentrePage: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      const url = `${BASE_URL.replace(/\/$/, '')}/assurance/latest.json`;
-      const res = await fetch(url);
+      const latestUrl = `${BASE_URL.replace(/\/$/, '')}/assurance/latest.json`;
+      let res = await fetch(latestUrl);
+      if (!res.ok) {
+        // Graceful fallback to static sample fixture if latest.json has not yet been generated in local env
+        const sampleUrl = `${BASE_URL.replace(/\/$/, '')}/assurance/sample.json`;
+        res = await fetch(sampleUrl);
+      }
       if (!res.ok) {
         throw new Error(`Assurance report not found (${res.status} ${res.statusText})`);
       }
@@ -39,7 +44,7 @@ export const AssuranceCentrePage: React.FC = () => {
       setReport(data);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Unable to load assurance pipeline results.';
-      console.warn('Failed to load latest.json from public/assurance:', msg);
+      console.warn('Failed to load assurance report:', msg);
       setError(msg);
     } finally {
       setLoading(false);
@@ -169,7 +174,13 @@ export const AssuranceCentrePage: React.FC = () => {
           label="Overall Status"
           value={report.status}
           icon="🛡"
-          badge={report.environment.toUpperCase()}
+          badge={
+            report.status === 'PASSED'
+              ? 'SAFE'
+              : report.status === 'WARNING'
+                ? 'ADVISORY'
+                : 'BLOCKED'
+          }
         />
         <MetricCard
           label="QA Gate"
@@ -181,7 +192,13 @@ export const AssuranceCentrePage: React.FC = () => {
           label="Security Gate"
           value={report.summary.securityGateStatus}
           icon="🔒"
-          badge="SAFE CI"
+          badge={
+            report.summary.securityGateStatus === 'PASSED'
+              ? 'SAFE CI'
+              : report.summary.securityGateStatus === 'WARNING'
+                ? 'ADVISORY'
+                : 'BLOCKED'
+          }
         />
         <MetricCard
           label="Critical Findings"
@@ -526,7 +543,13 @@ export const AssuranceCentrePage: React.FC = () => {
                                   </span>
                                 )}
                                 <span>
-                                  Confidence: <strong>{f.confidence}%</strong>
+                                  Confidence:{' '}
+                                  <strong>
+                                    {f.confidence <= 1
+                                      ? Math.round(f.confidence * 100)
+                                      : Math.round(f.confidence)}
+                                    %
+                                  </strong>
                                 </span>
                               </div>
                             </div>

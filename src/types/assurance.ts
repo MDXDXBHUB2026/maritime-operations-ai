@@ -61,8 +61,8 @@ export interface AssuranceReport {
     mediumFindings: number;
     lowFindings: number;
     informationalFindings: number;
-    qaGateStatus: 'PASSED' | 'FAILED';
-    securityGateStatus: 'PASSED' | 'FAILED';
+    qaGateStatus: 'PASSED' | 'FAILED' | 'WARNING';
+    securityGateStatus: 'PASSED' | 'FAILED' | 'WARNING';
     positiveControlsCount: number;
   };
   qa: {

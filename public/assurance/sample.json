@@ -1,0 +1,164 @@
+{
+  "runId": "sample_baseline_fixture",
+  "commitSha": "baseline-sample",
+  "timestamp": "2026-09-18T00:00:00.000Z",
+  "status": "WARNING",
+  "environment": "Sample Baseline Fixture (Offline)",
+  "summary": {
+    "totalFindings": 2,
+    "criticalFindings": 0,
+    "highFindings": 0,
+    "mediumFindings": 2,
+    "lowFindings": 0,
+    "informationalFindings": 0,
+    "qaGateStatus": "PASSED",
+    "securityGateStatus": "WARNING",
+    "positiveControlsCount": 3
+  },
+  "qa": {
+    "status": "PASSED",
+    "checks": {
+      "lockfile": {
+        "tool": "npm lockfile",
+        "status": "passed",
+        "durationMs": 2,
+        "details": "package-lock.json verified present"
+      },
+      "typecheck": {
+        "tool": "tsc --noEmit",
+        "status": "passed",
+        "durationMs": 18200,
+        "details": "TypeScript strict compilation verified (0 errors)"
+      },
+      "lint": {
+        "tool": "eslint",
+        "status": "passed",
+        "durationMs": 12000,
+        "details": "ESLint static code analysis verified (0 errors, 0 warnings)"
+      },
+      "unit_tests": {
+        "tool": "vitest",
+        "status": "passed",
+        "durationMs": 8500,
+        "testCount": 8,
+        "passedCount": 8,
+        "failedCount": 0,
+        "details": "8 of 8 unit & component tests passed"
+      },
+      "build": {
+        "tool": "vite build",
+        "status": "passed",
+        "durationMs": 11000,
+        "details": "Production bundle compiled to dist/ successfully"
+      }
+    },
+    "totalTests": 8,
+    "passedDailyTests": 8
+  },
+  "security": {
+    "status": "WARNING",
+    "checks": {
+      "dependency_audit": {
+        "check": "npm dependency audit",
+        "status": "warning",
+        "findingsCount": 2,
+        "details": "Vulnerabilities: 0 critical, 0 high, 4 moderate (2 advisory groups)"
+      },
+      "secret_scan": {
+        "check": "hardcoded secret scan",
+        "status": "passed",
+        "findingsCount": 0,
+        "details": "Repository scanned across text source and config files. Found 0 exposed secrets."
+      },
+      "static_source_scan": {
+        "check": "static source code audit",
+        "status": "passed",
+        "findingsCount": 0,
+        "details": "Scanned client source files (src/) for eval(), dangerouslySetInnerHTML, and dynamic execution. Found 0 issues."
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "SEC-DEP-001",
+      "agent": "Security Agent",
+      "title": "Moderate Advisory in Routing Dependency (react-router-dom / react-router)",
+      "category": "Software Supply Chain",
+      "severity": "Medium",
+      "confidence": 0.95,
+      "verificationStatus": "Confirmed",
+      "affectedArea": "package.json (dependencies: react-router-dom)",
+      "description": "Advisories GHSA-wrjc-x8rr-h8h6 and GHSA-337j-9hxr-rhxg identify moderate issues in react-router versions <7.18.0. The SSR hydration vector does not impact this static SPA.",
+      "evidence": "react-router-dom@6.28.1 relies on react-router@6.28.1. Fix available in react-router-dom@7.18.4 (semver major). Static SPA does not utilize SSR hydration.",
+      "impact": "Low actual operational impact on static GitHub Pages client; potential open redirect under non-standard Link usage.",
+      "reproductionSteps": [
+        "Run npm audit --json",
+        "Inspect react-router advisory details"
+      ],
+      "expectedResult": "Zero moderate or higher dependencies, or confirmed mitigation documentation.",
+      "actualResult": "4 moderate advisories reported by npm audit.",
+      "remediation": "Evaluate migration to react-router-dom v7.x or apply patch when compatible.",
+      "owaspMapping": "A06:2021-Vulnerable and Outdated Components",
+      "cweMapping": "CWE-601"
+    },
+    {
+      "id": "SEC-DEP-002",
+      "agent": "Security Agent",
+      "title": "Moderate Advisory in Test Tooling (vitest / @vitest/mocker)",
+      "category": "Development Dependency",
+      "severity": "Medium",
+      "confidence": 0.95,
+      "verificationStatus": "Confirmed",
+      "affectedArea": "package.json (devDependencies: vitest)",
+      "description": "Advisory GHSA-82fw-gwwq-j7x9 identifies path traversal in @vitest/mocker during test execution. This package is strictly a devDependency and is NEVER bundled or shipped into production client assets.",
+      "evidence": "vitest@3.0.5 is listed in devDependencies and stripped from production dist/ by Vite.",
+      "impact": "Zero production runtime impact. Isolated to local or CI test execution environment.",
+      "reproductionSteps": [
+        "Run npm audit --json",
+        "Inspect vitest advisory details"
+      ],
+      "expectedResult": "Clean devDependencies audit or documented isolation.",
+      "actualResult": "Moderate advisory in test runner dependency.",
+      "remediation": "Update vitest to v5.x when migration path is ready.",
+      "owaspMapping": "A06:2021-Vulnerable and Outdated Components",
+      "cweMapping": "CWE-22"
+    }
+  ],
+  "positiveControls": [
+    {
+      "id": "PC-REDACT-001",
+      "category": "Secret Redaction",
+      "description": "Verifies that secret redaction masks middle characters and preserves safety",
+      "verificationMethod": "redactSecret(syntheticSampleToken) === expectedMaskedToken",
+      "status": "Passed"
+    },
+    {
+      "id": "PC-ENV-001",
+      "category": "Client Asset Isolation",
+      "description": "Verifies no SQLite databases, private keys (*.key, *.pem), or credentials exist in public/",
+      "verificationMethod": "Public directory recursive inspection for databases, key blocks, and sensitive files",
+      "status": "Passed"
+    },
+    {
+      "id": "PC-STATIC-001",
+      "category": "Client Safety Guard",
+      "description": "Verifies that no eval() calls are present in active frontend source components",
+      "verificationMethod": "Regex scan of src/ directory for eval() execution",
+      "status": "Passed"
+    }
+  ],
+  "remediationRoadmap": [
+    {
+      "priority": 1,
+      "findingId": "SEC-DEP-001",
+      "action": "Evaluate react-router-dom upgrade to v7 when compatible with React 18 router architecture",
+      "timeline": "Next Minor Release"
+    },
+    {
+      "priority": 2,
+      "findingId": "SEC-DEP-002",
+      "action": "Upgrade vitest devDependency to v5+ in next dependency maintenance window",
+      "timeline": "Next Minor Release"
+    }
+  ]
+}

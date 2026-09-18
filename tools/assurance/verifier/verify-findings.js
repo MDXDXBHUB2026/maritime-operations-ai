@@ -25,7 +25,8 @@ export function verifyFindings(rawFindings = []) {
     // Verify affected file existence if it points to a local file
     let verificationStatus = finding.verificationStatus || 'Confirmed';
     if (finding.affectedArea && !finding.affectedArea.startsWith('http')) {
-      const fullPath = path.join(rootDir, finding.affectedArea);
+      const baseFilePath = finding.affectedArea.split(/[ (]/)[0];
+      const fullPath = path.join(rootDir, baseFilePath);
       if (!fs.existsSync(fullPath)) {
         verificationStatus = 'Requires Manual Verification';
       }

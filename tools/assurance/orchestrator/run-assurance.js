@@ -11,11 +11,12 @@ import { verifyFindings } from '../verifier/verify-findings.js';
 
 function getGitMetadata() {
   try {
-    const sha = process.env.GITHUB_SHA || execSync('git rev-parse --short HEAD', { stdio: 'pipe' }).toString().trim();
+    const rawSha = process.env.GITHUB_SHA || execSync('git rev-parse --short HEAD', { stdio: 'pipe' }).toString().trim();
+    const sha = rawSha.length > 7 ? rawSha.substring(0, 7) : rawSha;
     const branch = process.env.GITHUB_REF_NAME || execSync('git rev-parse --abbrev-ref HEAD', { stdio: 'pipe' }).toString().trim();
     return { sha, branch };
   } catch {
-    return { sha: 'b7d880c', branch: 'feature/react-pages-assurance' };
+    return { sha: 'dynamic-build', branch: 'local' };
   }
 }
 
@@ -53,7 +54,7 @@ export function runAssurance() {
   const overallStatus =
     qaResult.status === 'FAILED' || securityResult.status === 'FAILED' || criticalCount > 0 || highCount > 0
       ? 'FAILED'
-      : securityResult.status === 'WARNING' || mediumCount > 0
+      : securityResult.status === 'WARNING' || qaResult.status === 'WARNING' || mediumCount > 0
         ? 'WARNING'
         : 'PASSED';
 
@@ -71,7 +72,7 @@ export function runAssurance() {
       lowFindings: lowCount,
       informationalFindings: infoCount,
       qaGateStatus: qaResult.status,
-      securityGateStatus: securityResult.status === 'FAILED' ? 'FAILED' : 'PASSED',
+      securityGateStatus: securityResult.status,
       positiveControlsCount: securityResult.positiveControls?.length || 0,
     },
     qa: {

@@ -1,4 +1,9 @@
-"""Export SQLite / CSV datasets to public/data/*.json for GitHub Pages static serving."""
+"""Migration and Development Utility: Seed CSV to Static JSON Exporter.
+
+This script converts seed CSV tables from data/*.csv into public/data/*.json
+fixtures for the static React application. It is an offline development and
+migration utility and is not executed in the client production runtime.
+"""
 
 import json
 from pathlib import Path
