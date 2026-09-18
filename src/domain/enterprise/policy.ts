@@ -8,7 +8,7 @@ export interface GovernancePolicy {
   description: string;
   rulesSummary: string;
   isActive: boolean;
-  minApprovalLevel?: 'MANAGER' | 'DIRECTOR' | 'EXECUTIVE';
+  minApprovalLevel?: 'LEAD' | 'MANAGER' | 'DIRECTOR' | 'EXECUTIVE';
 }
 
 export interface PolicyEvaluationResult {
