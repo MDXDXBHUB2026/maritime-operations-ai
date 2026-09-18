@@ -6,7 +6,8 @@ export interface BusinessCapability {
   id: string;
   code: string;
   name: string;
-  category: 'TELEMETRY' | 'ANALYTICS' | 'INTEGRATION' | 'EXTERNAL_FEED' | 'ASSURANCE' | 'GOVERNANCE';
+  category:
+    'TELEMETRY' | 'ANALYTICS' | 'INTEGRATION' | 'EXTERNAL_FEED' | 'ASSURANCE' | 'GOVERNANCE';
   status: CapabilityStatus;
   description: string;
   provider: string;

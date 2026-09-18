@@ -6,7 +6,8 @@ export const INITIAL_DEPARTMENTS: Department[] = [
     code: 'EXEC',
     name: 'Executive Management',
     directorId: 'ACT-CEO',
-    description: 'Corporate oversight, strategic fleet capital governance, and executive authority.',
+    description:
+      'Corporate oversight, strategic fleet capital governance, and executive authority.',
     iconName: 'Crown',
     sortOrder: 1,
   },
@@ -15,7 +16,8 @@ export const INITIAL_DEPARTMENTS: Department[] = [
     code: 'FLEET_OPS',
     name: 'Fleet Operations',
     directorId: 'ACT-DIR-OPS',
-    description: 'Global voyage execution, real-time vessel monitoring, and port turnaround coordination.',
+    description:
+      'Global voyage execution, real-time vessel monitoring, and port turnaround coordination.',
     iconName: 'Compass',
     sortOrder: 2,
   },
@@ -33,7 +35,8 @@ export const INITIAL_DEPARTMENTS: Department[] = [
     code: 'SAFETY',
     name: 'Safety & Compliance',
     directorId: 'ACT-DIR-SAF',
-    description: 'ISM/ISPS compliance, marine incident investigation, and environmental risk controls.',
+    description:
+      'ISM/ISPS compliance, marine incident investigation, and environmental risk controls.',
     iconName: 'ShieldAlert',
     sortOrder: 4,
   },
@@ -42,7 +45,8 @@ export const INITIAL_DEPARTMENTS: Department[] = [
     code: 'DIGITAL',
     name: 'Digital & Technology',
     directorId: 'ACT-DIR-DIG',
-    description: 'Ship-to-shore telemetry infrastructure, operational software, and data pipelines.',
+    description:
+      'Ship-to-shore telemetry infrastructure, operational software, and data pipelines.',
     iconName: 'Cpu',
     sortOrder: 5,
   },
@@ -136,7 +140,8 @@ export const INITIAL_ACTORS: Actor[] = [
       'EDIT_POLICY',
     ],
     status: 'ACTIVE',
-    description: 'Chief Executive Officer with ultimate corporate oversight and high-risk intervention authority.',
+    description:
+      'Chief Executive Officer with ultimate corporate oversight and high-risk intervention authority.',
   },
   {
     id: 'ACT-AI-ADV',
@@ -148,9 +153,17 @@ export const INITIAL_ACTORS: Actor[] = [
     unitId: 'UNIT-EXEC-OFFICE',
     reportsTo: 'ACT-CEO',
     authorityLevel: 'LEAD',
-    permissions: ['VIEW_ENTERPRISE', 'VIEW_DEPARTMENT', 'VIEW_AGENT', 'VIEW_TASK', 'VIEW_AUDIT', 'VIEW_ASSURANCE'],
+    permissions: [
+      'VIEW_ENTERPRISE',
+      'VIEW_DEPARTMENT',
+      'VIEW_AGENT',
+      'VIEW_TASK',
+      'VIEW_AUDIT',
+      'VIEW_ASSURANCE',
+    ],
     status: 'ACTIVE',
-    description: 'Advisory staff intelligence providing macro fleet syntheses, risk cross-correlations, and strategic briefing points.',
+    description:
+      'Advisory staff intelligence providing macro fleet syntheses, risk cross-correlations, and strategic briefing points.',
   },
 
   // Fleet Operations
@@ -212,7 +225,8 @@ export const INITIAL_ACTORS: Actor[] = [
       'CHANGE_PRIORITY',
     ],
     status: 'ACTIVE',
-    description: 'Supervises real-time fleet operations, vessel dispatch, and navigational exceptions.',
+    description:
+      'Supervises real-time fleet operations, vessel dispatch, and navigational exceptions.',
   },
   {
     id: 'ACT-MGR-VOY',
@@ -299,7 +313,8 @@ export const INITIAL_ACTORS: Actor[] = [
       'REQUEST_VERIFICATION',
     ],
     status: 'ACTIVE',
-    description: 'Responsible for main propulsion diagnostics, auxiliary machinery, and maintenance work orders.',
+    description:
+      'Responsible for main propulsion diagnostics, auxiliary machinery, and maintenance work orders.',
   },
 
   // Safety & Compliance
@@ -327,7 +342,8 @@ export const INITIAL_ACTORS: Actor[] = [
       'OVERRIDE_WORKFLOW',
     ],
     status: 'ACTIVE',
-    description: 'Leads maritime safety culture, international maritime regulatory compliance, and risk controls.',
+    description:
+      'Leads maritime safety culture, international maritime regulatory compliance, and risk controls.',
   },
   {
     id: 'ACT-MGR-SAF',
@@ -352,7 +368,8 @@ export const INITIAL_ACTORS: Actor[] = [
       'REQUEST_REANALYSIS',
     ],
     status: 'ACTIVE',
-    description: 'Monitors ongoing vessel safety anomalies, ISM compliance audits, and navigational hazard reports.',
+    description:
+      'Monitors ongoing vessel safety anomalies, ISM compliance audits, and navigational hazard reports.',
   },
 
   // Digital & Technology
@@ -377,7 +394,8 @@ export const INITIAL_ACTORS: Actor[] = [
       'EDIT_POLICY',
     ],
     status: 'ACTIVE',
-    description: 'Responsible for shipboard satellite connectivity, cloud platform infrastructure, and AI engineering.',
+    description:
+      'Responsible for shipboard satellite connectivity, cloud platform infrastructure, and AI engineering.',
   },
   {
     id: 'ACT-MGR-DIG',
@@ -425,7 +443,8 @@ export const INITIAL_ACTORS: Actor[] = [
       'EDIT_POLICY',
     ],
     status: 'ACTIVE',
-    description: 'Leads independent quality assurance, deterministic software verification, and algorithmic governance.',
+    description:
+      'Leads independent quality assurance, deterministic software verification, and algorithmic governance.',
   },
   {
     id: 'ACT-MGR-QA',
@@ -438,7 +457,8 @@ export const INITIAL_ACTORS: Actor[] = [
     authorityLevel: 'MANAGER',
     permissions: ['VIEW_DEPARTMENT', 'VIEW_AGENT', 'VIEW_TASK', 'VIEW_AUDIT', 'VIEW_ASSURANCE'],
     status: 'ACTIVE',
-    description: 'Supervises software build validation, deterministic quality gates, and automated test coverage.',
+    description:
+      'Supervises software build validation, deterministic quality gates, and automated test coverage.',
   },
   {
     id: 'ACT-MGR-SEC',
@@ -451,6 +471,7 @@ export const INITIAL_ACTORS: Actor[] = [
     authorityLevel: 'MANAGER',
     permissions: ['VIEW_DEPARTMENT', 'VIEW_AGENT', 'VIEW_TASK', 'VIEW_AUDIT', 'VIEW_ASSURANCE'],
     status: 'ACTIVE',
-    description: 'Oversees dependency vulnerability audits, secret leak scanning, and maritime cyber security.',
+    description:
+      'Oversees dependency vulnerability audits, secret leak scanning, and maritime cyber security.',
   },
 ];

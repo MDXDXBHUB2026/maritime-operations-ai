@@ -20,8 +20,20 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-FLT-MASTER'],
     optionalCapabilities: ['CAP-WEATHER-ROUTE'],
     tools: [
-      { id: 'TOOL-AIS-INGEST', name: 'AIS Telemetry Ingest', description: 'Stream decoded AIS position packets', isEnabled: true, isSimulated: true },
-      { id: 'TOOL-GEOFENCE-CHECK', name: 'Geofence Validator', description: 'Check navigation boundaries', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-AIS-INGEST',
+        name: 'AIS Telemetry Ingest',
+        description: 'Stream decoded AIS position packets',
+        isEnabled: true,
+        isSimulated: true,
+      },
+      {
+        id: 'TOOL-GEOFENCE-CHECK',
+        name: 'Geofence Validator',
+        description: 'Check navigation boundaries',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 99,
     availability: 100,
@@ -34,14 +46,16 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 98,
     confidenceScore: 0.99,
     slaPerformance: 99.8,
-    description: 'Tracks real-time coordinates, speed over ground, heading, and navigational status across all active vessels.',
+    description:
+      'Tracks real-time coordinates, speed over ground, heading, and navigational status across all active vessels.',
     recentDecisions: [
       {
         id: 'DEC-FLT-001',
         taskId: 'TSK-FLT-101',
         timestamp: '2026-07-23T13:45:00Z',
         decisionSummary: 'Confirmed Pacific Voyager on track through Singapore Strait.',
-        rationaleSummary: 'Observed speed 14.2 kts matches recommended corridor speed window (13.5-15.0 kts).',
+        rationaleSummary:
+          'Observed speed 14.2 kts matches recommended corridor speed window (13.5-15.0 kts).',
         evidenceRefs: ['AIS_PACKET_#88412', 'CHART_STRAIT_TSS_2026'],
         toolCalls: ['TOOL-AIS-INGEST(VES-001)', 'TOOL-GEOFENCE-CHECK(VES-001)'],
         policyDecision: 'POL-HIGH-RISK-APPROVAL: Not triggered (Risk: LOW)',
@@ -67,7 +81,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-FLT-MASTER'],
     optionalCapabilities: ['CAP-INTEGRATION-BUS'],
     tools: [
-      { id: 'TOOL-PORT-REGISTRY', name: 'Port Berth Registry', description: 'Query quay availability', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-PORT-REGISTRY',
+        name: 'Port Berth Registry',
+        description: 'Query quay availability',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 98,
     availability: 100,
@@ -80,7 +100,8 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 97,
     confidenceScore: 0.96,
     slaPerformance: 99.4,
-    description: 'Maintains state transitions between At Sea, In Port, Under Maintenance, and Awaiting Orders.',
+    description:
+      'Maintains state transitions between At Sea, In Port, Under Maintenance, and Awaiting Orders.',
     recentDecisions: [],
   },
   {
@@ -101,7 +122,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-FLT-MASTER'],
     optionalCapabilities: ['CAP-WEATHER-ROUTE'],
     tools: [
-      { id: 'TOOL-VARIANCE-ANALYSIS', name: 'Speed Profile Analyzer', description: 'Correlate planned vs actual speed', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-VARIANCE-ANALYSIS',
+        name: 'Speed Profile Analyzer',
+        description: 'Correlate planned vs actual speed',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 96,
     availability: 100,
@@ -114,14 +141,16 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 95,
     confidenceScore: 0.92,
     slaPerformance: 98.2,
-    description: 'Flags unexpected stoppages, unnotified anchoring, and major route speed deviations.',
+    description:
+      'Flags unexpected stoppages, unnotified anchoring, and major route speed deviations.',
     recentDecisions: [
       {
         id: 'DEC-OPS-003',
         taskId: 'TSK-OPS-102',
         timestamp: '2026-07-23T13:58:00Z',
         decisionSummary: 'Flagged sudden 3.8-knot speed deceleration on Gulf Pioneer.',
-        rationaleSummary: 'Weather was calm (Beaufort 2). Likely fuel line filtration clogging or thermal throttling.',
+        rationaleSummary:
+          'Weather was calm (Beaufort 2). Likely fuel line filtration clogging or thermal throttling.',
         evidenceRefs: ['TELEMETRY_SERIES_4821', 'WEATHER_OBS_114'],
         toolCalls: ['TOOL-VARIANCE-ANALYSIS(VES-007)'],
         policyDecision: 'POL-HIGH-RISK-APPROVAL: Enforced. Routed to Marcus Reed (Fleet Manager).',
@@ -149,8 +178,20 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-FLT-MASTER', 'CAP-WEATHER-ROUTE'],
     optionalCapabilities: ['CAP-INTEGRATION-BUS'],
     tools: [
-      { id: 'TOOL-HYDRODYNAMIC-SIM', name: 'Hydrodynamic Hull Simulator', description: 'Simulate hull resistance curve', isEnabled: true, isSimulated: true },
-      { id: 'TOOL-WEATHER-ROUTER', name: 'Isochrone Route Planner', description: 'Generate minimum fuel waypoints', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-HYDRODYNAMIC-SIM',
+        name: 'Hydrodynamic Hull Simulator',
+        description: 'Simulate hull resistance curve',
+        isEnabled: true,
+        isSimulated: true,
+      },
+      {
+        id: 'TOOL-WEATHER-ROUTER',
+        name: 'Isochrone Route Planner',
+        description: 'Generate minimum fuel waypoints',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 97,
     availability: 100,
@@ -163,14 +204,16 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 96,
     confidenceScore: 0.94,
     slaPerformance: 99.1,
-    description: 'Solves multi-objective optimization balancing fuel consumption, voyage charter party speed limits, and wave resistance.',
+    description:
+      'Solves multi-objective optimization balancing fuel consumption, voyage charter party speed limits, and wave resistance.',
     recentDecisions: [
       {
         id: 'DEC-VOY-001',
         taskId: 'TSK-VOY-201',
         timestamp: '2026-07-23T13:30:00Z',
         decisionSummary: 'Recommended 1.5° southern detour around Malacca swell.',
-        rationaleSummary: 'Saves 6.2 metric tons VLSFO with zero ETA impact by avoiding 3.2m adverse head seas.',
+        rationaleSummary:
+          'Saves 6.2 metric tons VLSFO with zero ETA impact by avoiding 3.2m adverse head seas.',
         evidenceRefs: ['COPERNICUS_WAVE_GRIB_20260723', 'VESSEL_POLAR_TABLE_V2'],
         toolCalls: ['TOOL-WEATHER-ROUTER(VOY-8824)'],
         policyDecision: 'POL-HIGH-RISK-APPROVAL: Evaluated. Medium risk approved by Elena Rostova.',
@@ -196,7 +239,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-FLT-MASTER'],
     optionalCapabilities: [],
     tools: [
-      { id: 'TOOL-SFOC-CALC', name: 'SFOC Metric Calculator', description: 'Calculate grams/kWh fuel rate', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-SFOC-CALC',
+        name: 'SFOC Metric Calculator',
+        description: 'Calculate grams/kWh fuel rate',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 99,
     availability: 100,
@@ -209,7 +258,8 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 98,
     confidenceScore: 0.97,
     slaPerformance: 99.6,
-    description: 'Tracks bunker consumption, EU ETS allowances, and IMO Carbon Intensity Indicator (CII) compliance.',
+    description:
+      'Tracks bunker consumption, EU ETS allowances, and IMO Carbon Intensity Indicator (CII) compliance.',
     recentDecisions: [],
   },
   {
@@ -230,7 +280,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-WEATHER-ROUTE'],
     optionalCapabilities: [],
     tools: [
-      { id: 'TOOL-CYCLONE-PROXIMITY', name: 'Storm Radius Alert', description: 'Monitor 40-knot wind radius', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-CYCLONE-PROXIMITY',
+        name: 'Storm Radius Alert',
+        description: 'Monitor 40-knot wind radius',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 100,
     availability: 100,
@@ -243,7 +299,8 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 99,
     confidenceScore: 0.98,
     slaPerformance: 100,
-    description: 'Monitors oceanographic pressure fields, wave heights, and sea-surface currents to safeguard passages.',
+    description:
+      'Monitors oceanographic pressure fields, wave heights, and sea-surface currents to safeguard passages.',
     recentDecisions: [],
   },
 
@@ -258,7 +315,8 @@ export const INITIAL_AGENTS: Agent[] = [
     reportsTo: 'ACT-MGR-TEC',
     managerId: 'ACT-MGR-TEC',
     status: 'WAITING_APPROVAL',
-    statusReason: 'Flagged critical exhaust gas anomaly on MV Horizon Star Cylinder #3. Awaiting Manager Approval.',
+    statusReason:
+      'Flagged critical exhaust gas anomaly on MV Horizon Star Cylinder #3. Awaiting Manager Approval.',
     authorityLevel: 'AGENT',
     riskLevel: 'HIGH',
     operationalMode: 'FULL',
@@ -266,8 +324,20 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-MAINT-HIST', 'CAP-SENSOR-IOT'],
     optionalCapabilities: ['CAP-OEM-SPECS'],
     tools: [
-      { id: 'TOOL-THERMAL-MODEL', name: 'Cylinder Combustion Analyzer', description: 'Compute thermal deviation delta', isEnabled: true, isSimulated: true },
-      { id: 'TOOL-FAILURE-PREDICTOR', name: 'Weibull RUL Estimator', description: 'Estimate remaining useful life', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-THERMAL-MODEL',
+        name: 'Cylinder Combustion Analyzer',
+        description: 'Compute thermal deviation delta',
+        isEnabled: true,
+        isSimulated: true,
+      },
+      {
+        id: 'TOOL-FAILURE-PREDICTOR',
+        name: 'Weibull RUL Estimator',
+        description: 'Estimate remaining useful life',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 96,
     availability: 100,
@@ -280,17 +350,25 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 96,
     confidenceScore: 0.95,
     slaPerformance: 98.8,
-    description: 'Detects thermal deviations, bearing vibration spikes, and turbocharger degradation before catastrophic failure.',
+    description:
+      'Detects thermal deviations, bearing vibration spikes, and turbocharger degradation before catastrophic failure.',
     recentDecisions: [
       {
         id: 'DEC-TEC-001',
         taskId: 'TSK-MNT-301',
         timestamp: '2026-07-23T14:01:00Z',
-        decisionSummary: 'Recommended immediate fuel injector replacement on MV Horizon Star ME #3.',
-        rationaleSummary: 'Exhaust temperature exceeded normal delta by +42°C over 12 running hours. Scuffing risk high.',
-        evidenceRefs: ['SENSOR_EXHAUST_CH3_LOG', 'CMMS_INJECTOR_HOURS_11400', 'OEM_MAN_B&W_BULLETIN_812'],
+        decisionSummary:
+          'Recommended immediate fuel injector replacement on MV Horizon Star ME #3.',
+        rationaleSummary:
+          'Exhaust temperature exceeded normal delta by +42°C over 12 running hours. Scuffing risk high.',
+        evidenceRefs: [
+          'SENSOR_EXHAUST_CH3_LOG',
+          'CMMS_INJECTOR_HOURS_11400',
+          'OEM_MAN_B&W_BULLETIN_812',
+        ],
         toolCalls: ['TOOL-THERMAL-MODEL(VES-003, CYL_3)', 'TOOL-FAILURE-PREDICTOR(VES-003)'],
-        policyDecision: 'POL-HIGH-RISK-APPROVAL: Enforced. High risk requires Henrik Lindqvist sign-off.',
+        policyDecision:
+          'POL-HIGH-RISK-APPROVAL: Enforced. High risk requires Henrik Lindqvist sign-off.',
         confidence: 0.95,
       },
     ],
@@ -313,7 +391,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-MAINT-HIST'],
     optionalCapabilities: ['CAP-SENSOR-IOT', 'CAP-OEM-SPECS'],
     tools: [
-      { id: 'TOOL-HEALTH-SCORER', name: 'Subsystem Health Scorer', description: 'Aggregate composite 0-100 score', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-HEALTH-SCORER',
+        name: 'Subsystem Health Scorer',
+        description: 'Aggregate composite 0-100 score',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 98,
     availability: 100,
@@ -326,7 +410,8 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 97,
     confidenceScore: 0.96,
     slaPerformance: 99.2,
-    description: 'Aggregates health indices across auxiliary generators, purifiers, ballast pumps, and scrubbers.',
+    description:
+      'Aggregates health indices across auxiliary generators, purifiers, ballast pumps, and scrubbers.',
     recentDecisions: [],
   },
   {
@@ -347,7 +432,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-MAINT-HIST'],
     optionalCapabilities: ['CAP-WO-WRITEBACK'],
     tools: [
-      { id: 'TOOL-SPARE-INVENTORY', name: 'Spare Parts Locator', description: 'Query regional warehouse stock', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-SPARE-INVENTORY',
+        name: 'Spare Parts Locator',
+        description: 'Query regional warehouse stock',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 99,
     availability: 100,
@@ -360,7 +451,8 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 98,
     confidenceScore: 0.97,
     slaPerformance: 99.5,
-    description: 'Generates structured draft work orders and checks shipboard and shoreside spare parts availability.',
+    description:
+      'Generates structured draft work orders and checks shipboard and shoreside spare parts availability.',
     recentDecisions: [],
   },
 
@@ -383,7 +475,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-SAFETY-INCIDENT'],
     optionalCapabilities: ['CAP-FLT-MASTER'],
     tools: [
-      { id: 'TOOL-CPA-CALCULATOR', name: 'Closest Point of Approach Monitor', description: 'Compute proximity risks', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-CPA-CALCULATOR',
+        name: 'Closest Point of Approach Monitor',
+        description: 'Compute proximity risks',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 99,
     availability: 100,
@@ -396,14 +494,16 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 99,
     confidenceScore: 0.97,
     slaPerformance: 100,
-    description: 'Enforces international safety regulations, bridge lookout alerts, and anti-collision buffer zones.',
+    description:
+      'Enforces international safety regulations, bridge lookout alerts, and anti-collision buffer zones.',
     recentDecisions: [
       {
         id: 'DEC-SAF-001',
         taskId: 'TSK-SAF-401',
         timestamp: '2026-07-23T13:40:00Z',
         decisionSummary: 'Assessed Hormuz choke point passing distance for Gulf Pioneer.',
-        rationaleSummary: 'Passed outbound traffic lane with 1.8 nautical mile CPA, exceeding minimum safety margin of 1.0 nm.',
+        rationaleSummary:
+          'Passed outbound traffic lane with 1.8 nautical mile CPA, exceeding minimum safety margin of 1.0 nm.',
         evidenceRefs: ['RADAR_ARPA_TRACK_9912', 'CHART_HORMUZ_TSS'],
         toolCalls: ['TOOL-CPA-CALCULATOR(VES-007, TGT_812)'],
         policyDecision: 'POL-HIGH-RISK-APPROVAL: Cleared.',
@@ -429,7 +529,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-SAFETY-INCIDENT'],
     optionalCapabilities: [],
     tools: [
-      { id: 'TOOL-ROOT-CAUSE', name: 'Fishbone Failure Analyzer', description: 'Correlate procedural and human factors', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-ROOT-CAUSE',
+        name: 'Fishbone Failure Analyzer',
+        description: 'Correlate procedural and human factors',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 98,
     availability: 100,
@@ -442,7 +548,8 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 97,
     confidenceScore: 0.95,
     slaPerformance: 99.0,
-    description: 'Classifies near-miss events and historical trends to prevent recurrent operational failures.',
+    description:
+      'Classifies near-miss events and historical trends to prevent recurrent operational failures.',
     recentDecisions: [],
   },
   {
@@ -463,7 +570,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-SAFETY-INCIDENT'],
     optionalCapabilities: [],
     tools: [
-      { id: 'TOOL-PSC-VALIDATOR', name: 'PSC Checklist Auditor', description: 'Verify statutory certificates', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-PSC-VALIDATOR',
+        name: 'PSC Checklist Auditor',
+        description: 'Verify statutory certificates',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 99,
     availability: 100,
@@ -476,7 +589,8 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 98,
     confidenceScore: 0.98,
     slaPerformance: 99.8,
-    description: 'Audits class documentation, safety equipment certificates, and flag state survey readiness.',
+    description:
+      'Audits class documentation, safety equipment certificates, and flag state survey readiness.',
     recentDecisions: [],
   },
 
@@ -491,7 +605,8 @@ export const INITIAL_AGENTS: Agent[] = [
     reportsTo: 'ACT-MGR-DIG',
     managerId: 'ACT-MGR-DIG',
     status: 'ACTIVE',
-    statusReason: 'All 10 ship-to-shore satellite broadband brokers reporting healthy latency (< 280ms).',
+    statusReason:
+      'All 10 ship-to-shore satellite broadband brokers reporting healthy latency (< 280ms).',
     authorityLevel: 'AGENT',
     riskLevel: 'LOW',
     operationalMode: 'FULL',
@@ -499,7 +614,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-INTEGRATION-BUS'],
     optionalCapabilities: [],
     tools: [
-      { id: 'TOOL-PING-BROKER', name: 'Satellite Latency Ping', description: 'Measure round-trip packet delay', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-PING-BROKER',
+        name: 'Satellite Latency Ping',
+        description: 'Measure round-trip packet delay',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 100,
     availability: 100,
@@ -512,7 +633,8 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 100,
     confidenceScore: 0.99,
     slaPerformance: 100,
-    description: 'Ensures real-time telemetry streaming from shipboard microservices to corporate event buses.',
+    description:
+      'Ensures real-time telemetry streaming from shipboard microservices to corporate event buses.',
     recentDecisions: [],
   },
   {
@@ -533,7 +655,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-DATA-QUALITY'],
     optionalCapabilities: [],
     tools: [
-      { id: 'TOOL-SCHEMA-LINT', name: 'JSON Schema Linter', description: 'Strict contract enforcement', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-SCHEMA-LINT',
+        name: 'JSON Schema Linter',
+        description: 'Strict contract enforcement',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 100,
     availability: 100,
@@ -546,7 +674,8 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 99,
     confidenceScore: 0.99,
     slaPerformance: 100,
-    description: 'Catches packet corruption, unexpected null values, and GPS sensor drift before data ingestion.',
+    description:
+      'Catches packet corruption, unexpected null values, and GPS sensor drift before data ingestion.',
     recentDecisions: [],
   },
   {
@@ -559,7 +688,8 @@ export const INITIAL_AGENTS: Agent[] = [
     reportsTo: 'ACT-MGR-DIG',
     managerId: 'ACT-MGR-DIG',
     status: 'ACTIVE',
-    statusReason: 'GitHub Pages static bundle operational. Base path /maritime-operations-ai/ verified.',
+    statusReason:
+      'GitHub Pages static bundle operational. Base path /maritime-operations-ai/ verified.',
     authorityLevel: 'AGENT',
     riskLevel: 'LOW',
     operationalMode: 'FULL',
@@ -567,7 +697,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-INTEGRATION-BUS'],
     optionalCapabilities: [],
     tools: [
-      { id: 'TOOL-DEPLOY-STATUS', name: 'CDN & Pages Health Checker', description: 'Verify HTTP status and cache headers', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-DEPLOY-STATUS',
+        name: 'CDN & Pages Health Checker',
+        description: 'Verify HTTP status and cache headers',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 100,
     availability: 100,
@@ -580,7 +716,8 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 100,
     confidenceScore: 1.0,
     slaPerformance: 100,
-    description: 'Supervises frontend bundle delivery, local storage performance, and client runtime metrics.',
+    description:
+      'Supervises frontend bundle delivery, local storage performance, and client runtime metrics.',
     recentDecisions: [],
   },
 
@@ -603,7 +740,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-ASSURANCE-GATE'],
     optionalCapabilities: [],
     tools: [
-      { id: 'TOOL-TEST-RUNNER', name: 'Deterministic Test Runner', description: 'Execute Vitest and typechecking', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-TEST-RUNNER',
+        name: 'Deterministic Test Runner',
+        description: 'Execute Vitest and typechecking',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 100,
     availability: 100,
@@ -616,7 +759,8 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 100,
     confidenceScore: 1.0,
     slaPerformance: 100,
-    description: 'Enforces zero-warning lint rules, TypeScript strict typing, and calculation unit test assertions.',
+    description:
+      'Enforces zero-warning lint rules, TypeScript strict typing, and calculation unit test assertions.',
     recentDecisions: [],
   },
   {
@@ -629,7 +773,8 @@ export const INITIAL_AGENTS: Agent[] = [
     reportsTo: 'ACT-MGR-SEC',
     managerId: 'ACT-MGR-SEC',
     status: 'ACTIVE',
-    statusReason: 'Security scan complete. Positive controls verified. 4 moderate advisory warnings tracked.',
+    statusReason:
+      'Security scan complete. Positive controls verified. 4 moderate advisory warnings tracked.',
     authorityLevel: 'AGENT',
     riskLevel: 'MEDIUM',
     operationalMode: 'FULL',
@@ -637,8 +782,20 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-ASSURANCE-GATE'],
     optionalCapabilities: [],
     tools: [
-      { id: 'TOOL-AUDIT-SCANNER', name: 'NPM Dependency Auditor', description: 'Scan CVE databases', isEnabled: true, isSimulated: true },
-      { id: 'TOOL-SECRET-SCANNER', name: 'Static Secret Regex Scanner', description: 'Check for hardcoded tokens', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-AUDIT-SCANNER',
+        name: 'NPM Dependency Auditor',
+        description: 'Scan CVE databases',
+        isEnabled: true,
+        isSimulated: true,
+      },
+      {
+        id: 'TOOL-SECRET-SCANNER',
+        name: 'Static Secret Regex Scanner',
+        description: 'Check for hardcoded tokens',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 98,
     availability: 100,
@@ -651,7 +808,8 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 97,
     confidenceScore: 0.96,
     slaPerformance: 99.4,
-    description: 'Scans for hardcoded credentials, malicious packages, and unpatched upstream library vulnerabilities.',
+    description:
+      'Scans for hardcoded credentials, malicious packages, and unpatched upstream library vulnerabilities.',
     recentDecisions: [],
   },
   {
@@ -664,7 +822,8 @@ export const INITIAL_AGENTS: Agent[] = [
     reportsTo: 'ACT-DIR-ASR',
     managerId: 'ACT-DIR-ASR',
     status: 'ACTIVE',
-    statusReason: 'Available for independent validation of high-impact technical and voyage decisions.',
+    statusReason:
+      'Available for independent validation of high-impact technical and voyage decisions.',
     authorityLevel: 'AGENT',
     riskLevel: 'LOW',
     operationalMode: 'FULL',
@@ -672,7 +831,13 @@ export const INITIAL_AGENTS: Agent[] = [
     requiredCapabilities: ['CAP-ASSURANCE-GATE'],
     optionalCapabilities: ['CAP-OEM-SPECS', 'CAP-MAINT-HIST'],
     tools: [
-      { id: 'TOOL-DOUBLE-CHECK-ENGINE', name: 'Independent Calculation Engine', description: 'Perform isolated secondary analysis', isEnabled: true, isSimulated: true },
+      {
+        id: 'TOOL-DOUBLE-CHECK-ENGINE',
+        name: 'Independent Calculation Engine',
+        description: 'Perform isolated secondary analysis',
+        isEnabled: true,
+        isSimulated: true,
+      },
     ],
     health: 100,
     availability: 100,
@@ -685,14 +850,17 @@ export const INITIAL_AGENTS: Agent[] = [
     qualityScore: 100,
     confidenceScore: 0.99,
     slaPerformance: 100,
-    description: 'Serves as an independent validation gate, re-calculating thermal deltas, fuel models, and risk scores without bias.',
+    description:
+      'Serves as an independent validation gate, re-calculating thermal deltas, fuel models, and risk scores without bias.',
     recentDecisions: [
       {
         id: 'DEC-ASR-003',
         taskId: 'TSK-MNT-289',
         timestamp: '2026-07-23T12:30:00Z',
-        decisionSummary: 'Independently corroborated bearing temperature elevation on MV Arabian Breeze.',
-        rationaleSummary: 'Secondary thermal gradient model confirmed +18°C rise matches lubrication degradation curve.',
+        decisionSummary:
+          'Independently corroborated bearing temperature elevation on MV Arabian Breeze.',
+        rationaleSummary:
+          'Secondary thermal gradient model confirmed +18°C rise matches lubrication degradation curve.',
         evidenceRefs: ['INDEP_MODEL_RUN_#441', 'RAW_TELEMETRY_DUMP'],
         toolCalls: ['TOOL-DOUBLE-CHECK-ENGINE(VES-002)'],
         policyDecision: 'POL-INDEPENDENT-VERIFICATION: Verified. Action approved for execution.',

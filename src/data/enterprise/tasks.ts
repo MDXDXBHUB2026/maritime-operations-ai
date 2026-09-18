@@ -5,7 +5,8 @@ export const INITIAL_TASKS: Task[] = [
   {
     taskId: 'TSK-MNT-301',
     title: 'MV Horizon Star ME #3 Exhaust Gas Anomaly Diagnosis & Requisition',
-    description: 'High-temperature gradient (+42°C) detected on Cylinder #3 exhaust outlet. Recommend immediate injector nozzle replacement and thermal scoping before next port departure.',
+    description:
+      'High-temperature gradient (+42°C) detected on Cylinder #3 exhaust outlet. Recommend immediate injector nozzle replacement and thermal scoping before next port departure.',
     category: 'PREDICTIVE_MAINTENANCE',
     departmentId: 'DEPT-TECHNICAL',
     createdBy: 'AGT-TEC-001',
@@ -21,14 +22,20 @@ export const INITIAL_TASKS: Task[] = [
     requiresApproval: true,
     approvalState: 'PENDING',
     approvalId: 'APP-2026-001',
-    evidenceRefs: ['SENSOR_EXHAUST_CH3_LOG', 'CMMS_INJECTOR_HOURS_11400', 'OEM_MAN_B&W_BULLETIN_812'],
+    evidenceRefs: [
+      'SENSOR_EXHAUST_CH3_LOG',
+      'CMMS_INJECTOR_HOURS_11400',
+      'OEM_MAN_B&W_BULLETIN_812',
+    ],
     relatedVessel: 'MV Horizon Star (VES-003)',
     relatedAsset: 'Main Engine Cylinder #3',
     requiredCapabilities: ['CAP-MAINT-HIST', 'CAP-SENSOR-IOT'],
     verificationState: 'NONE',
     decisionSummary: 'Recommend immediate fuel injector replacement on MV Horizon Star ME #3.',
-    rationaleSummary: 'Observed exhaust delta of +42°C indicates potential nozzle tip erosion with unburnt fuel wash risk.',
-    policyDecision: 'POL-HIGH-RISK-APPROVAL: Enforced. High risk requires Henrik Lindqvist approval.',
+    rationaleSummary:
+      'Observed exhaust delta of +42°C indicates potential nozzle tip erosion with unburnt fuel wash risk.',
+    policyDecision:
+      'POL-HIGH-RISK-APPROVAL: Enforced. High risk requires Henrik Lindqvist approval.',
     retryCount: 0,
     maxRetries: 3,
   },
@@ -37,7 +44,8 @@ export const INITIAL_TASKS: Task[] = [
   {
     taskId: 'TSK-VOY-201',
     title: 'Dubai to Singapore Transit Isochrone Fuel Detour Optimization',
-    description: 'Evaluate monsoon wave field in Arabian Sea and compute optimal waypoint divergence to reduce head resistance and bunker consumption.',
+    description:
+      'Evaluate monsoon wave field in Arabian Sea and compute optimal waypoint divergence to reduce head resistance and bunker consumption.',
     category: 'VOYAGE_OPTIMISATION',
     departmentId: 'DEPT-FLEET-OPS',
     createdBy: 'ACT-MGR-VOY',
@@ -58,9 +66,11 @@ export const INITIAL_TASKS: Task[] = [
     relatedVoyage: 'VOY-2026-088',
     requiredCapabilities: ['CAP-FLT-MASTER', 'CAP-WEATHER-ROUTE'],
     verificationState: 'NONE',
-    resultSummary: 'Detour path computed: 1.5° South divergence saves 6.2 metric tons VLSFO with 0h ETA penalty.',
+    resultSummary:
+      'Detour path computed: 1.5° South divergence saves 6.2 metric tons VLSFO with 0h ETA penalty.',
     decisionSummary: 'Recommended 1.5° southern detour around Malacca swell.',
-    rationaleSummary: 'Avoids 3.2m adverse sea swell while maintaining chartered 14.0 kt average speed.',
+    rationaleSummary:
+      'Avoids 3.2m adverse sea swell while maintaining chartered 14.0 kt average speed.',
     policyDecision: 'POL-HIGH-RISK-APPROVAL: Evaluated. Medium risk signed off by Elena Rostova.',
     retryCount: 0,
     maxRetries: 3,
@@ -70,7 +80,8 @@ export const INITIAL_TASKS: Task[] = [
   {
     taskId: 'TSK-SAF-401',
     title: 'Strait of Hormuz Inbound High-Density Choke Point Safety Escalation',
-    description: 'Gulf Pioneer entering outbound separation corridor with multiple high-speed non-AIS crafts detected within 1.8nm. Requires bridge manual watch protocol escalation.',
+    description:
+      'Gulf Pioneer entering outbound separation corridor with multiple high-speed non-AIS crafts detected within 1.8nm. Requires bridge manual watch protocol escalation.',
     category: 'NAVIGATIONAL_SAFETY',
     departmentId: 'DEPT-SAFETY',
     createdBy: 'AGT-SAF-001',
@@ -91,9 +102,12 @@ export const INITIAL_TASKS: Task[] = [
     relatedAlert: 'ALT-2026-041',
     requiredCapabilities: ['CAP-SAFETY-INCIDENT'],
     verificationState: 'REQUESTED',
-    decisionSummary: 'Escalate to Safety Director & CEO: Mandate extra navigational bridge watch and course alteration.',
-    rationaleSummary: 'High traffic density in narrow strait exceeds automated collision margin parameters.',
-    policyDecision: 'POL-CRITICAL-EXEC-BLOCK: Enforced. Autonomous execution blocked; Director authorization required.',
+    decisionSummary:
+      'Escalate to Safety Director & CEO: Mandate extra navigational bridge watch and course alteration.',
+    rationaleSummary:
+      'High traffic density in narrow strait exceeds automated collision margin parameters.',
+    policyDecision:
+      'POL-CRITICAL-EXEC-BLOCK: Enforced. Autonomous execution blocked; Director authorization required.',
     retryCount: 0,
     maxRetries: 3,
   },
@@ -102,7 +116,8 @@ export const INITIAL_TASKS: Task[] = [
   {
     taskId: 'TSK-OPS-102',
     title: 'Gulf Pioneer 3.8-Knot Speed Loss Variance Investigation',
-    description: 'Unscheduled speed deceleration from 14.5 kts to 10.7 kts in clear weather conditions. Correlating propulsion power output with fuel filter pressure differentials.',
+    description:
+      'Unscheduled speed deceleration from 14.5 kts to 10.7 kts in clear weather conditions. Correlating propulsion power output with fuel filter pressure differentials.',
     category: 'OPERATIONS_EXCEPTION',
     departmentId: 'DEPT-FLEET-OPS',
     createdBy: 'AGT-FLT-003',
@@ -122,8 +137,10 @@ export const INITIAL_TASKS: Task[] = [
     relatedVessel: 'Gulf Pioneer (VES-007)',
     requiredCapabilities: ['CAP-FLT-MASTER'],
     verificationState: 'NONE',
-    decisionSummary: 'Recommend shipboard chief engineer switch to secondary fuel filter duplex filter bank.',
-    rationaleSummary: 'Filter delta-P elevated by +1.4 bar over baseline, indicating high wax drop-out.',
+    decisionSummary:
+      'Recommend shipboard chief engineer switch to secondary fuel filter duplex filter bank.',
+    rationaleSummary:
+      'Filter delta-P elevated by +1.4 bar over baseline, indicating high wax drop-out.',
     policyDecision: 'POL-HIGH-RISK-APPROVAL: Enforced. Marcus Reed review required.',
     retryCount: 0,
     maxRetries: 3,
@@ -133,7 +150,8 @@ export const INITIAL_TASKS: Task[] = [
   {
     taskId: 'TSK-FLT-101',
     title: 'Real-Time Telemetry Geofence & Passage Audit',
-    description: 'Hourly geofence check of entire 10-vessel fleet across Arabian Sea, Persian Gulf, and Malacca corridors.',
+    description:
+      'Hourly geofence check of entire 10-vessel fleet across Arabian Sea, Persian Gulf, and Malacca corridors.',
     category: 'TELEMETRY_MONITORING',
     departmentId: 'DEPT-FLEET-OPS',
     createdBy: 'ACT-MGR-OPS',
@@ -159,7 +177,8 @@ export const INITIAL_TASKS: Task[] = [
   {
     taskId: 'TSK-ASR-501',
     title: 'Deterministic CI Application Assurance Suite Execution',
-    description: 'Execute automated regression tests, strict typechecking, security advisory audits, and finding verification.',
+    description:
+      'Execute automated regression tests, strict typechecking, security advisory audits, and finding verification.',
     category: 'APPLICATION_ASSURANCE',
     departmentId: 'DEPT-ASSURANCE',
     createdBy: 'ACT-MGR-QA',

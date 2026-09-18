@@ -1,12 +1,6 @@
 export type EntityType = 'HUMAN' | 'AI_AGENT' | 'AI_ADVISOR';
 
-export type AuthorityLevel =
-  | 'EXECUTIVE'
-  | 'DIRECTOR'
-  | 'MANAGER'
-  | 'LEAD'
-  | 'AGENT'
-  | 'OBSERVER';
+export type AuthorityLevel = 'EXECUTIVE' | 'DIRECTOR' | 'MANAGER' | 'LEAD' | 'AGENT' | 'OBSERVER';
 
 export type Permission =
   | 'VIEW_ENTERPRISE'

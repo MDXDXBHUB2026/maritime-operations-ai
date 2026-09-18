@@ -39,13 +39,23 @@ export const ExecutiveCommandCentrePage: React.FC = () => {
 
   // Metrics
   const totalWorkforce = agents.length;
-  const activeAgents = agents.filter((a) => a.status === 'ACTIVE' || a.status === 'AVAILABLE').length;
+  const activeAgents = agents.filter(
+    (a) => a.status === 'ACTIVE' || a.status === 'AVAILABLE'
+  ).length;
   const pausedAgents = agents.filter((a) => a.status === 'PAUSED').length;
-  const degradedAgents = agents.filter((a) => a.status === 'DEGRADED' || a.operationalMode === 'DEGRADED').length;
-  const activeTasks = tasks.filter((t) => t.status === 'RUNNING' || t.status === 'WAITING_APPROVAL' || t.status === 'VERIFYING').length;
+  const degradedAgents = agents.filter(
+    (a) => a.status === 'DEGRADED' || a.operationalMode === 'DEGRADED'
+  ).length;
+  const activeTasks = tasks.filter(
+    (t) => t.status === 'RUNNING' || t.status === 'WAITING_APPROVAL' || t.status === 'VERIFYING'
+  ).length;
   const awaitingApprovalCount = pendingApprovals.length;
-  const escalations = tasks.filter((t) => t.status === 'ESCALATED' || t.approvalState === 'ESCALATED').length;
-  const criticalTasks = tasks.filter((t) => t.risk === 'CRITICAL' && t.status !== 'COMPLETED').length;
+  const escalations = tasks.filter(
+    (t) => t.status === 'ESCALATED' || t.approvalState === 'ESCALATED'
+  ).length;
+  const criticalTasks = tasks.filter(
+    (t) => t.risk === 'CRITICAL' && t.status !== 'COMPLETED'
+  ).length;
   const verifyingCount = tasks.filter((t) => t.status === 'VERIFYING').length;
 
   return (
@@ -56,7 +66,8 @@ export const ExecutiveCommandCentrePage: React.FC = () => {
           <div className="eyebrow">ENTERPRISE GOVERNANCE &amp; OPERATIONAL DELEGATION</div>
           <h1>Executive Command Centre</h1>
           <p className="subtitle" style={{ marginBottom: 0 }}>
-            &ldquo;Management has visibility across the organization and authority to intervene, while operational work remains delegated through the organizational hierarchy.&rdquo;
+            &ldquo;Management has visibility across the organization and authority to intervene,
+            while operational work remains delegated through the organizational hierarchy.&rdquo;
           </p>
         </div>
         <div className={styles.headerMeta}>
@@ -80,8 +91,12 @@ export const ExecutiveCommandCentrePage: React.FC = () => {
           </div>
           <div className={styles.kpiFooter}>
             <span style={{ color: 'var(--green)' }}>● {activeAgents} Active</span>
-            {pausedAgents > 0 && <span style={{ color: 'var(--amber)' }}>● {pausedAgents} Paused</span>}
-            {degradedAgents > 0 && <span style={{ color: 'var(--red)' }}>● {degradedAgents} Degraded</span>}
+            {pausedAgents > 0 && (
+              <span style={{ color: 'var(--amber)' }}>● {pausedAgents} Paused</span>
+            )}
+            {degradedAgents > 0 && (
+              <span style={{ color: 'var(--red)' }}>● {degradedAgents} Degraded</span>
+            )}
           </div>
         </div>
 
@@ -92,7 +107,9 @@ export const ExecutiveCommandCentrePage: React.FC = () => {
           </div>
           <div className={styles.kpiValueRow}>
             <span className={styles.kpiVal}>{activeTasks}</span>
-            <span className={styles.kpiSub}>{tasks.filter((t) => t.status === 'COMPLETED').length} Completed Today</span>
+            <span className={styles.kpiSub}>
+              {tasks.filter((t) => t.status === 'COMPLETED').length} Completed Today
+            </span>
           </div>
           <div className={styles.kpiFooter}>
             <span style={{ color: 'var(--cyan)' }}>0 Autonomous Failures</span>
@@ -102,20 +119,36 @@ export const ExecutiveCommandCentrePage: React.FC = () => {
         <div
           className="kpi-card"
           data-testid="kpi-approvals-waiting"
-          style={{ borderColor: awaitingApprovalCount > 0 ? 'rgba(246, 184, 75, 0.45)' : 'var(--line)' }}
+          style={{
+            borderColor: awaitingApprovalCount > 0 ? 'rgba(246, 184, 75, 0.45)' : 'var(--line)',
+          }}
         >
           <div className={styles.kpiHeader}>
             <span className={styles.kpiLabel}>AWAITING APPROVAL</span>
-            <Clock size={18} style={{ color: awaitingApprovalCount > 0 ? 'var(--amber)' : 'var(--muted)' }} />
+            <Clock
+              size={18}
+              style={{ color: awaitingApprovalCount > 0 ? 'var(--amber)' : 'var(--muted)' }}
+            />
           </div>
           <div className={styles.kpiValueRow}>
-            <span className={styles.kpiVal} style={{ color: awaitingApprovalCount > 0 ? 'var(--amber)' : 'var(--text)' }}>
+            <span
+              className={styles.kpiVal}
+              style={{ color: awaitingApprovalCount > 0 ? 'var(--amber)' : 'var(--text)' }}
+            >
               {awaitingApprovalCount}
             </span>
             <span className={styles.kpiSub}>High/Critical Risk</span>
           </div>
           <div className={styles.kpiFooter}>
-            <Link to="/approvals" style={{ color: 'var(--cyan)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+            <Link
+              to="/approvals"
+              style={{
+                color: 'var(--cyan)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+            >
               Open Inbox <ArrowRight size={12} />
             </Link>
           </div>
@@ -128,10 +161,16 @@ export const ExecutiveCommandCentrePage: React.FC = () => {
         >
           <div className={styles.kpiHeader}>
             <span className={styles.kpiLabel}>CRITICAL RISKS &amp; ESCALATIONS</span>
-            <ShieldAlert size={18} style={{ color: criticalTasks > 0 ? 'var(--red)' : 'var(--green)' }} />
+            <ShieldAlert
+              size={18}
+              style={{ color: criticalTasks > 0 ? 'var(--red)' : 'var(--green)' }}
+            />
           </div>
           <div className={styles.kpiValueRow}>
-            <span className={styles.kpiVal} style={{ color: criticalTasks > 0 ? 'var(--red)' : 'var(--green)' }}>
+            <span
+              className={styles.kpiVal}
+              style={{ color: criticalTasks > 0 ? 'var(--red)' : 'var(--green)' }}
+            >
               {criticalTasks + escalations}
             </span>
             <span className={styles.kpiSub}>{verifyingCount} Verification Pending</span>
@@ -162,13 +201,19 @@ export const ExecutiveCommandCentrePage: React.FC = () => {
             {pendingApprovals.length === 0 && degradedAgents === 0 && pausedAgents === 0 ? (
               <div className={styles.emptyNotice}>
                 <CheckCircle2 size={24} style={{ color: 'var(--green)', marginBottom: '0.4rem' }} />
-                <div>All organizational queues clear. No immediate management decisions pending.</div>
+                <div>
+                  All organizational queues clear. No immediate management decisions pending.
+                </div>
               </div>
             ) : (
               <>
                 {/* Approvals awaiting management */}
                 {pendingApprovals.map((req) => (
-                  <div key={req.id} className={styles.attentionItem} data-testid="attention-approval-item">
+                  <div
+                    key={req.id}
+                    className={styles.attentionItem}
+                    data-testid="attention-approval-item"
+                  >
                     <div className={styles.itemTop}>
                       <span className={styles.itemTitle}>{req.taskTitle}</span>
                       <RiskBadge risk={req.risk} size="sm" />
@@ -197,9 +242,15 @@ export const ExecutiveCommandCentrePage: React.FC = () => {
                 {agents
                   .filter((a) => a.status === 'PAUSED')
                   .map((agent) => (
-                    <div key={agent.id} className={styles.attentionItem} style={{ borderLeftColor: 'var(--amber)' }}>
+                    <div
+                      key={agent.id}
+                      className={styles.attentionItem}
+                      style={{ borderLeftColor: 'var(--amber)' }}
+                    >
                       <div className={styles.itemTop}>
-                        <span className={styles.itemTitle}>Agent Paused by Management: {agent.name}</span>
+                        <span className={styles.itemTitle}>
+                          Agent Paused by Management: {agent.name}
+                        </span>
                         <StatusBadge status="PAUSED" type="agent" />
                       </div>
                       <div className={styles.itemBody}>
@@ -217,13 +268,22 @@ export const ExecutiveCommandCentrePage: React.FC = () => {
                 {agents
                   .filter((a) => a.operationalMode === 'DEGRADED')
                   .map((agent) => (
-                    <div key={agent.id} className={styles.attentionItem} style={{ borderLeftColor: 'var(--red)' }}>
+                    <div
+                      key={agent.id}
+                      className={styles.attentionItem}
+                      style={{ borderLeftColor: 'var(--red)' }}
+                    >
                       <div className={styles.itemTop}>
-                        <span className={styles.itemTitle}>Agent Operating in DEGRADED Mode: {agent.name}</span>
+                        <span className={styles.itemTitle}>
+                          Agent Operating in DEGRADED Mode: {agent.name}
+                        </span>
                         <StatusBadge status="DEGRADED" type="mode" />
                       </div>
                       <div className={styles.itemBody}>
-                        <div>One or more required business capabilities are unavailable. Operating with limited autonomy.</div>
+                        <div>
+                          One or more required business capabilities are unavailable. Operating with
+                          limited autonomy.
+                        </div>
                       </div>
                       <div className={styles.itemActionRow}>
                         <Link to="/governance" className={styles.actionBtnSecondary}>
@@ -251,31 +311,36 @@ export const ExecutiveCommandCentrePage: React.FC = () => {
             <div className={styles.healthyItem}>
               <div className={styles.healthyBullet}>✓</div>
               <div>
-                <strong>Global Fleet Monitoring:</strong> 10 vessels on chartered track across Arabian Sea, Persian Gulf, and Malacca. Zero geofence breaches.
+                <strong>Global Fleet Monitoring:</strong> 10 vessels on chartered track across
+                Arabian Sea, Persian Gulf, and Malacca. Zero geofence breaches.
               </div>
             </div>
             <div className={styles.healthyItem}>
               <div className={styles.healthyBullet}>✓</div>
               <div>
-                <strong>Voyage &amp; Fuel Optimization:</strong> Automated weather isochrone models running. 6.2 MT VLSFO route savings validated for Pacific Voyager.
+                <strong>Voyage &amp; Fuel Optimization:</strong> Automated weather isochrone models
+                running. 6.2 MT VLSFO route savings validated for Pacific Voyager.
               </div>
             </div>
             <div className={styles.healthyItem}>
               <div className={styles.healthyBullet}>✓</div>
               <div>
-                <strong>Application Assurance Platform:</strong> Typecheck, ESLint, 9 Vitest calculation assertions, and Vite static build verified with 0 defects.
+                <strong>Application Assurance Platform:</strong> Typecheck, ESLint, 9 Vitest
+                calculation assertions, and Vite static build verified with 0 defects.
               </div>
             </div>
             <div className={styles.healthyItem}>
               <div className={styles.healthyBullet}>✓</div>
               <div>
-                <strong>Deterministic Policy Guardrails:</strong> Zero unauthenticated external writebacks. Critical risk autonomous actions blocked.
+                <strong>Deterministic Policy Guardrails:</strong> Zero unauthenticated external
+                writebacks. Critical risk autonomous actions blocked.
               </div>
             </div>
             <div className={styles.healthyItem}>
               <div className={styles.healthyBullet}>✓</div>
               <div>
-                <strong>Satellite Telemetry Bus:</strong> Ship-to-shore message queues latency nominal (&lt; 280ms).
+                <strong>Satellite Telemetry Bus:</strong> Ship-to-shore message queues latency
+                nominal (&lt; 280ms).
               </div>
             </div>
           </div>
@@ -300,7 +365,11 @@ export const ExecutiveCommandCentrePage: React.FC = () => {
             const director = OrganizationService.getActor(dept.directorId);
 
             return (
-              <div key={dept.id} className={styles.deptCard} data-testid={`dept-card-${dept.code.toLowerCase()}`}>
+              <div
+                key={dept.id}
+                className={styles.deptCard}
+                data-testid={`dept-card-${dept.code.toLowerCase()}`}
+              >
                 <div className={styles.deptHeader}>
                   <div>
                     <span className={styles.deptCode}>{dept.code}</span>
@@ -363,7 +432,9 @@ export const ExecutiveCommandCentrePage: React.FC = () => {
           <div key={evt.eventId} className={styles.streamRow}>
             <span className={styles.streamTime}>{evt.timestamp.slice(11, 19)} UTC</span>
             <span className={styles.streamActor}>{evt.actorName}</span>
-            <span className={`pill ${evt.severity === 'CRITICAL' ? 'critical' : evt.severity === 'HIGH' ? 'high' : evt.severity === 'MEDIUM' ? 'medium' : 'low'}`}>
+            <span
+              className={`pill ${evt.severity === 'CRITICAL' ? 'critical' : evt.severity === 'HIGH' ? 'high' : evt.severity === 'MEDIUM' ? 'medium' : 'low'}`}
+            >
               {evt.eventType}
             </span>
             <span className={styles.streamSummary}>{evt.summary}</span>

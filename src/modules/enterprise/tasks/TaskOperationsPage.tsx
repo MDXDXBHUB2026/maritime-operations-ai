@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import {
-  Search,
-  AlertTriangle,
-  Shield,
-  RotateCcw,
-  X,
-} from 'lucide-react';
+import { Search, AlertTriangle, Shield, RotateCcw, X } from 'lucide-react';
 import { TaskPriority, TaskRisk, TaskStatus } from '../../../domain/enterprise';
 import {
   AgentService,
@@ -28,7 +22,9 @@ export const TaskOperationsPage: React.FC = () => {
   const [riskFilter, setRiskFilter] = useState<string>('ALL');
   const [deptFilter, setDeptFilter] = useState<string>('ALL');
 
-  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(searchParams.get('taskId') || null);
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(
+    searchParams.get('taskId') || null
+  );
 
   useEffect(() => {
     return subscribeEnterpriseState(() => setTick((t) => t + 1));
@@ -77,7 +73,8 @@ export const TaskOperationsPage: React.FC = () => {
           <div className="eyebrow">TASK LIFECYCLE &amp; EXECUTION OPERATIONS</div>
           <h1>Task Operations Register</h1>
           <p className="subtitle" style={{ marginBottom: 0 }}>
-            Inspect delegated operational tasks, execution states, evidence chains, and supervisory interventions.
+            Inspect delegated operational tasks, execution states, evidence chains, and supervisory
+            interventions.
           </p>
         </div>
         <div className={styles.headerStats}>
@@ -201,7 +198,9 @@ export const TaskOperationsPage: React.FC = () => {
                       <span className={styles.managerName}>{manager?.name || task.managerId}</span>
                     </td>
                     <td>
-                      <span className={`pill ${task.priority === 'URGENT' ? 'critical' : task.priority === 'HIGH' ? 'high' : 'medium'}`}>
+                      <span
+                        className={`pill ${task.priority === 'URGENT' ? 'critical' : task.priority === 'HIGH' ? 'high' : 'medium'}`}
+                      >
                         {task.priority}
                       </span>
                     </td>
@@ -355,7 +354,8 @@ export const TaskOperationsPage: React.FC = () => {
                 <div className={styles.matrixItem}>
                   <span className={styles.matrixLabel}>Assigned Agent:</span>
                   <span style={{ color: 'var(--cyan)', fontWeight: 600 }}>
-                    {AgentService.getAgent(selectedTask.assignedTo)?.name || selectedTask.assignedTo}
+                    {AgentService.getAgent(selectedTask.assignedTo)?.name ||
+                      selectedTask.assignedTo}
                   </span>
                 </div>
                 <div className={styles.matrixItem}>

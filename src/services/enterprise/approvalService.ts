@@ -83,7 +83,10 @@ export const ApprovalService: IApprovalService = {
     AuditService.record({
       actorId: approverId,
       actorName: approverName,
-      action: target.risk === 'HIGH' || target.risk === 'CRITICAL' ? 'APPROVE_HIGH_RISK' : 'APPROVE_LOW_RISK',
+      action:
+        target.risk === 'HIGH' || target.risk === 'CRITICAL'
+          ? 'APPROVE_HIGH_RISK'
+          : 'APPROVE_LOW_RISK',
       targetType: 'APPROVAL',
       targetId: id,
       targetName: target.taskTitle,

@@ -1,22 +1,7 @@
 import React, { useState } from 'react';
-import {
-  ChevronDown,
-  ChevronRight,
-  Shield,
-  User,
-  Bot,
-  Sparkles,
-  X,
-} from 'lucide-react';
-import {
-  Actor,
-  Agent,
-} from '../../../domain/enterprise';
-import {
-  AgentService,
-  OrganizationService,
-  TaskService,
-} from '../../../services/enterprise';
+import { ChevronDown, ChevronRight, Shield, User, Bot, Sparkles, X } from 'lucide-react';
+import { Actor, Agent } from '../../../domain/enterprise';
+import { AgentService, OrganizationService, TaskService } from '../../../services/enterprise';
 import { EntityBadge } from '../../../components/enterprise/EntityBadge';
 import { RiskBadge } from '../../../components/enterprise/RiskBadge';
 import { StatusBadge } from '../../../components/enterprise/StatusBadge';
@@ -49,7 +34,8 @@ export const OrganizationPage: React.FC = () => {
           <div className="eyebrow">CORPORATE GOVERNANCE STRUCTURE</div>
           <h1>Enterprise Organization Hierarchy</h1>
           <p className="subtitle" style={{ marginBottom: 0 }}>
-            Structured reporting lines connecting Human Leadership, Advisory Intelligence, and Delegated AI Workforces.
+            Structured reporting lines connecting Human Leadership, Advisory Intelligence, and
+            Delegated AI Workforces.
           </p>
         </div>
         <div className={styles.legendRow}>
@@ -80,7 +66,9 @@ export const OrganizationPage: React.FC = () => {
                 tabIndex={0}
                 data-testid="org-node-ceo"
                 onClick={() => setSelectedEntity({ type: 'actor', data: ceo })}
-                onKeyDown={(e) => e.key === 'Enter' && setSelectedEntity({ type: 'actor', data: ceo })}
+                onKeyDown={(e) =>
+                  e.key === 'Enter' && setSelectedEntity({ type: 'actor', data: ceo })
+                }
               >
                 <div className={styles.nodeHeader}>
                   <div className={styles.avatarHuman}>
@@ -108,7 +96,9 @@ export const OrganizationPage: React.FC = () => {
                   tabIndex={0}
                   data-testid="org-node-advisor"
                   onClick={() => setSelectedEntity({ type: 'actor', data: aiAdvisor })}
-                  onKeyDown={(e) => e.key === 'Enter' && setSelectedEntity({ type: 'actor', data: aiAdvisor })}
+                  onKeyDown={(e) =>
+                    e.key === 'Enter' && setSelectedEntity({ type: 'actor', data: aiAdvisor })
+                  }
                 >
                   <div className={styles.nodeHeader}>
                     <div className={styles.avatarAdvisor}>
@@ -147,7 +137,11 @@ export const OrganizationPage: React.FC = () => {
               const isCollapsed = collapsedDepts[dept.id] ?? false;
 
               return (
-                <div key={dept.id} className={styles.deptBranch} data-testid={`org-dept-${dept.code.toLowerCase()}`}>
+                <div
+                  key={dept.id}
+                  className={styles.deptBranch}
+                  data-testid={`org-dept-${dept.code.toLowerCase()}`}
+                >
                   {/* Director Node */}
                   {director && (
                     <div
@@ -155,7 +149,9 @@ export const OrganizationPage: React.FC = () => {
                       role="button"
                       tabIndex={0}
                       onClick={() => setSelectedEntity({ type: 'actor', data: director })}
-                      onKeyDown={(e) => e.key === 'Enter' && setSelectedEntity({ type: 'actor', data: director })}
+                      onKeyDown={(e) =>
+                        e.key === 'Enter' && setSelectedEntity({ type: 'actor', data: director })
+                      }
                     >
                       <div className={styles.deptTag}>{dept.name}</div>
                       <div className={styles.nodeHeader}>
@@ -201,7 +197,9 @@ export const OrganizationPage: React.FC = () => {
                               role="button"
                               tabIndex={0}
                               onClick={() => setSelectedEntity({ type: 'actor', data: mgr })}
-                              onKeyDown={(e) => e.key === 'Enter' && setSelectedEntity({ type: 'actor', data: mgr })}
+                              onKeyDown={(e) =>
+                                e.key === 'Enter' && setSelectedEntity({ type: 'actor', data: mgr })
+                              }
                             >
                               <div className={styles.nodeHeader}>
                                 <div className={styles.avatarHuman}>
@@ -234,8 +232,13 @@ export const OrganizationPage: React.FC = () => {
                                     role="button"
                                     tabIndex={0}
                                     data-testid={`agent-node-${agent.id.toLowerCase()}`}
-                                    onClick={() => setSelectedEntity({ type: 'agent', data: agent })}
-                                    onKeyDown={(e) => e.key === 'Enter' && setSelectedEntity({ type: 'agent', data: agent })}
+                                    onClick={() =>
+                                      setSelectedEntity({ type: 'agent', data: agent })
+                                    }
+                                    onKeyDown={(e) =>
+                                      e.key === 'Enter' &&
+                                      setSelectedEntity({ type: 'agent', data: agent })
+                                    }
                                   >
                                     <div className={styles.nodeHeader}>
                                       <div className={styles.avatarAgent}>
@@ -251,12 +254,17 @@ export const OrganizationPage: React.FC = () => {
 
                                     <div className={styles.agentMetaRow}>
                                       <StatusBadge status={agent.status} type="agent" />
-                                      {agent.riskLevel !== 'LOW' && <RiskBadge risk={agent.riskLevel} size="sm" />}
+                                      {agent.riskLevel !== 'LOW' && (
+                                        <RiskBadge risk={agent.riskLevel} size="sm" />
+                                      )}
                                     </div>
 
                                     <div className={styles.agentTaskFooter}>
                                       <span style={{ color: 'var(--muted)' }}>
-                                        Active Tasks: <strong style={{ color: 'var(--cyan)' }}>{agentTasks.length}</strong>
+                                        Active Tasks:{' '}
+                                        <strong style={{ color: 'var(--cyan)' }}>
+                                          {agentTasks.length}
+                                        </strong>
                                       </span>
                                       <span style={{ color: 'var(--green)', fontSize: '0.7rem' }}>
                                         {agent.tasksCompleted} done
@@ -288,7 +296,10 @@ export const OrganizationPage: React.FC = () => {
                                   tabIndex={0}
                                   data-testid={`agent-node-${agent.id.toLowerCase()}`}
                                   onClick={() => setSelectedEntity({ type: 'agent', data: agent })}
-                                  onKeyDown={(e) => e.key === 'Enter' && setSelectedEntity({ type: 'agent', data: agent })}
+                                  onKeyDown={(e) =>
+                                    e.key === 'Enter' &&
+                                    setSelectedEntity({ type: 'agent', data: agent })
+                                  }
                                 >
                                   <div className={styles.nodeHeader}>
                                     <div className={styles.avatarAgent}>
@@ -311,7 +322,8 @@ export const OrganizationPage: React.FC = () => {
 
                                   <div className={styles.agentTaskFooter}>
                                     <span style={{ color: 'var(--muted)' }}>
-                                      Verification Gate: <strong style={{ color: 'var(--green)' }}>Active</strong>
+                                      Verification Gate:{' '}
+                                      <strong style={{ color: 'var(--green)' }}>Active</strong>
                                     </span>
                                   </div>
                                 </div>
@@ -367,7 +379,10 @@ export const OrganizationPage: React.FC = () => {
                 {'reportsTo' in selectedEntity.data && selectedEntity.data.reportsTo && (
                   <div className={styles.drawerMetaItem}>
                     <span className={styles.drawerMetaLabel}>Reports To:</span>
-                    <span>{OrganizationService.getActor(selectedEntity.data.reportsTo)?.name || selectedEntity.data.reportsTo}</span>
+                    <span>
+                      {OrganizationService.getActor(selectedEntity.data.reportsTo)?.name ||
+                        selectedEntity.data.reportsTo}
+                    </span>
                   </div>
                 )}
               </div>
@@ -383,19 +398,27 @@ export const OrganizationPage: React.FC = () => {
                     <h3>OPERATIONAL METRICS</h3>
                     <div className={styles.agentMetricsGrid}>
                       <div className={styles.metricBox}>
-                        <span className={styles.metricVal}>{(selectedEntity.data as Agent).health}%</span>
+                        <span className={styles.metricVal}>
+                          {(selectedEntity.data as Agent).health}%
+                        </span>
                         <span className={styles.metricLabel}>Health</span>
                       </div>
                       <div className={styles.metricBox}>
-                        <span className={styles.metricVal}>{(selectedEntity.data as Agent).tasksToday}</span>
+                        <span className={styles.metricVal}>
+                          {(selectedEntity.data as Agent).tasksToday}
+                        </span>
                         <span className={styles.metricLabel}>Tasks Today</span>
                       </div>
                       <div className={styles.metricBox}>
-                        <span className={styles.metricVal}>{(selectedEntity.data as Agent).tasksCompleted}</span>
+                        <span className={styles.metricVal}>
+                          {(selectedEntity.data as Agent).tasksCompleted}
+                        </span>
                         <span className={styles.metricLabel}>Completed</span>
                       </div>
                       <div className={styles.metricBox}>
-                        <span className={styles.metricVal}>{(selectedEntity.data as Agent).qualityScore}%</span>
+                        <span className={styles.metricVal}>
+                          {(selectedEntity.data as Agent).qualityScore}%
+                        </span>
                         <span className={styles.metricLabel}>Quality Score</span>
                       </div>
                     </div>

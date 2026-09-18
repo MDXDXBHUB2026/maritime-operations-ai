@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import {
-  Search,
-  Bot,
-  Pause,
-  Play,
-  RotateCcw,
-  Shield,
-  X,
-} from 'lucide-react';
+import { Search, Bot, Pause, Play, RotateCcw, Shield, X } from 'lucide-react';
 import {
   AgentService,
   OrganizationService,
@@ -66,7 +58,8 @@ export const WorkforcePage: React.FC = () => {
           <div className="eyebrow">AI WORKFORCE &amp; AGENT DIRECTORY</div>
           <h1>AI Workforce Directory</h1>
           <p className="subtitle" style={{ marginBottom: 0 }}>
-            Supervise, inspect, and govern delegated operational intelligence agents across all enterprise divisions.
+            Supervise, inspect, and govern delegated operational intelligence agents across all
+            enterprise divisions.
           </p>
         </div>
         <div className={styles.workforceCountBadge}>
@@ -227,7 +220,10 @@ export const WorkforcePage: React.FC = () => {
                     </td>
                     <td>
                       <strong style={{ color: 'var(--cyan)' }}>{agent.tasksCompleted}</strong>
-                      <span style={{ color: 'var(--muted)', fontSize: '0.75rem' }}> / {agent.tasksToday}</span>
+                      <span style={{ color: 'var(--muted)', fontSize: '0.75rem' }}>
+                        {' '}
+                        / {agent.tasksToday}
+                      </span>
                     </td>
                     <td>
                       <span style={{ color: 'var(--text-bright)', fontWeight: 600 }}>
@@ -329,7 +325,9 @@ export const WorkforcePage: React.FC = () => {
                   <button
                     className={styles.controlBtnSecondary}
                     onClick={() => {
-                      alert('Re-analysis requested. Agent will recalculate models against latest telemetry.');
+                      alert(
+                        'Re-analysis requested. Agent will recalculate models against latest telemetry.'
+                      );
                     }}
                   >
                     <RotateCcw size={14} /> Request Re-Analysis
@@ -338,7 +336,9 @@ export const WorkforcePage: React.FC = () => {
                   <button
                     className={styles.controlBtnSecondary}
                     onClick={() => {
-                      alert('Independent verification requested. Routed to Independent Verification Agent.');
+                      alert(
+                        'Independent verification requested. Routed to Independent Verification Agent.'
+                      );
                     }}
                   >
                     <Shield size={14} /> Request Verification
@@ -383,7 +383,9 @@ export const WorkforcePage: React.FC = () => {
                     <span className={styles.quadLabel}>Quality Score</span>
                   </div>
                   <div className={styles.quadItem}>
-                    <span className={styles.quadVal}>{(selectedAgent.confidenceScore * 100).toFixed(0)}%</span>
+                    <span className={styles.quadVal}>
+                      {(selectedAgent.confidenceScore * 100).toFixed(0)}%
+                    </span>
                     <span className={styles.quadLabel}>Mean Confidence</span>
                   </div>
                   <div className={styles.quadItem}>

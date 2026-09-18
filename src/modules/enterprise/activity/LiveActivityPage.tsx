@@ -43,7 +43,8 @@ export const LiveActivityPage: React.FC = () => {
           <div className="eyebrow">CENTRALIZED AUDIT &amp; REAL-TIME BUS</div>
           <h1>Live Enterprise Activity Stream</h1>
           <p className="subtitle" style={{ marginBottom: 0 }}>
-            Unified event stream capturing autonomous agent actions, policy evaluations, and human managerial interventions.
+            Unified event stream capturing autonomous agent actions, policy evaluations, and human
+            managerial interventions.
           </p>
         </div>
         <div className={styles.streamStatusNotice}>
@@ -139,13 +140,7 @@ export const LiveActivityPage: React.FC = () => {
                   <div className={styles.eventMetaRight}>
                     <span
                       className={`pill ${
-                        isCritical
-                          ? 'critical'
-                          : isHigh
-                            ? 'high'
-                            : isWarning
-                              ? 'medium'
-                              : 'info'
+                        isCritical ? 'critical' : isHigh ? 'high' : isWarning ? 'medium' : 'info'
                       }`}
                     >
                       {evt.severity}

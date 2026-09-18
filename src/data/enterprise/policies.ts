@@ -6,7 +6,8 @@ export const INITIAL_POLICIES: GovernancePolicy[] = [
     name: 'High-Risk Operational Approval Policy',
     category: 'RISK',
     enforcement: 'REQUIRE_APPROVAL',
-    description: 'All high-risk agent recommendations must be explicitly approved by a designated Human Manager or Director prior to execution.',
+    description:
+      'All high-risk agent recommendations must be explicitly approved by a designated Human Manager or Director prior to execution.',
     rulesSummary: 'Task risk = HIGH -> status = WAITING_APPROVAL. Cannot be executed autonomously.',
     isActive: true,
     minApprovalLevel: 'MANAGER',
@@ -16,8 +17,10 @@ export const INITIAL_POLICIES: GovernancePolicy[] = [
     name: 'Critical-Risk Autonomous Execution Prohibition',
     category: 'RISK',
     enforcement: 'BLOCK',
-    description: 'Autonomous execution of critical-risk tasks is strictly blocked. Requires Director or Executive authorization plus independent verification.',
-    rulesSummary: 'Task risk = CRITICAL -> block autonomous action; escalate to Director/Executive; mandate Independent Verification Agent signoff.',
+    description:
+      'Autonomous execution of critical-risk tasks is strictly blocked. Requires Director or Executive authorization plus independent verification.',
+    rulesSummary:
+      'Task risk = CRITICAL -> block autonomous action; escalate to Director/Executive; mandate Independent Verification Agent signoff.',
     isActive: true,
     minApprovalLevel: 'DIRECTOR',
   },
@@ -26,7 +29,8 @@ export const INITIAL_POLICIES: GovernancePolicy[] = [
     name: 'Algorithmic Confidence Threshold Enforcement',
     category: 'QUALITY',
     enforcement: 'ESCALATE',
-    description: 'Any AI agent recommendation produced with confidence below 0.75 must automatically escalate for human supervisor review.',
+    description:
+      'Any AI agent recommendation produced with confidence below 0.75 must automatically escalate for human supervisor review.',
     rulesSummary: 'Confidence < 0.75 -> status = ESCALATED. Require human re-evaluation.',
     isActive: true,
     minApprovalLevel: 'MANAGER',
@@ -36,7 +40,8 @@ export const INITIAL_POLICIES: GovernancePolicy[] = [
     name: 'Maximum Retry Threshold Policy',
     category: 'OPERATIONAL',
     enforcement: 'BLOCK',
-    description: 'Tasks exceeding 3 failed attempts are blocked from further automatic execution and flagged for engineering review.',
+    description:
+      'Tasks exceeding 3 failed attempts are blocked from further automatic execution and flagged for engineering review.',
     rulesSummary: 'Retry count >= 3 -> status = BLOCKED; alert Platform Operations.',
     isActive: true,
     minApprovalLevel: 'LEAD',
@@ -46,7 +51,8 @@ export const INITIAL_POLICIES: GovernancePolicy[] = [
     name: 'Mandatory Assurance Gate Verification',
     category: 'SECURITY',
     enforcement: 'REQUIRE_APPROVAL',
-    description: 'High-impact maintenance or voyage alterations require validation by the Independent Verification Agent before marking complete.',
+    description:
+      'High-impact maintenance or voyage alterations require validation by the Independent Verification Agent before marking complete.',
     rulesSummary: 'High impact -> trigger VERIFYING stage with Independent Verification Agent.',
     isActive: true,
     minApprovalLevel: 'DIRECTOR',
@@ -56,8 +62,10 @@ export const INITIAL_POLICIES: GovernancePolicy[] = [
     name: 'External System Writeback Guard',
     category: 'SECURITY',
     enforcement: 'REQUIRE_APPROVAL',
-    description: 'Any action that writes to external ERP, procurement, or vessel telemetry requires verified human sign-off.',
-    rulesSummary: 'Writeback action -> human approval mandatory. Zero unauthenticated external writeback.',
+    description:
+      'Any action that writes to external ERP, procurement, or vessel telemetry requires verified human sign-off.',
+    rulesSummary:
+      'Writeback action -> human approval mandatory. Zero unauthenticated external writeback.',
     isActive: true,
     minApprovalLevel: 'MANAGER',
   },

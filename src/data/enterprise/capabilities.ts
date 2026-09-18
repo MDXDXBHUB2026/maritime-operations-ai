@@ -7,7 +7,8 @@ export const INITIAL_CAPABILITIES: BusinessCapability[] = [
     name: 'Fleet Master & Registry',
     category: 'TELEMETRY',
     status: 'AVAILABLE',
-    description: 'Vessel specifications, IMO registries, deadweight tonnages, and operational classifications.',
+    description:
+      'Vessel specifications, IMO registries, deadweight tonnages, and operational classifications.',
     provider: 'Global Maritime Registry Service',
     isSimulated: false,
     dependentAgentIds: ['AGT-FLT-001', 'AGT-FLT-002', 'AGT-FLT-003'],
@@ -18,7 +19,8 @@ export const INITIAL_CAPABILITIES: BusinessCapability[] = [
     name: 'Real-Time Sensor Telemetry',
     category: 'TELEMETRY',
     status: 'SIMULATED',
-    description: 'High-frequency vibration, exhaust temperature, and pressure sensor feeds from main engines.',
+    description:
+      'High-frequency vibration, exhaust temperature, and pressure sensor feeds from main engines.',
     provider: 'Shipboard IoT Edge Collector',
     isSimulated: true,
     dependentAgentIds: ['AGT-TEC-001', 'AGT-TEC-002'],
@@ -29,7 +31,8 @@ export const INITIAL_CAPABILITIES: BusinessCapability[] = [
     name: 'Global Weather & Wave Model',
     category: 'EXTERNAL_FEED',
     status: 'AVAILABLE',
-    description: 'High-resolution oceanic wave height, wind vector, and tropical storm forecasting feeds.',
+    description:
+      'High-resolution oceanic wave height, wind vector, and tropical storm forecasting feeds.',
     provider: 'Copernicus Marine Environment Service',
     isSimulated: false,
     dependentAgentIds: ['AGT-VOY-001', 'AGT-VOY-003'],
@@ -40,7 +43,8 @@ export const INITIAL_CAPABILITIES: BusinessCapability[] = [
     name: 'Maintenance History & CMMS',
     category: 'INTEGRATION',
     status: 'AVAILABLE',
-    description: 'Historical overhaul logs, component running hours, and planned maintenance cycles.',
+    description:
+      'Historical overhaul logs, component running hours, and planned maintenance cycles.',
     provider: 'Enterprise CMMS Data Warehouse',
     isSimulated: false,
     dependentAgentIds: ['AGT-TEC-001', 'AGT-TEC-003'],
@@ -51,7 +55,8 @@ export const INITIAL_CAPABILITIES: BusinessCapability[] = [
     name: 'Safety & Incident Registry',
     category: 'GOVERNANCE',
     status: 'AVAILABLE',
-    description: 'ISM Code compliance logs, near-miss reports, and port state control inspection histories.',
+    description:
+      'ISM Code compliance logs, near-miss reports, and port state control inspection histories.',
     provider: 'Maritime Safety Quality Management System',
     isSimulated: false,
     dependentAgentIds: ['AGT-SAF-001', 'AGT-SAF-002', 'AGT-SAF-003'],
@@ -62,7 +67,8 @@ export const INITIAL_CAPABILITIES: BusinessCapability[] = [
     name: 'Enterprise Event Bus',
     category: 'INTEGRATION',
     status: 'AVAILABLE',
-    description: 'Centralized message broker connecting shipboard and shoreside operational microservices.',
+    description:
+      'Centralized message broker connecting shipboard and shoreside operational microservices.',
     provider: 'Corporate Control Plane Bus',
     isSimulated: false,
     dependentAgentIds: ['AGT-DIG-001', 'AGT-DIG-003'],
@@ -73,7 +79,8 @@ export const INITIAL_CAPABILITIES: BusinessCapability[] = [
     name: 'Data Quality & Schema Engine',
     category: 'ANALYTICS',
     status: 'AVAILABLE',
-    description: 'Continuous validation pipeline checking sensor drift, packet loss, and schema integrity.',
+    description:
+      'Continuous validation pipeline checking sensor drift, packet loss, and schema integrity.',
     provider: 'DataOps Assurance Service',
     isSimulated: false,
     dependentAgentIds: ['AGT-DIG-002'],
@@ -106,7 +113,8 @@ export const INITIAL_CAPABILITIES: BusinessCapability[] = [
     name: 'OEM Machinery Limits',
     category: 'ANALYTICS',
     status: 'AVAILABLE',
-    description: 'Manufacturer maximum continuous ratings (MCR), thermal tolerances, and lubrication parameters.',
+    description:
+      'Manufacturer maximum continuous ratings (MCR), thermal tolerances, and lubrication parameters.',
     provider: 'Marine Engineering OEM Technical Repository',
     isSimulated: false,
     dependentAgentIds: ['AGT-TEC-002'],

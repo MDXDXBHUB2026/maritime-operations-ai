@@ -46,7 +46,8 @@ export const INITIAL_AUDIT_TRAIL: AuditRecord[] = [
     beforeState: 'CREATED',
     afterState: 'WAITING_APPROVAL',
     result: 'BLOCKED',
-    reason: 'Critical task risk prohibits autonomous execution without Director authorization and independent verification.',
+    reason:
+      'Critical task risk prohibits autonomous execution without Director authorization and independent verification.',
     source: 'AUTOMATION_POLICY_GATE',
   },
 ];

@@ -11,8 +11,10 @@ export const INITIAL_APPROVALS: ApprovalRequest[] = [
     approverId: 'ACT-MGR-TEC',
     approverRole: 'Technical Superintendent & Manager',
     risk: 'HIGH',
-    recommendedAction: 'Authorize work order WO-2026-0015 for cylinder #3 fuel injector replacement and port thermal survey upon arrival at Port of Jebel Ali.',
-    reasonRequired: 'High-risk machinery intervention exceeds autonomous execution limits under POL-HIGH-RISK-APPROVAL.',
+    recommendedAction:
+      'Authorize work order WO-2026-0015 for cylinder #3 fuel injector replacement and port thermal survey upon arrival at Port of Jebel Ali.',
+    reasonRequired:
+      'High-risk machinery intervention exceeds autonomous execution limits under POL-HIGH-RISK-APPROVAL.',
     confidence: 0.95,
     evidence: [
       'Exhaust temperature differential +42°C above fleet average',
@@ -21,7 +23,8 @@ export const INITIAL_APPROVALS: ApprovalRequest[] = [
     ],
     policyId: 'POL-HIGH-RISK-APPROVAL',
     policyName: 'High-Risk Operational Approval Policy',
-    impact: 'Estimated repair window: 4 hours in port. Avoids potential off-hire breakdown valued at $45,000/day.',
+    impact:
+      'Estimated repair window: 4 hours in port. Avoids potential off-hire breakdown valued at $45,000/day.',
     deadline: '2026-07-23T18:00:00Z',
     status: 'PENDING',
     createdAt: '2026-07-23T13:31:00Z',
@@ -37,8 +40,10 @@ export const INITIAL_APPROVALS: ApprovalRequest[] = [
     approverId: 'ACT-DIR-SAF',
     approverRole: 'Safety & Compliance Director',
     risk: 'CRITICAL',
-    recommendedAction: 'Issue immediate navigational command: double bridge watch, engage hand steering, and adjust approach heading 12° North to clear congested unlit small craft zone.',
-    reasonRequired: 'Critical safety risk in navigational choke point requires Director authorization and independent verification under POL-CRITICAL-EXEC-BLOCK.',
+    recommendedAction:
+      'Issue immediate navigational command: double bridge watch, engage hand steering, and adjust approach heading 12° North to clear congested unlit small craft zone.',
+    reasonRequired:
+      'Critical safety risk in navigational choke point requires Director authorization and independent verification under POL-CRITICAL-EXEC-BLOCK.',
     confidence: 0.97,
     evidence: [
       'Radar ARPA track identified 4 non-AIS radar targets closing with CPA < 0.6 nautical miles',
@@ -63,8 +68,10 @@ export const INITIAL_APPROVALS: ApprovalRequest[] = [
     approverId: 'ACT-MGR-OPS',
     approverRole: 'Fleet Operations Manager',
     risk: 'HIGH',
-    recommendedAction: 'Instruct chief engineer to switch to secondary duplex fuel filter bank and initiate fuel additive treatment for suspected wax precipitation.',
-    reasonRequired: 'High-risk operational directive directly affecting main engine fuel delivery and vessel passage speed.',
+    recommendedAction:
+      'Instruct chief engineer to switch to secondary duplex fuel filter bank and initiate fuel additive treatment for suspected wax precipitation.',
+    reasonRequired:
+      'High-risk operational directive directly affecting main engine fuel delivery and vessel passage speed.',
     confidence: 0.92,
     evidence: [
       'Filter differential pressure +1.4 bar above clean baseline',
@@ -73,7 +80,8 @@ export const INITIAL_APPROVALS: ApprovalRequest[] = [
     ],
     policyId: 'POL-HIGH-RISK-APPROVAL',
     policyName: 'High-Risk Operational Approval Policy',
-    impact: 'Restores vessel transit speed to 14.5 knots, preventing 8-hour delay at discharge terminal.',
+    impact:
+      'Restores vessel transit speed to 14.5 knots, preventing 8-hour delay at discharge terminal.',
     deadline: '2026-07-23T17:30:00Z',
     status: 'PENDING',
     createdAt: '2026-07-23T13:51:00Z',
@@ -104,7 +112,8 @@ export const INITIAL_APPROVALS: ApprovalRequest[] = [
     createdAt: '2026-07-23T12:05:00Z',
     decidedBy: 'ACT-MGR-VOY',
     decidedAt: '2026-07-23T12:08:00Z',
-    decisionComment: 'Fuel savings model validated. Zero ETA impact agreed with commercial charterer.',
+    decisionComment:
+      'Fuel savings model validated. Zero ETA impact agreed with commercial charterer.',
     requiresConfirmation: false,
   },
 ];

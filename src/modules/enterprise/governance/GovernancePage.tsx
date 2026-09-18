@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  ShieldCheck,
-  Cpu,
-  FileText,
-  Lock,
-} from 'lucide-react';
+import { ShieldCheck, Cpu, FileText, Lock } from 'lucide-react';
 import { CapabilityStatus } from '../../../domain/enterprise';
 import {
   AuditService,
@@ -49,7 +44,8 @@ export const GovernancePage: React.FC = () => {
           <div className="eyebrow">GOVERNANCE &bull; POLICY &bull; CAPABILITIES &bull; AUDIT</div>
           <h1>Enterprise Governance &amp; Capability Registry</h1>
           <p className="subtitle" style={{ marginBottom: 0 }}>
-            Vendor-neutral business capability registries, deterministic policy guardrails, and immutable audit logs.
+            Vendor-neutral business capability registries, deterministic policy guardrails, and
+            immutable audit logs.
           </p>
         </div>
         <div>
@@ -94,7 +90,9 @@ export const GovernancePage: React.FC = () => {
         <div className={styles.sectionWrap} data-testid="capability-registry-section">
           <div className={styles.sectionInfo}>
             <p>
-              Agents depend on abstract <strong>Business Capabilities</strong> rather than vendor-specific APIs. Toggle capability availability below to observe automatic agent operational mode degradation (FULL &rarr; LIMITED &rarr; DEGRADED).
+              Agents depend on abstract <strong>Business Capabilities</strong> rather than
+              vendor-specific APIs. Toggle capability availability below to observe automatic agent
+              operational mode degradation (FULL &rarr; LIMITED &rarr; DEGRADED).
             </p>
           </div>
 
@@ -130,11 +128,17 @@ export const GovernancePage: React.FC = () => {
                 <div className={styles.providerRow}>
                   <span className={styles.providerLabel}>Provider:</span>
                   <span className={styles.providerName}>{cap.provider}</span>
-                  {cap.isSimulated && <span className="pill info" style={{ fontSize: '0.65rem' }}>SIMULATED</span>}
+                  {cap.isSimulated && (
+                    <span className="pill info" style={{ fontSize: '0.65rem' }}>
+                      SIMULATED
+                    </span>
+                  )}
                 </div>
 
                 <div className={styles.dependentAgentsRow}>
-                  <span className={styles.depLabel}>Dependent Agents ({cap.dependentAgentIds.length}):</span>
+                  <span className={styles.depLabel}>
+                    Dependent Agents ({cap.dependentAgentIds.length}):
+                  </span>
                   <div className={styles.depList}>
                     {cap.dependentAgentIds.map((agId) => (
                       <span key={agId} className={styles.depTag}>
@@ -164,7 +168,8 @@ export const GovernancePage: React.FC = () => {
         <div className={styles.sectionWrap} data-testid="policies-section">
           <div className={styles.sectionInfo}>
             <p>
-              Deterministic governance policies enforced across task execution, risk thresholds, and autonomous actions.
+              Deterministic governance policies enforced across task execution, risk thresholds, and
+              autonomous actions.
             </p>
           </div>
 
@@ -225,7 +230,8 @@ export const GovernancePage: React.FC = () => {
         <div className={styles.sectionWrap} data-testid="audit-trail-section">
           <div className={styles.sectionInfo}>
             <p>
-              Tamper-proof, read-only ledger recording all supervisory decisions, capability toggles, workflow overrides, and policy evaluations.
+              Tamper-proof, read-only ledger recording all supervisory decisions, capability
+              toggles, workflow overrides, and policy evaluations.
             </p>
           </div>
 
@@ -246,13 +252,21 @@ export const GovernancePage: React.FC = () => {
                 <tbody>
                   {auditTrail.map((rec) => (
                     <tr key={rec.id} data-testid={`audit-row-${rec.id.toLowerCase()}`}>
-                      <td style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--muted)' }}>
+                      <td
+                        style={{
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '0.75rem',
+                          color: 'var(--muted)',
+                        }}
+                      >
                         {rec.timestamp}
                       </td>
                       <td>
                         <span className={styles.actionTag}>{rec.action}</span>
                       </td>
-                      <td style={{ fontWeight: 600, color: 'var(--text-bright)' }}>{rec.actorName}</td>
+                      <td style={{ fontWeight: 600, color: 'var(--text-bright)' }}>
+                        {rec.actorName}
+                      </td>
                       <td>
                         <div>
                           <span style={{ color: 'var(--cyan)', fontSize: '0.72rem' }}>
@@ -269,14 +283,14 @@ export const GovernancePage: React.FC = () => {
                       <td>
                         <span style={{ fontSize: '0.75rem', color: 'var(--muted)' }}>
                           {rec.beforeState || '—'} &rarr;{' '}
-                          <strong style={{ color: 'var(--text-bright)' }}>{rec.afterState || '—'}</strong>
+                          <strong style={{ color: 'var(--text-bright)' }}>
+                            {rec.afterState || '—'}
+                          </strong>
                         </span>
                       </td>
                       <td>
                         <span
-                          className={`pill ${
-                            rec.result === 'SUCCESS' ? 'healthy' : 'critical'
-                          }`}
+                          className={`pill ${rec.result === 'SUCCESS' ? 'healthy' : 'critical'}`}
                         >
                           {rec.result}
                         </span>

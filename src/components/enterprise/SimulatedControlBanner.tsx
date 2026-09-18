@@ -5,7 +5,9 @@ interface SimulatedControlBannerProps {
   compact?: boolean;
 }
 
-export const SimulatedControlBanner: React.FC<SimulatedControlBannerProps> = ({ compact = false }) => {
+export const SimulatedControlBanner: React.FC<SimulatedControlBannerProps> = ({
+  compact = false,
+}) => {
   return (
     <div
       className="simulated-control-banner"
@@ -24,7 +26,8 @@ export const SimulatedControlBanner: React.FC<SimulatedControlBannerProps> = ({ 
     >
       <Info size={compact ? 13 : 15} style={{ color: 'var(--cyan)', flexShrink: 0 }} />
       <span>
-        <strong style={{ color: '#d0e0f5' }}>Simulated prototype control</strong> &mdash; no external system action executed.
+        <strong style={{ color: '#d0e0f5' }}>Simulated prototype control</strong> &mdash; no
+        external system action executed.
       </span>
     </div>
   );

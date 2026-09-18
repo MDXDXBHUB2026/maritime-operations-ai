@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {
-  AlertTriangle,
-  CheckCircle2,
-  Shield,
-  XCircle,
-  ArrowUpRight,
-  Info,
-} from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Shield, XCircle, ArrowUpRight, Info } from 'lucide-react';
 import { ApprovalRequest } from '../../../domain/enterprise';
-import {
-  ApprovalService,
-  subscribeEnterpriseState,
-} from '../../../services/enterprise';
+import { ApprovalService, subscribeEnterpriseState } from '../../../services/enterprise';
 import { RiskBadge } from '../../../components/enterprise/RiskBadge';
 import { SimulatedControlBanner } from '../../../components/enterprise/SimulatedControlBanner';
 import styles from './ApprovalInboxPage.module.css';
@@ -75,12 +65,7 @@ export const ApprovalInboxPage: React.FC = () => {
         decisionComment
       );
     } else {
-      ApprovalService.reject(
-        request.id,
-        'ACT-CEO',
-        'Capt. Alexander Vance (CEO)',
-        decisionComment
-      );
+      ApprovalService.reject(request.id, 'ACT-CEO', 'Capt. Alexander Vance (CEO)', decisionComment);
     }
     setConfirmingApproval(null);
   };
@@ -101,7 +86,8 @@ export const ApprovalInboxPage: React.FC = () => {
           <div className="eyebrow">DETERMINISTIC GOVERNANCE &amp; HUMAN SIGN-OFF</div>
           <h1>Decision &amp; Approval Inbox</h1>
           <p className="subtitle" style={{ marginBottom: 0 }}>
-            Mandatory human review gates for high-risk recommendations, safety interventions, and voyage modifications.
+            Mandatory human review gates for high-risk recommendations, safety interventions, and
+            voyage modifications.
           </p>
         </div>
         <div className={styles.metaNotice}>
@@ -130,7 +116,10 @@ export const ApprovalInboxPage: React.FC = () => {
         >
           <span>Escalations</span>
           {escalatedList.length > 0 && (
-            <span className={styles.tabCountBadge} style={{ background: 'var(--red)', color: '#fff' }}>
+            <span
+              className={styles.tabCountBadge}
+              style={{ background: 'var(--red)', color: '#fff' }}
+            >
               {escalatedList.length}
             </span>
           )}
@@ -163,7 +152,8 @@ export const ApprovalInboxPage: React.FC = () => {
             <CheckCircle2 size={32} style={{ color: 'var(--green)', marginBottom: '0.5rem' }} />
             <h3>No Pending Approvals</h3>
             <p style={{ color: 'var(--muted)', fontSize: '0.85rem' }}>
-              All delegated tasks in this queue are nominal. No management sign-offs currently pending.
+              All delegated tasks in this queue are nominal. No management sign-offs currently
+              pending.
             </p>
           </div>
         ) : (
@@ -187,7 +177,9 @@ export const ApprovalInboxPage: React.FC = () => {
                 </div>
                 <div className={styles.headerBadges}>
                   <RiskBadge risk={item.risk} />
-                  <span className={`pill ${item.status === 'APPROVED' ? 'approved' : item.status === 'REJECTED' ? 'critical' : 'warning'}`}>
+                  <span
+                    className={`pill ${item.status === 'APPROVED' ? 'approved' : item.status === 'REJECTED' ? 'critical' : 'warning'}`}
+                  >
                     {item.status}
                   </span>
                 </div>
@@ -203,7 +195,8 @@ export const ApprovalInboxPage: React.FC = () => {
               <div className={styles.governanceNotice}>
                 <Info size={15} style={{ color: 'var(--cyan)', flexShrink: 0 }} />
                 <span>
-                  <strong>Triggering Policy:</strong> {item.policyName} ({item.policyId}). Reason: {item.reasonRequired}
+                  <strong>Triggering Policy:</strong> {item.policyName} ({item.policyId}). Reason:{' '}
+                  {item.reasonRequired}
                 </span>
               </div>
 
@@ -233,7 +226,9 @@ export const ApprovalInboxPage: React.FC = () => {
 
               {/* Evidence References */}
               <div className={styles.evidenceSection}>
-                <span className={styles.evidenceHeading}>Supporting Evidence &amp; Telemetry Logs:</span>
+                <span className={styles.evidenceHeading}>
+                  Supporting Evidence &amp; Telemetry Logs:
+                </span>
                 <ul className={styles.evidenceList}>
                   {item.evidence.map((ev, idx) => (
                     <li key={idx}>{ev}</li>
@@ -244,7 +239,10 @@ export const ApprovalInboxPage: React.FC = () => {
               {/* Resolved notes if already decided */}
               {item.decidedAt && (
                 <div className={styles.resolutionBox}>
-                  <strong>Resolved by {item.decidedBy} at {item.decidedAt}:</strong> {item.decisionComment}
+                  <strong>
+                    Resolved by {item.decidedBy} at {item.decidedAt}:
+                  </strong>{' '}
+                  {item.decisionComment}
                 </div>
               )}
 
@@ -348,7 +346,15 @@ export const ApprovalInboxPage: React.FC = () => {
               </div>
 
               <div className={styles.commentField}>
-                <label htmlFor="decision-comment" style={{ fontSize: '0.75rem', color: 'var(--muted)', display: 'block', marginBottom: '0.35rem' }}>
+                <label
+                  htmlFor="decision-comment"
+                  style={{
+                    fontSize: '0.75rem',
+                    color: 'var(--muted)',
+                    display: 'block',
+                    marginBottom: '0.35rem',
+                  }}
+                >
                   Management Comment &amp; Audit Rationale:
                 </label>
                 <textarea
@@ -363,14 +369,15 @@ export const ApprovalInboxPage: React.FC = () => {
             </div>
 
             <div className={styles.modalFooter}>
-              <button
-                className={styles.btnCancel}
-                onClick={() => setConfirmingApproval(null)}
-              >
+              <button className={styles.btnCancel} onClick={() => setConfirmingApproval(null)}>
                 Cancel
               </button>
               <button
-                className={confirmingApproval.action === 'APPROVE' ? styles.btnApproveConfirm : styles.btnRejectConfirm}
+                className={
+                  confirmingApproval.action === 'APPROVE'
+                    ? styles.btnApproveConfirm
+                    : styles.btnRejectConfirm
+                }
                 onClick={executeDecision}
                 data-testid="confirm-decision-btn"
               >

@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
-import {
-  CheckCircle,
-  Clock,
-  Shield,
-  Award,
-  Bot,
-} from 'lucide-react';
-import {
-  AgentService,
-  OrganizationService,
-} from '../../../services/enterprise';
+import { CheckCircle, Clock, Shield, Award, Bot } from 'lucide-react';
+import { AgentService, OrganizationService } from '../../../services/enterprise';
 import styles from './PerformancePage.module.css';
 
 export const PerformancePage: React.FC = () => {
@@ -19,9 +10,7 @@ export const PerformancePage: React.FC = () => {
   const agents = AgentService.getAgents();
 
   const filteredAgents =
-    selectedDept === 'ALL'
-      ? agents
-      : agents.filter((a) => a.departmentId === selectedDept);
+    selectedDept === 'ALL' ? agents : agents.filter((a) => a.departmentId === selectedDept);
 
   const totalTasksCompleted = filteredAgents.reduce((acc, a) => acc + a.tasksCompleted, 0);
   const avgQuality = (
@@ -39,7 +28,8 @@ export const PerformancePage: React.FC = () => {
           <div className="eyebrow">WORKFORCE PRODUCTIVITY &amp; SLA BENCHMARKS</div>
           <h1>AI Workforce Performance Analytics</h1>
           <p className="subtitle" style={{ marginBottom: 0 }}>
-            Operational metrics tracking task completion rates, verification success, and supervisory turnaround time.
+            Operational metrics tracking task completion rates, verification success, and
+            supervisory turnaround time.
           </p>
         </div>
         <div className={styles.headerNotice}>
@@ -146,8 +136,16 @@ export const PerformancePage: React.FC = () => {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <Bot size={15} style={{ color: 'var(--cyan)' }} />
                       <div>
-                        <div style={{ fontWeight: 600, color: 'var(--text-bright)' }}>{agent.name}</div>
-                        <div style={{ fontSize: '0.7rem', color: 'var(--cyan)', fontFamily: 'var(--font-mono)' }}>
+                        <div style={{ fontWeight: 600, color: 'var(--text-bright)' }}>
+                          {agent.name}
+                        </div>
+                        <div
+                          style={{
+                            fontSize: '0.7rem',
+                            color: 'var(--cyan)',
+                            fontFamily: 'var(--font-mono)',
+                          }}
+                        >
                           {agent.id}
                         </div>
                       </div>
@@ -180,7 +178,9 @@ export const PerformancePage: React.FC = () => {
                     </span>
                   </td>
                   <td>
-                    <span className={`pill ${agent.status === 'PAUSED' ? 'warning' : agent.status === 'DEGRADED' ? 'critical' : 'healthy'}`}>
+                    <span
+                      className={`pill ${agent.status === 'PAUSED' ? 'warning' : agent.status === 'DEGRADED' ? 'critical' : 'healthy'}`}
+                    >
                       {agent.status}
                     </span>
                   </td>

@@ -25,7 +25,12 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, type = 'agent'
     color = '#f08b50';
     bg = 'rgba(240, 139, 80, 0.15)';
     border = 'rgba(240, 139, 80, 0.35)';
-  } else if (status === 'BLOCKED' || status === 'FAILED' || status === 'ERROR' || status === 'UNAVAILABLE') {
+  } else if (
+    status === 'BLOCKED' ||
+    status === 'FAILED' ||
+    status === 'ERROR' ||
+    status === 'UNAVAILABLE'
+  ) {
     color = '#ef5b69';
     bg = 'rgba(239, 91, 105, 0.15)';
     border = 'rgba(239, 91, 105, 0.35)';

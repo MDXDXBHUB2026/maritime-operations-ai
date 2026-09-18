@@ -24,7 +24,8 @@ export const PolicyService: IPolicyService = {
             policyId: policy.id,
             policyName: policy.name,
             enforcement: 'BLOCK',
-            reason: 'Critical task risk prohibits autonomous execution. Requires Director or Executive authorization + Independent Verification sign-off.',
+            reason:
+              'Critical task risk prohibits autonomous execution. Requires Director or Executive authorization + Independent Verification sign-off.',
             requiredApproverLevel: 'DIRECTOR',
           });
         }

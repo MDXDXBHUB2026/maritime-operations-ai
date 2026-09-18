@@ -10,7 +10,8 @@ export const INITIAL_EVENTS: EnterpriseEvent[] = [
     taskId: 'TSK-MNT-301',
     severity: 'INFO',
     timestamp: '2026-07-23T13:30:10Z',
-    summary: 'Predictive Maintenance Agent initiated cylinder temperature gradient analysis on MV Horizon Star.',
+    summary:
+      'Predictive Maintenance Agent initiated cylinder temperature gradient analysis on MV Horizon Star.',
   },
   {
     eventId: 'EVT-001002',
@@ -21,7 +22,8 @@ export const INITIAL_EVENTS: EnterpriseEvent[] = [
     taskId: 'TSK-MNT-301',
     severity: 'HIGH',
     timestamp: '2026-07-23T13:31:00Z',
-    summary: 'Identified +42°C exhaust anomaly on Main Engine Cylinder #3. Recommended fuel injector nozzle replacement.',
+    summary:
+      'Identified +42°C exhaust anomaly on Main Engine Cylinder #3. Recommended fuel injector nozzle replacement.',
     details: { anomalyDelta: '+42C', component: 'Cylinder #3 Fuel Injector' },
   },
   {
@@ -34,7 +36,8 @@ export const INITIAL_EVENTS: EnterpriseEvent[] = [
     severity: 'HIGH',
     escalatedTo: 'ACT-MGR-TEC',
     timestamp: '2026-07-23T13:31:05Z',
-    summary: 'High-risk recommendation requires approval from Technical Manager Henrik Lindqvist under POL-HIGH-RISK-APPROVAL.',
+    summary:
+      'High-risk recommendation requires approval from Technical Manager Henrik Lindqvist under POL-HIGH-RISK-APPROVAL.',
   },
   {
     eventId: 'EVT-001004',
@@ -45,7 +48,8 @@ export const INITIAL_EVENTS: EnterpriseEvent[] = [
     taskId: 'TSK-SAF-401',
     severity: 'CRITICAL',
     timestamp: '2026-07-23T13:45:00Z',
-    summary: 'Navigational safety hazard identified: multiple non-AIS craft cluster in Strait of Hormuz outbound TSS.',
+    summary:
+      'Navigational safety hazard identified: multiple non-AIS craft cluster in Strait of Hormuz outbound TSS.',
   },
   {
     eventId: 'EVT-001005',
@@ -57,7 +61,8 @@ export const INITIAL_EVENTS: EnterpriseEvent[] = [
     severity: 'CRITICAL',
     escalatedTo: 'ACT-DIR-SAF',
     timestamp: '2026-07-23T13:46:00Z',
-    summary: 'POL-CRITICAL-EXEC-BLOCK enforced: Autonomous execution blocked. Escalated to Safety Director Dr. Fatima Al-Mansoor.',
+    summary:
+      'POL-CRITICAL-EXEC-BLOCK enforced: Autonomous execution blocked. Escalated to Safety Director Dr. Fatima Al-Mansoor.',
   },
   {
     eventId: 'EVT-001006',
@@ -69,7 +74,8 @@ export const INITIAL_EVENTS: EnterpriseEvent[] = [
     severity: 'HIGH',
     escalatedTo: 'ACT-MGR-OPS',
     timestamp: '2026-07-23T13:51:00Z',
-    summary: 'Unscheduled 3.8-knot speed variance escalated to Marcus Reed (Fleet Operations Manager).',
+    summary:
+      'Unscheduled 3.8-knot speed variance escalated to Marcus Reed (Fleet Operations Manager).',
   },
   {
     eventId: 'EVT-001007',
@@ -91,6 +97,7 @@ export const INITIAL_EVENTS: EnterpriseEvent[] = [
     taskId: 'TSK-ASR-501',
     severity: 'INFO',
     timestamp: '2026-07-23T13:12:30Z',
-    summary: 'Automated CI Application Assurance pipeline completed. Deterministic quality gates verified.',
+    summary:
+      'Automated CI Application Assurance pipeline completed. Deterministic quality gates verified.',
   },
 ];

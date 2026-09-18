@@ -84,14 +84,16 @@ export const MainLayout: React.FC = () => {
     },
     {
       title: 'ASSURANCE & SECURITY',
-      items: [
-        { path: '/assurance', name: 'Application Assurance', icon: CheckCircle2 },
-      ],
+      items: [{ path: '/assurance', name: 'Application Assurance', icon: CheckCircle2 }],
     },
   ];
 
   const handleResetDemo = () => {
-    if (window.confirm('Reset all simulated enterprise actions and maritime data back to pristine seed state?')) {
+    if (
+      window.confirm(
+        'Reset all simulated enterprise actions and maritime data back to pristine seed state?'
+      )
+    ) {
       StorageService.resetDemoState();
       EnterpriseStorage.resetAll();
       window.location.reload();
@@ -173,9 +175,7 @@ export const MainLayout: React.FC = () => {
             <span className="pill info">
               <span>●</span> SIMULATED ENTERPRISE
             </span>
-            <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>
-              UTC 2026-07-23 14:02
-            </span>
+            <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>UTC 2026-07-23 14:02</span>
             <span style={{ fontSize: '0.8rem', color: 'var(--cyan)' }}>
               HQ: Dubai Operations Center
             </span>
@@ -188,7 +188,9 @@ export const MainLayout: React.FC = () => {
                 className={styles.pendingApprovalsTopBadge}
                 data-testid="topbar-approvals-link"
               >
-                <span>⚠️ {pendingApprovalsCount} Decision{pendingApprovalsCount > 1 ? 's' : ''} Pending</span>
+                <span>
+                  ⚠️ {pendingApprovalsCount} Decision{pendingApprovalsCount > 1 ? 's' : ''} Pending
+                </span>
               </NavLink>
             )}
 
