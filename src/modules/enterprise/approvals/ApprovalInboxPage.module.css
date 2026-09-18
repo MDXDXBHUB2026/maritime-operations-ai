@@ -1,0 +1,404 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.metaNotice {
+  display: flex;
+  align-items: center;
+}
+
+.tabNav {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tabBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.tabBtn:hover {
+  color: var(--text-bright);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.tabBtnActive {
+  color: var(--cyan);
+  background: rgba(37, 194, 216, 0.12);
+  border-color: rgba(37, 194, 216, 0.3);
+}
+
+.tabCountBadge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(246, 184, 75, 0.2);
+  color: #f6b84b;
+}
+
+.approvalList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.emptyCard {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.emptyCard h3 {
+  margin-bottom: 0.25rem;
+  color: var(--text-bright);
+}
+
+.approvalCard {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: var(--shadow-card);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.itemRefRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.approvalId {
+  font-family: var(--font-mono);
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.taskId {
+  font-family: var(--font-mono);
+  color: var(--muted-light);
+}
+
+.agentTag {
+  color: var(--text-bright);
+}
+
+.itemTitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  margin-bottom: 0;
+}
+
+.headerBadges {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.recommendedBox {
+  background: rgba(13, 25, 41, 0.8);
+  border-left: 3px solid var(--cyan);
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+}
+
+.boxLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.actionText {
+  font-size: 0.88rem;
+  color: #f0f6fc;
+  line-height: 1.45;
+}
+
+.governanceNotice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--muted-light);
+  background: rgba(37, 194, 216, 0.06);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(37, 194, 216, 0.2);
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  background: rgba(7, 17, 31, 0.5);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.detailLabel {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.evidenceSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.evidenceHeading {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.evidenceList {
+  padding-left: 1.25rem;
+  font-size: 0.8rem;
+  color: var(--muted-light);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.resolutionBox {
+  background: rgba(40, 196, 153, 0.08);
+  border: 1px solid rgba(40, 196, 153, 0.25);
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: #a0f0d8;
+}
+
+.actionRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.btnApprove {
+  padding: 0.45rem 1rem;
+  background: rgba(40, 196, 153, 0.18);
+  color: #28c499;
+  border: 1px solid rgba(40, 196, 153, 0.4);
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btnApprove:hover {
+  background: rgba(40, 196, 153, 0.3);
+}
+
+.btnReject {
+  padding: 0.45rem 1rem;
+  background: rgba(239, 91, 105, 0.15);
+  color: #ef5b69;
+  border: 1px solid rgba(239, 91, 105, 0.35);
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btnReject:hover {
+  background: rgba(239, 91, 105, 0.25);
+}
+
+.btnActionSecondary {
+  padding: 0.45rem 0.85rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btnActionSecondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(3, 8, 15, 0.8);
+  backdrop-filter: blur(4px);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal {
+  width: 100%;
+  max-width: 500px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-elevated);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.modalHeader h3 {
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.closeBtn {
+  font-size: 1.4rem;
+  color: var(--muted);
+}
+
+.closeBtn:hover {
+  color: var(--text-bright);
+}
+
+.modalBody {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modalTaskCard {
+  background: rgba(7, 17, 31, 0.7);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+}
+
+.commentField textarea {
+  background: #07111f;
+  border-color: var(--line);
+  border-radius: 4px;
+  padding: 0.5rem;
+  font-size: 0.82rem;
+}
+
+.modalFooter {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.btnCancel {
+  padding: 0.45rem 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.82rem;
+}
+
+.btnApproveConfirm {
+  padding: 0.45rem 1.25rem;
+  background: #28c499;
+  color: #050d18;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.btnApproveConfirm:hover {
+  background: #23b088;
+}
+
+.btnRejectConfirm {
+  padding: 0.45rem 1.25rem;
+  background: #ef5b69;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.btnRejectConfirm:hover {
+  background: #d94957;
+}

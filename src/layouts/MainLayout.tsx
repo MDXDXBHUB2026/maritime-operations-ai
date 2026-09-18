@@ -1,46 +1,99 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import {
-  LayoutDashboard,
-  Ship,
+  Activity,
   AlertTriangle,
-  Wrench,
-  Compass,
-  ShieldCheck,
-  Cpu,
+  BarChart3,
+  Bot,
+  Briefcase,
   CheckCircle2,
+  CheckSquare,
+  Compass,
+  Cpu,
+  Inbox,
+  LayoutDashboard,
   Menu,
-  X,
   RotateCcw,
+  Shield,
+  ShieldAlert,
+  Ship,
+  Wrench,
+  X,
   type LucideIcon,
 } from 'lucide-react';
 import { StorageService } from '../services/storageService';
+import {
+  ApprovalService,
+  EnterpriseStorage,
+  subscribeEnterpriseState,
+} from '../services/enterprise';
 import styles from './MainLayout.module.css';
 
 interface NavItemDef {
   path: string;
   name: string;
   icon: LucideIcon;
-  isAssurance?: boolean;
+  badge?: number;
 }
 
-const NAV_ITEMS: NavItemDef[] = [
-  { path: '/dashboard', name: 'Executive Dashboard', icon: LayoutDashboard },
-  { path: '/fleet', name: 'Fleet Overview', icon: Ship },
-  { path: '/anomalies', name: 'Anomaly Detection', icon: AlertTriangle },
-  { path: '/maintenance', name: 'Predictive Maintenance', icon: Wrench },
-  { path: '/voyage', name: 'Voyage & Fuel', icon: Compass },
-  { path: '/safety', name: 'Safety Monitoring', icon: ShieldCheck },
-  { path: '/automation', name: 'Automation Centre', icon: Cpu },
-  { path: '/assurance', name: 'Application Assurance', icon: CheckCircle2, isAssurance: true },
-];
+interface NavGroupDef {
+  title: string;
+  items: NavItemDef[];
+}
 
 export const MainLayout: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [, setTick] = useState(0);
+
+  useEffect(() => {
+    return subscribeEnterpriseState(() => setTick((t) => t + 1));
+  }, []);
+
+  const pendingApprovalsCount = ApprovalService.getPendingApprovals().length;
+
+  const NAV_GROUPS: NavGroupDef[] = [
+    {
+      title: 'AI ENTERPRISE',
+      items: [
+        { path: '/command-centre', name: 'Executive Command Centre', icon: LayoutDashboard },
+        { path: '/organization', name: 'Organization Hierarchy', icon: Briefcase },
+        { path: '/workforce', name: 'AI Workforce Directory', icon: Bot },
+        { path: '/tasks', name: 'Task Operations', icon: CheckSquare },
+        {
+          path: '/approvals',
+          name: 'Decision & Approvals',
+          icon: Inbox,
+          badge: pendingApprovalsCount > 0 ? pendingApprovalsCount : undefined,
+        },
+        { path: '/activity', name: 'Live Activity Stream', icon: Activity },
+        { path: '/performance', name: 'Workforce Performance', icon: BarChart3 },
+        { path: '/governance', name: 'Governance & Registry', icon: Shield },
+      ],
+    },
+    {
+      title: 'MARITIME OPERATIONS',
+      items: [
+        { path: '/dashboard', name: 'Executive Fleet Map', icon: Compass },
+        { path: '/fleet', name: 'Fleet Overview', icon: Ship },
+        { path: '/anomalies', name: 'Anomaly Detection', icon: AlertTriangle },
+        { path: '/maintenance', name: 'Predictive Maintenance', icon: Wrench },
+        { path: '/voyage', name: 'Voyage & Fuel', icon: Compass },
+        { path: '/safety', name: 'Safety Monitoring', icon: ShieldAlert },
+        { path: '/automation', name: 'Automation Centre', icon: Cpu },
+      ],
+    },
+    {
+      title: 'ASSURANCE & SECURITY',
+      items: [
+        { path: '/assurance', name: 'Application Assurance', icon: CheckCircle2 },
+      ],
+    },
+  ];
 
   const handleResetDemo = () => {
-    if (window.confirm('Reset all simulated operator actions back to pristine seed data?')) {
+    if (window.confirm('Reset all simulated enterprise actions and maritime data back to pristine seed state?')) {
       StorageService.resetDemoState();
+      EnterpriseStorage.resetAll();
       window.location.reload();
     }
   };
@@ -54,39 +107,48 @@ export const MainLayout: React.FC = () => {
             <span>⚓</span>
             <span>MARITIME AI</span>
           </div>
-          <div className={styles.brandSubtitle}>OPERATIONS CONTROL TOWER</div>
+          <div className={styles.brandSubtitle}>AI ENTERPRISE CONTROL TOWER</div>
         </div>
 
         <nav className={styles.nav} aria-label="Main Navigation">
-          {NAV_ITEMS.map((item) => {
-            const Icon = item.icon;
-            const isAssurance = item.isAssurance;
-            return (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                onClick={() => setMobileOpen(false)}
-                className={({ isActive }) =>
-                  `${styles.navItem} ${isActive ? styles.active : ''} ${isAssurance ? styles.assuranceItem : ''}`
-                }
-              >
-                <Icon size={18} />
-                <span>{item.name}</span>
-              </NavLink>
-            );
-          })}
+          {NAV_GROUPS.map((group) => (
+            <div key={group.title} className={styles.navGroup}>
+              <div className={styles.navGroupTitle}>{group.title}</div>
+              {group.items.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setMobileOpen(false)}
+                    className={({ isActive }) =>
+                      `${styles.navItem} ${isActive ? styles.active : ''}`
+                    }
+                  >
+                    <Icon size={16} />
+                    <span style={{ flex: 1 }}>{item.name}</span>
+                    {item.badge !== undefined && (
+                      <span className={styles.navBadge} data-testid="nav-approval-badge">
+                        {item.badge}
+                      </span>
+                    )}
+                  </NavLink>
+                );
+              })}
+            </div>
+          ))}
         </nav>
 
         <div className={styles.sidebarFooter}>
           <div className={styles.sidebarDisclaimer}>
-            Conceptual prototype with synthetic operational datasets. No production maritime systems
-            connected.
+            Simulated AI Enterprise Control Tower. No external production systems connected.
           </div>
           <div className={styles.versionBadge}>
             <span>Static GitHub Pages</span>
             <button
               onClick={handleResetDemo}
               title="Reset simulated actions"
+              data-testid="sidebar-reset-demo-btn"
               style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: '#25c2d8' }}
             >
               <RotateCcw size={12} />
@@ -107,17 +169,33 @@ export const MainLayout: React.FC = () => {
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
             <span className="pill info">
-              <span>●</span> LIVE SYSTEM
+              <span>●</span> SIMULATED ENTERPRISE
             </span>
-            <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>UTC 2026-07-23 14:00</span>
+            <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>
+              UTC 2026-07-23 14:02
+            </span>
+            <span style={{ fontSize: '0.8rem', color: 'var(--cyan)' }}>
+              HQ: Dubai Operations Center
+            </span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+            {pendingApprovalsCount > 0 && (
+              <NavLink
+                to="/approvals"
+                className={styles.pendingApprovalsTopBadge}
+                data-testid="topbar-approvals-link"
+              >
+                <span>⚠️ {pendingApprovalsCount} Decision{pendingApprovalsCount > 1 ? 's' : ''} Pending</span>
+              </NavLink>
+            )}
+
             <button
               onClick={handleResetDemo}
               title="Reset simulated actions"
+              data-testid="topbar-reset-demo-btn"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -134,6 +212,7 @@ export const MainLayout: React.FC = () => {
               <RotateCcw size={12} />
               <span>Reset Demo</span>
             </button>
+
             <NavLink
               to="/assurance"
               className="pill low"

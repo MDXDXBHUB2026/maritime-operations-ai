@@ -1,0 +1,290 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.tabNav {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tabBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.tabBtn:hover {
+  color: var(--text-bright);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.tabBtnActive {
+  color: var(--cyan);
+  background: rgba(37, 194, 216, 0.12);
+  border-color: rgba(37, 194, 216, 0.3);
+}
+
+.sectionWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionInfo {
+  background: rgba(13, 25, 41, 0.6);
+  border-left: 3px solid var(--cyan);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  color: var(--muted-light);
+  line-height: 1.45;
+}
+
+.capGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.capCard {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-card);
+}
+
+.capHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.capCode {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--cyan);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.capName {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  margin-bottom: 0;
+}
+
+.capDesc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.4;
+  flex: 1;
+}
+
+.providerRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  background: rgba(7, 17, 31, 0.5);
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+}
+
+.providerLabel {
+  color: var(--muted);
+}
+
+.providerName {
+  color: var(--text-bright);
+  font-weight: 500;
+  flex: 1;
+}
+
+.dependentAgentsRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+}
+
+.depLabel {
+  color: var(--muted);
+}
+
+.depList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.depTag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  background: rgba(37, 194, 216, 0.08);
+  border: 1px solid rgba(37, 194, 216, 0.25);
+  color: var(--cyan);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+}
+
+.capActions {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.toggleStatusBtn {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  background: rgba(37, 194, 216, 0.15);
+  color: var(--cyan);
+  border: 1px solid rgba(37, 194, 216, 0.35);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toggleStatusBtn:hover {
+  background: rgba(37, 194, 216, 0.25);
+}
+
+.policyList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.policyCard {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  box-shadow: var(--shadow-card);
+}
+
+.policyTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.policyIdTag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.policyTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  margin-bottom: 0;
+}
+
+.policyDesc {
+  font-size: 0.82rem;
+  color: var(--muted-light);
+  line-height: 1.45;
+}
+
+.rulesBox {
+  background: rgba(7, 17, 31, 0.6);
+  border-left: 3px solid #c084fc;
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--text);
+}
+
+.minLevelRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.auditTableCard {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.tableResponsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.82rem;
+}
+
+.table th {
+  background: rgba(7, 17, 31, 0.8);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  vertical-align: middle;
+}
+
+.actionTag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: #c084fc;
+}

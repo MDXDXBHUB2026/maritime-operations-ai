@@ -1,0 +1,187 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.streamStatusNotice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.disclaimerText {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.filterBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.searchBox {
+  position: relative;
+  flex: 1;
+  min-width: 260px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+}
+
+.searchInput {
+  width: 100%;
+  padding-left: 2.25rem !important;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.selectWrapper select {
+  padding: 0.45rem 0.75rem;
+  font-size: 0.82rem;
+}
+
+.streamCard {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-card);
+}
+
+.emptyState {
+  padding: 3rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.eventItem {
+  background: rgba(13, 25, 41, 0.7);
+  border: 1px solid var(--line);
+  border-left-width: 3px;
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  transition: background 0.15s ease;
+}
+
+.eventItem:hover {
+  background: rgba(13, 25, 41, 0.95);
+}
+
+.eventTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.eventMetaLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+}
+
+.eventIdTag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.eventTimestamp {
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.eventTaskBadge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  color: var(--muted-light);
+}
+
+.eventMetaRight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.eventTypeBadge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #c084fc;
+  font-weight: 600;
+}
+
+.eventActorRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  flex-wrap: wrap;
+}
+
+.actorLabel {
+  color: var(--muted);
+}
+
+.actorName {
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.deptCodeTag {
+  font-size: 0.68rem;
+  color: var(--cyan);
+  background: rgba(37, 194, 216, 0.1);
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+}
+
+.escalationTag {
+  color: var(--amber);
+  font-weight: 500;
+}
+
+.eventSummary {
+  font-size: 0.84rem;
+  color: var(--text);
+  line-height: 1.45;
+}

@@ -1,0 +1,600 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.workforceCountBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background: rgba(37, 194, 216, 0.1);
+  border: 1px solid rgba(37, 194, 216, 0.3);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-md);
+}
+
+.countNum {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--cyan);
+}
+
+.countLabel {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.filterToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.searchBox {
+  position: relative;
+  flex: 1;
+  min-width: 260px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+}
+
+.searchInput {
+  width: 100%;
+  padding-left: 2.25rem !important;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.selectWrapper select {
+  padding: 0.45rem 0.75rem;
+  font-size: 0.82rem;
+}
+
+.tableCard {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.tableResponsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.82rem;
+}
+
+.table th {
+  background: rgba(7, 17, 31, 0.8);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  vertical-align: middle;
+}
+
+.table tbody tr:hover {
+  background: rgba(37, 194, 216, 0.04);
+}
+
+.selectedRow {
+  background: rgba(37, 194, 216, 0.08) !important;
+}
+
+.agentCell {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.agentIconWrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(37, 194, 216, 0.12);
+  color: var(--cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.agentName {
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.agentRole {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.agentIdTag {
+  font-size: 0.68rem;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+}
+
+.deptBadge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+}
+
+.managerCell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.managerRole {
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.healthCell {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+}
+
+.healthBar {
+  width: 48px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.healthBarFill {
+  height: 100%;
+}
+
+.actionCell {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pauseBtn,
+.resumeBtn,
+.inspectBtn {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.55rem;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.15s ease;
+}
+
+.pauseBtn {
+  background: rgba(246, 184, 75, 0.15);
+  color: #f6b84b;
+  border: 1px solid rgba(246, 184, 75, 0.35);
+}
+
+.pauseBtn:hover {
+  background: rgba(246, 184, 75, 0.28);
+}
+
+.resumeBtn {
+  background: rgba(40, 196, 153, 0.15);
+  color: #28c499;
+  border: 1px solid rgba(40, 196, 153, 0.35);
+}
+
+.resumeBtn:hover {
+  background: rgba(40, 196, 153, 0.28);
+}
+
+.inspectBtn {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+
+.inspectBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Drawer */
+.drawerOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(3, 8, 15, 0.75);
+  backdrop-filter: blur(3px);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drawer {
+  width: 100%;
+  max-width: 520px;
+  height: 100%;
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  box-shadow: var(--shadow-elevated);
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.drawerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.5rem 1.5rem 0.75rem 1.5rem;
+}
+
+.drawerRole {
+  font-size: 0.85rem;
+  color: var(--cyan);
+}
+
+.closeBtn {
+  color: var(--muted);
+  padding: 0.25rem;
+  border-radius: 4px;
+}
+
+.closeBtn:hover {
+  color: var(--text-bright);
+}
+
+.drawerBody {
+  padding: 1rem 1.5rem 1.5rem 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  flex: 1;
+}
+
+.controlSection {
+  background: rgba(7, 17, 31, 0.7);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+}
+
+.controlSection h3 {
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.6rem;
+}
+
+.controlButtonsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.controlBtnPause {
+  padding: 0.35rem 0.75rem;
+  background: rgba(246, 184, 75, 0.18);
+  color: #f6b84b;
+  border: 1px solid rgba(246, 184, 75, 0.4);
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.controlBtnPlay {
+  padding: 0.35rem 0.75rem;
+  background: rgba(40, 196, 153, 0.18);
+  color: #28c499;
+  border: 1px solid rgba(40, 196, 153, 0.4);
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.controlBtnSecondary {
+  padding: 0.35rem 0.75rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.controlBtnSecondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.metaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  background: rgba(7, 17, 31, 0.6);
+  padding: 0.85rem;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.metaLabel {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.infoBox {
+  background: rgba(13, 25, 41, 0.6);
+  border-left: 3px solid var(--cyan);
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+}
+
+.infoLabel {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.infoText {
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.drawerSection h3 {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.6rem;
+}
+
+.metricsQuad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.quadItem {
+  background: rgba(7, 17, 31, 0.6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quadVal {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--cyan);
+}
+
+.quadLabel {
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.toolList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toolRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.8rem;
+  background: rgba(7, 17, 31, 0.5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+
+.toolName {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.toolDesc {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.toolBtnEnabled {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  background: rgba(40, 196, 153, 0.18);
+  color: #28c499;
+  border: 1px solid rgba(40, 196, 153, 0.4);
+  border-radius: 4px;
+}
+
+.toolBtnDisabled {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  background: rgba(239, 91, 105, 0.18);
+  color: #ef5b69;
+  border: 1px solid rgba(239, 91, 105, 0.4);
+  border-radius: 4px;
+}
+
+.emptyDecisions {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-style: italic;
+  padding: 0.75rem;
+  background: rgba(7, 17, 31, 0.4);
+  border-radius: var(--radius-sm);
+}
+
+.decisionList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.decisionCard {
+  background: rgba(7, 17, 31, 0.7);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.decisionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.decisionSummary {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #f0f6fc;
+}
+
+.decisionConfidence {
+  font-size: 0.72rem;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.rationaleBox {
+  font-size: 0.8rem;
+  color: var(--muted-light);
+  line-height: 1.4;
+}
+
+.evidenceRow {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  font-size: 0.72rem;
+}
+
+.evidenceLabel {
+  color: var(--muted);
+}
+
+.evidenceTag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 0.1rem 0.35rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--cyan);
+}
+
+.policyRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 0.35rem;
+}
+
+.drawerFooter {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.closeDrawerBtn {
+  padding: 0.45rem 1.25rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.closeDrawerBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}

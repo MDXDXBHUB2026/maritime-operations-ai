@@ -1,0 +1,489 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.legendRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.legendDotHuman {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #38bdf8;
+}
+
+.legendDotAdvisor {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #c084fc;
+}
+
+.legendDotAgent {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #25c2d8;
+}
+
+.treeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.levelWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.ceoBlock {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 2rem;
+}
+
+.advisorBranch {
+  display: flex;
+  align-items: center;
+}
+
+.advisorLine {
+  width: 2rem;
+  height: 2px;
+  background: var(--line-light);
+  border-top: 1px dashed #c084fc;
+}
+
+.trunkLine {
+  width: 2px;
+  height: 2.5rem;
+  background: var(--line-light);
+  margin: 0.25rem 0;
+}
+
+.departmentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  align-items: start;
+}
+
+.deptBranch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.branchLine {
+  width: 2px;
+  height: 1.25rem;
+  background: var(--line);
+}
+
+.deptCollapseToggle {
+  display: none;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0.6rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .deptCollapseToggle {
+    display: flex;
+  }
+}
+
+.nodeCard {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  width: 100%;
+  max-width: 320px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nodeCard:hover,
+.nodeCard:focus {
+  outline: none;
+  border-color: var(--cyan);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+}
+
+.ceoCard {
+  border-color: rgba(56, 189, 248, 0.5);
+  background: linear-gradient(135deg, #102138, #0b1829);
+  max-width: 280px;
+}
+
+.advisorCard {
+  border-color: rgba(192, 132, 252, 0.4);
+  background: linear-gradient(135deg, #171732, #0d1226);
+  max-width: 260px;
+}
+
+.directorCard {
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.deptTag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.managerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.managerSubBranch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  background: rgba(13, 25, 41, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem;
+}
+
+.managerCard {
+  border-color: rgba(56, 189, 248, 0.25);
+  background: #0f1d2e;
+}
+
+.directReportHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  color: var(--cyan);
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  align-self: flex-start;
+}
+
+.agentsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.agentCard {
+  background: #0b1625;
+  border-color: rgba(37, 194, 216, 0.22);
+  padding: 0.65rem 0.75rem;
+}
+
+.agentCard:hover {
+  border-color: var(--cyan);
+}
+
+.nodeHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.avatarHuman {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.avatarAdvisor {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(192, 132, 252, 0.15);
+  color: #c084fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.avatarAgent {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(37, 194, 216, 0.15);
+  color: #25c2d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nodeName {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.nodeRole {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.agentNameText {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.agentIdText {
+  font-size: 0.7rem;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+}
+
+.nodeFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 0.4rem;
+}
+
+.agentMetaRow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.agentTaskFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  padding-top: 0.35rem;
+}
+
+/* Drawer / Modal */
+.drawerOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(3, 8, 15, 0.75);
+  backdrop-filter: blur(3px);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drawer {
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  box-shadow: var(--shadow-elevated);
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.drawerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.closeBtn {
+  color: var(--muted);
+  padding: 0.25rem;
+  border-radius: 4px;
+}
+
+.closeBtn:hover {
+  color: var(--text-bright);
+}
+
+.drawerRole {
+  font-size: 0.85rem;
+  color: var(--cyan);
+}
+
+.drawerBody {
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+.drawerMetaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  background: rgba(7, 17, 31, 0.6);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+}
+
+.drawerMetaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.drawerMetaLabel {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.drawerSection h3 {
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+
+.drawerDesc {
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.agentMetricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.metricBox {
+  background: rgba(7, 17, 31, 0.6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metricVal {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--cyan);
+}
+
+.metricLabel {
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.permTag {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  padding: 0.2rem 0.45rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--muted-light);
+}
+
+.drawerFooter {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.closeDrawerBtn {
+  padding: 0.4rem 1.25rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.closeDrawerBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
