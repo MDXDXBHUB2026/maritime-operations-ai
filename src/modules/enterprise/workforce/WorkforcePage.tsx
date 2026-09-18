@@ -259,6 +259,7 @@ export const WorkforcePage: React.FC = () => {
                           className={styles.inspectBtn}
                           onClick={() => setSelectedAgentId(agent.id)}
                           title="View agent details and structured decisions"
+                          data-testid={`btn-profile-${agent.id.toLowerCase()}`}
                         >
                           Profile
                         </button>
