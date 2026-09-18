@@ -3,14 +3,45 @@
 [![Application Assurance CI Pipeline](https://github.com/MDXDXBHUB2026/maritime-operations-ai/actions/workflows/assurance.yml/badge.svg)](https://github.com/MDXDXBHUB2026/maritime-operations-ai/actions/workflows/assurance.yml)
 [![Deploy to GitHub Pages](https://github.com/MDXDXBHUB2026/maritime-operations-ai/actions/workflows/deploy.yml/badge.svg)](https://github.com/MDXDXBHUB2026/maritime-operations-ai/actions/workflows/deploy.yml)
 
-A high-performance, static React Single-Page Application (SPA) deployed to GitHub Pages, providing situational awareness and simulated decision support for commercial maritime operations.
+A high-performance, static React Single-Page Application (SPA) deployed to GitHub Pages, providing situational awareness and simulated decision support for commercial maritime operations, extended with a corporate-grade **AI Enterprise Control Tower** modeling autonomous agent governance and executive supervision.
 
 - **Live Production URL**: [https://mdxdxbhub2026.github.io/maritime-operations-ai/](https://mdxdxbhub2026.github.io/maritime-operations-ai/)
 - **Repository**: [https://github.com/MDXDXBHUB2026/maritime-operations-ai](https://github.com/MDXDXBHUB2026/maritime-operations-ai)
+- **Enterprise Architecture Guide**: [`docs/enterprise-control-tower.md`](docs/enterprise-control-tower.md)
 
 ---
 
-## Operational Modules
+## Phase 2: AI Corporate Hierarchy & Enterprise Control Tower
+
+The AI Enterprise Control Tower provides a corporate operating model that governs how executive leadership and department heads supervise a multi-tier hierarchy of autonomous AI agents.
+
+### Core Architectural Principle
+> *"Management has visibility across the organization and authority to intervene, while operational work remains delegated through the organizational hierarchy."*
+
+### Key Enterprise Concepts
+- **Human vs. AI Distinction**: Explicit entity types distinguish operational humans (`HUMAN` — CEO, Directors, Managers), staff advisory intelligence (`AI_ADVISOR` — Executive AI Advisor), and autonomous workers (`AI_AGENT` — 16 specialized agents).
+- **Separation of Reporting vs. Authority**: Reporting lines define managerial supervision, while an explicit authority model (`EXECUTIVE`, `DIRECTOR`, `MANAGER`, `LEAD`, `AGENT`, `OBSERVER`) controls task assignment and approval permissions.
+- **Deterministic Risk & Approval Governance**: High and Critical risk tasks are halted by deterministic policy gates (`WAITING_APPROVAL`) requiring human sign-off; Critical tasks mandate secondary audit by the `Independent Verification Agent`.
+- **Capability Registry & Graceful Degradation**: Agents declare business capability requirements; simulated capability outages gracefully degrade agent operational modes (`FULL`, `LIMITED`, `DEGRADED`, `UNAVAILABLE`) rather than failing the platform.
+- **Centralized Event Layer & Immutable Audit Trail**: All agent actions, policy evaluations, and managerial decisions publish structured events to an enterprise event store and immutable audit log.
+- **Simulated Prototype Boundary**: All agent operations are client-side simulated demonstration controls with no live backend credentials or destructive OT actions, labeled: *"Simulated prototype control — no external system action executed."*
+
+---
+
+## Enterprise Control Tower Modules
+
+1. **Executive Command Centre** (`#/command-centre`) — High-level workforce KPIs, active exceptions, "Needs Attention" triage, departmental health matrix, and executive event stream.
+2. **Corporate Organization** (`#/organization`) — Interactive multi-level corporate hierarchy tree mapping CEO, advisory staff, Directors, Managers, and Agents with entity drill-down.
+3. **AI Workforce Directory** (`#/workforce`) — Complete directory of human leaders and AI agents with search, status filters, and interactive **Agent Profile** drawer with supervisory controls (Pause, Resume, Reassign, Verify).
+4. **Task Operations** (`#/tasks`) — Enterprise task register with multi-criteria filtering, lifecycle tracking (`CREATED` to `COMPLETED`), and interactive **Task Detail** drawer.
+5. **Decision & Approval Inbox** (`#/approvals`) — Management approval queue with tabbed views (*Awaiting My Approval*, *Escalations*, *Verification Required*), and high-risk confirmation modals.
+6. **Live Activity Stream** (`#/activity`) — Centralized multi-actor chronological event timeline with department and actor filters.
+7. **Performance Analytics** (`#/performance`) — Aggregate SLA, quality score, pass rate, and task completion analytics at enterprise, department, and agent levels.
+8. **Governance & Audit** (`#/governance`) — Interactive Policy Register, Capability Registry with live capability status toggling, and immutable audit trail.
+
+---
+
+## Maritime Operational Modules
 
 1. **Executive Dashboard** (`#/dashboard`) — Fleet readiness rate, active vessels, critical alerts, live SVG map, equipment health breakdown, and 7-day fuel variance.
 2. **Fleet Overview** (`#/fleet`) — Global interactive vessel map, 5 multi-dimensional filters, health/delay/exposure breakdowns, vessel drill-down, and operational status simulator.
