@@ -533,6 +533,7 @@ export const SafetyMonitoringPage: React.FC = () => {
           domain="safety"
           entityId={selectedEvent.event_id}
           entityLabel={`${selectedEvent.event_id} · ${selectedEvent.event_type}`}
+          siteName={selectedEvent.vessel_or_terminal}
         />
       )}
 

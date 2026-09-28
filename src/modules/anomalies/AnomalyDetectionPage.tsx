@@ -579,6 +579,7 @@ export const AnomalyDetectionPage: React.FC = () => {
             domain="anomaly"
             entityId={selectedAnomaly.anomaly_id}
             entityLabel={`${selectedAnomaly.anomaly_id} · ${selectedAnomaly.asset_name}`}
+            siteName={selectedAnomaly.vessel_or_terminal}
           />
 
           {/* Action History */}

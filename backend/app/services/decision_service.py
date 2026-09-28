@@ -22,7 +22,7 @@ from app.domain.errors import (
     InvalidTransitionError,
     NotFoundError,
 )
-from app.security.permissions import approver_labels, can_decide, can_generate, can_review
+from app.security.permissions import approver_labels, can_decide, can_generate, can_review, in_scope
 from app.domain.models import DecisionOut, Principal
 from app.services.audit_service import AuditService
 from app.services.maritime_service import MaritimeService
@@ -43,6 +43,10 @@ class SeparationOfDutiesError(ForbiddenError):
     code = "separation_of_duties"
 
 
+class OutOfScopeError(ForbiddenError):
+    code = "out_of_scope"
+
+
 def _now() -> datetime:
     return datetime.now(timezone.utc)
 
@@ -53,7 +57,8 @@ def to_out(rec: DecisionRecord) -> DecisionOut:
         status=rec.status, severity=rec.severity, summary=rec.summary, rationale=rec.rationale,
         evidence=rec.evidence, recommended_actions=rec.recommended_actions, confidence=rec.confidence,
         confidence_basis=rec.confidence_basis, requires_human_approval=rec.requires_human_approval,
-        safety_critical=rec.safety_critical, provider=rec.provider, created_by=rec.created_by,
+        safety_critical=rec.safety_critical, provider=rec.provider, site_id=rec.site_id, site_name=rec.site_name,
+        created_by=rec.created_by,
         created_by_role=rec.created_by_role, created_by_user_id=rec.created_by_user_id,
         created_at=rec.created_at, updated_at=rec.updated_at, reviewed_by=rec.reviewed_by,
         decided_by=rec.decided_by, decided_by_role=rec.decided_by_role, decided_at=rec.decided_at, decision_comment=rec.decision_comment,
@@ -104,11 +109,42 @@ class DecisionService:
             f"requires {' or '.join(approver_labels(domain))}",
         )
 
+    def _require_site(self, site_id: Optional[str], site_name: Optional[str], principal: Principal,
+                      verb: str) -> None:
+        if in_scope(principal.fleet_wide, principal.site_ids, site_id):
+            return
+        where = site_name or "an unresolved site"
+        if not principal.fleet_wide and not principal.site_ids:
+            raise OutOfScopeError(f"{principal.display_name} has no site assignment; cannot {verb} decisions")
+        sites = self.maritime.site_by_id()
+        assigned = ", ".join(sorted(sites[i].name if i in sites else i for i in principal.site_ids))
+        raise OutOfScopeError(
+            f"{principal.display_name} cannot {verb} decisions for {where}; authority is limited to: {assigned}")
+
+    def _site_of(self, rec: DecisionRecord) -> tuple[Optional[str], Optional[str]]:
+        """Site of a decision; decisions created before site scoping are resolved once and stored."""
+        if rec.site_id is None:
+            try:
+                site = self.maritime.site_for_context(
+                    self.maritime.build_context(AgentName(rec.agent), rec.entity_id))
+            except NotFoundError:
+                site = None
+            if site is not None:
+                rec.site_id, rec.site_name = site.site_id, site.name
+        return rec.site_id, rec.site_name
+
+    def _require_decision_scope(self, rec: DecisionRecord, principal: Principal, verb: str) -> None:
+        site_id, site_name = self._site_of(rec)
+        self._require_site(site_id, site_name, principal, verb)
+
     # -- commands ---------------------------------------------------------
     def generate(self, agent: AgentName, entity_id: str, principal: Principal) -> DecisionOut:
         self._require(can_generate(principal.role),
                       f"{principal.role.label} cannot request AI recommendations")
         context = self.maritime.build_context(agent, entity_id)
+        site = self.maritime.site_for_context(context)
+        self._require_site(site.site_id if site else None, site.name if site else None, principal,
+                           "request")
         rec_model = self.manager.recommend(context)
         now = _now()
         rec = DecisionRecord(
@@ -119,7 +155,8 @@ class DecisionService:
             recommended_actions=[a.model_dump(mode="json") for a in rec_model.recommended_actions],
             confidence=rec_model.confidence, confidence_basis=rec_model.confidence_basis.value,
             requires_human_approval=rec_model.requires_human_approval, safety_critical=rec_model.safety_critical,
-            provider=rec_model.provider, created_by=principal.actor_label, created_by_user_id=principal.user_id,
+            provider=rec_model.provider, site_id=site.site_id if site else None,
+            site_name=site.name if site else None, created_by=principal.actor_label, created_by_user_id=principal.user_id,
             created_by_role=principal.role.value, created_at=now, updated_at=now,
         )
         self.session.add(rec)
@@ -128,7 +165,8 @@ class DecisionService:
             principal, action=AuditAction.RECOMMENDATION_CREATED, entity_type=EntityType.DECISION,
             entity_id=rec.id, previous_state=None, new_state=S.PROPOSED, decision_id=rec.id,
             details={"agent": rec.agent, "source_entity_type": rec.entity_type, "source_entity_id": rec.entity_id,
-                     "severity": rec.severity, "provider": rec.provider, "routed_by": AgentName.MANAGER.value},
+                     "severity": rec.severity, "provider": rec.provider, "routed_by": AgentName.MANAGER.value,
+                     "site_id": rec.site_id, "site_name": rec.site_name},
         )
         self.session.commit()
         return to_out(rec)
@@ -154,6 +192,7 @@ class DecisionService:
     def review(self, decision_id: str, principal: Principal, comment: Optional[str]) -> DecisionOut:
         self._require(can_review(principal.role), f"{principal.role.label} cannot review decisions")
         rec = self._load(decision_id)
+        self._require_decision_scope(rec, principal, "review")
         rec = self._transition(rec, S.UNDER_REVIEW, principal, AuditAction.REVIEW_STARTED,
                                details={"comment": comment} if comment else None)
         rec.reviewed_by = principal.actor_label
@@ -163,6 +202,7 @@ class DecisionService:
     def approve(self, decision_id: str, principal: Principal, comment: Optional[str]) -> DecisionOut:
         rec = self._load(decision_id)
         self._require_decider(rec, principal, "approve")
+        self._require_decision_scope(rec, principal, "approve")
         if rec.safety_critical and rec.created_by_user_id == principal.user_id:
             raise SeparationOfDutiesError(
                 "Safety-critical decisions need a second person: the requester cannot approve their own request")
@@ -176,6 +216,7 @@ class DecisionService:
     def reject(self, decision_id: str, principal: Principal, reason: str) -> DecisionOut:
         rec = self._load(decision_id)
         self._require_decider(rec, principal, "reject")
+        self._require_decision_scope(rec, principal, "reject")
         now = _now()
         rec = self._transition(rec, S.REJECTED, principal, AuditAction.REJECTED,
                                human_approval=self._approval_record(principal, False, now, reason))
@@ -193,6 +234,7 @@ class DecisionService:
         """Simulated execution. Only reachable from APPROVED, which itself requires an authorised human."""
         rec = self._load(decision_id)
         self._require_decider(rec, principal, "execute")
+        self._require_decision_scope(rec, principal, "execute")
         if rec.status != S.APPROVED.value or not rec.decided_by_user_id:
             raise HumanApprovalRequiredError(
                 f"Decision is {rec.status}; execution requires prior human approval (APPROVED)")
@@ -209,6 +251,7 @@ class DecisionService:
     def cancel(self, decision_id: str, principal: Principal, reason: str) -> DecisionOut:
         rec = self._load(decision_id)
         self._require_decider(rec, principal, "cancel")
+        self._require_decision_scope(rec, principal, "cancel")
         rec = self._transition(rec, S.CANCELLED, principal, AuditAction.CANCELLED, details={"reason": reason})
         self.session.commit()
         return to_out(rec)

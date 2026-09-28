@@ -41,6 +41,8 @@ export interface Decision {
   requires_human_approval: boolean;
   safety_critical: boolean;
   provider: string;
+  site_id?: string | null;
+  site_name?: string | null;
   created_by: string;
   created_by_role?: string | null;
   created_by_user_id?: string | null;

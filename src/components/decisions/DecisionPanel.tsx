@@ -7,7 +7,7 @@ import {
   type DecisionDomain,
 } from '../../services/decisionService';
 import { ApiError } from '../../services/apiClient';
-import { approverLabels, canDecide } from '../../services/authSession';
+import { approverLabels, canDecide, inScope, scopeText } from '../../services/authSession';
 import { useAuth } from '../../app/AuthContext';
 import { AuditTimeline, SeverityPill, StatusPill, confidenceText, formatUtc } from './decisionUi';
 
@@ -15,16 +15,24 @@ interface DecisionPanelProps {
   domain: DecisionDomain;
   entityId: string;
   entityLabel: string;
+  /** Vessel or terminal the selected item belongs to (for the site-scope check). */
+  siteName?: string;
 }
 
 const OPEN_STATES = ['PROPOSED', 'UNDER_REVIEW'];
 
 /**
  * AI Decision Support panel: an agent proposes; the signed-in user acts within their role's
- * authority (reviews, approves or rejects), and execution is simulated. Every transition is recorded by the backend audit trail.
+ * authority and site scope (reviews, approves or rejects), and execution is simulated. Every
+ * transition is recorded by the backend audit trail.
  * In STATIC mode (GitHub Pages) it only explains how to enable the workflow.
  */
-export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, entityLabel }) => {
+export const DecisionPanel: React.FC<DecisionPanelProps> = ({
+  domain,
+  entityId,
+  entityLabel,
+  siteName,
+}) => {
   const apiMode = DecisionService.isAvailable();
   const { user } = useAuth();
   const [decisions, setDecisions] = useState<Decision[]>([]);
@@ -84,6 +92,14 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
   // Four-eyes: the requester of a safety-critical decision cannot approve it.
   const fourEyesBlocked =
     !!active?.safety_critical && !!user && active?.created_by_user_id === user.user_id;
+  // Site scope: requests use the selected item's site; actions use the decision's recorded site.
+  const myScope = scopeText(user);
+  const requestInScope = inScope(user, { siteName });
+  const decisionSite = active?.site_name ?? siteName ?? 'this site';
+  const decisionInScope = active
+    ? inScope(user, { siteId: active.site_id, siteName: active.site_name })
+    : requestInScope;
+  const outOfScopeText = `Outside your scope: ${decisionSite} is not covered by your authority (${myScope}).`;
 
   const run = async (label: string, fn: () => Promise<Decision>) => {
     setBusy(true);
@@ -127,16 +143,22 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
       </h3>
       <div className="decision-note">
         Agents propose; people decide within their role. You are signed in as{' '}
-        <strong>{user?.display_name ?? 'unknown'}</strong> ({user?.role_label ?? 'no role'}).
-        Approval of {domain} decisions requires {requiredRoles}. Execution is simulated and every
-        state change is audited.
+        <strong>{user?.display_name ?? 'unknown'}</strong> ({user?.role_label ?? 'no role'}; scope:{' '}
+        {myScope}). Approval of {domain} decisions requires {requiredRoles} for{' '}
+        {siteName ?? 'the site'}. Execution is simulated and every state change is audited.
       </div>
 
       <div className="decision-toolbar">
         <button
           className="btn btn-primary"
-          disabled={busy || !canGenerate}
-          title={canGenerate ? undefined : `${user?.role_label} cannot request recommendations`}
+          disabled={busy || !canGenerate || !requestInScope}
+          title={
+            !canGenerate
+              ? `${user?.role_label} cannot request recommendations`
+              : !requestInScope
+                ? outOfScopeText
+                : undefined
+          }
           onClick={() =>
             run('Recommendation generated', () => DecisionService.generate(domain, entityId))
           }
@@ -163,6 +185,11 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
       {!canGenerate && (
         <div className="decision-muted" data-testid="decision-role-note">
           Your role ({user?.role_label}) has read-only access to AI recommendations.
+        </div>
+      )}
+      {canGenerate && !decisionInScope && (
+        <div className="decision-scope-note" data-testid="decision-scope-note">
+          {outOfScopeText} You can view this item but not request, review or decide on it.
         </div>
       )}
 
@@ -194,6 +221,10 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
             <div>
               <label>Agent</label>
               <div>{active.agent}</div>
+            </div>
+            <div>
+              <label>Site</label>
+              <div data-testid="decision-site">{active.site_name ?? 'Unresolved'}</div>
             </div>
             <div>
               <label>Confidence</label>
@@ -254,7 +285,7 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
               {status === 'PROPOSED' && (
                 <button
                   className="btn"
-                  disabled={busy || !canReview}
+                  disabled={busy || !canReview || !decisionInScope}
                   onClick={() =>
                     run('Review started', () =>
                       DecisionService.review(active.recommendation_id, note || undefined)
@@ -266,7 +297,7 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
               )}
               <button
                 className="btn btn-success"
-                disabled={busy || !mayDecide || fourEyesBlocked}
+                disabled={busy || !mayDecide || fourEyesBlocked || !decisionInScope}
                 title={
                   !mayDecide
                     ? `Requires ${requiredRoles}`
@@ -284,7 +315,7 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
               </button>
               <button
                 className="btn btn-danger"
-                disabled={busy || !mayDecide || note.trim().length < 3}
+                disabled={busy || !mayDecide || !decisionInScope || note.trim().length < 3}
                 title={
                   !mayDecide
                     ? `Requires ${requiredRoles}`
@@ -317,7 +348,7 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
             <div className="decision-controls">
               <button
                 className="btn btn-primary"
-                disabled={busy || !mayDecide}
+                disabled={busy || !mayDecide || !decisionInScope}
                 title={mayDecide ? undefined : `Requires ${requiredRoles}`}
                 onClick={() =>
                   run('Simulated execution', () =>

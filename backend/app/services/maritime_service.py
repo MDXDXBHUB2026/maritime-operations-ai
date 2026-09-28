@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
-from app.domain.enums import AgentName, EntityType
+import re
+from typing import Optional
+
+from app.domain.enums import AgentName, EntityType, SiteType
 from app.domain.errors import NotFoundError
-from app.domain.models import AgentContext
+from app.domain.models import AgentContext, Site
 from app.repositories.base import MaritimeRepository, Record
 
 
@@ -44,6 +47,38 @@ class MaritimeService:
             return self.repo.list_dataset(name)
         except KeyError as exc:
             raise NotFoundError(f"Dataset '{name}' is not available") from exc
+
+    # -- sites -------------------------------------------------------------
+    @staticmethod
+    def terminal_site_id(name: str) -> str:
+        return "TRM-" + re.sub(r"[^A-Z0-9]+", "-", name.upper()).strip("-")
+
+    def list_sites(self) -> list[Site]:
+        """Vessels from the fleet register plus terminals referenced by operational records."""
+        vessels = [Site(site_id=v["vessel_id"], name=v["vessel_name"], site_type=SiteType.VESSEL)
+                   for v in self.repo.list_vessels()]
+        vessel_names = {s.name for s in vessels}
+        terminal_names: set[str] = set()
+        for dataset in ("anomalies", "maintenance_assets", "safety_events"):
+            for r in self.repo.list_dataset(dataset):
+                name = r.get("vessel_or_terminal")
+                if name and name not in vessel_names:
+                    terminal_names.add(name)
+        terminals = [Site(site_id=self.terminal_site_id(n), name=n, site_type=SiteType.TERMINAL)
+                     for n in sorted(terminal_names)]
+        return vessels + terminals
+
+    def site_by_id(self) -> dict[str, Site]:
+        return {s.site_id: s for s in self.list_sites()}
+
+    def site_for_context(self, context: AgentContext) -> Optional[Site]:
+        """Resolve which vessel/terminal a decision belongs to. None if it cannot be resolved."""
+        record = context.record
+        sites = self.list_sites()
+        if record.get("vessel_id"):
+            return next((s for s in sites if s.site_id == record["vessel_id"]), None)
+        name = record.get("vessel_or_terminal") or record.get("vessel_name")
+        return next((s for s in sites if s.name == name), None) if name else None
 
     def build_context(self, agent: AgentName, entity_id: str) -> AgentContext:
         if agent == AgentName.ANOMALY:

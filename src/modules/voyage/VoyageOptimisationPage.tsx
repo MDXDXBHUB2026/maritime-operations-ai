@@ -687,6 +687,7 @@ export const VoyageOptimisationPage: React.FC = () => {
           domain="voyage"
           entityId={selectedPlan.voyage_id}
           entityLabel={`${selectedPlan.voyage_id} · ${selectedPlan.vessel_name}`}
+          siteName={selectedPlan.vessel_name}
         />
       )}
 

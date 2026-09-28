@@ -95,6 +95,11 @@ class Role(str, Enum):
         }[self.value]
 
 
+class SiteType(str, Enum):
+    VESSEL = "vessel"
+    TERMINAL = "terminal"
+
+
 class ConfidenceBasis(str, Enum):
     """Explains where a confidence value comes from, so no number is presented without provenance."""
 

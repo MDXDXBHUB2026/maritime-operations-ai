@@ -46,8 +46,12 @@ def get_decision_service(
 # ---------------------------------------------------------------------------
 # Authentication
 # ---------------------------------------------------------------------------
-def get_auth_service(request: Request, session: Session = Depends(get_session)) -> AuthService:
-    return AuthService(session, request.app.state.settings)
+def get_auth_service(
+    request: Request,
+    session: Session = Depends(get_session),
+    maritime: MaritimeService = Depends(get_maritime_service),
+) -> AuthService:
+    return AuthService(session, request.app.state.settings, maritime.site_by_id)
 
 
 def get_bearer_token(request: Request) -> str:

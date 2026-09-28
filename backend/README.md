@@ -52,13 +52,18 @@ All endpoints except `/health` and `/auth/login` require a signed-in user. Creat
 
 ```bash
 python -m app.cli seed-demo-users     # demo role accounts, prompts for one shared password
-python -m app.cli create-user --username j.smith --display-name "J. Smith" --role chief_engineer
+python -m app.cli list-sites           # vessels and terminals that can be assigned
+python -m app.cli create-user --username j.smith --display-name "J. Smith" --role chief_engineer --sites VES-001
 python -m app.cli list-users
 ```
 
 For a quick local demo you can instead set `DEMO_USERS_PASSWORD` in `backend/.env`
 (min. 10 characters, upper/lower case and a digit). Demo accounts: `admin`, `duty.officer`,
-`chief.engineer`, `master`, `tech.super`, `marine.super`, `hse.manager`, `viewer`.
+`chief.engineer` + `master` (MV Horizon Star), `chief.meridian` + `master.meridian` (MV Meridian),
+`tech.super`, `marine.super`, `hse.manager` (fleet-wide), `viewer`.
+
+Authority is **per site**: Masters and Chief Engineers act only for their assigned vessels; shore roles
+are fleet-wide or limited to chosen vessels and terminals.
 
 Roles and approval authority: [`docs/architecture/auth-rbac.md`](../docs/architecture/auth-rbac.md).
 

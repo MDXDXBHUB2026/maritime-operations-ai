@@ -592,6 +592,7 @@ export const PredictiveMaintenancePage: React.FC = () => {
           domain="maintenance"
           entityId={selectedAsset.asset_id}
           entityLabel={`${selectedAsset.asset_id} · ${selectedAsset.asset_name} (${selectedAsset.vessel_or_terminal})`}
+          siteName={selectedAsset.vessel_or_terminal}
         />
       )}
 

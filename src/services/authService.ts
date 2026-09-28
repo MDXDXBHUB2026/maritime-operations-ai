@@ -1,5 +1,5 @@
 import { ApiClient } from './apiClient';
-import { AuthSessionStore, type CurrentUser, type RoleName } from './authSession';
+import { AuthSessionStore, type CurrentUser, type RoleName, type Site } from './authSession';
 
 interface LoginResponse {
   access_token: string;
@@ -15,8 +15,15 @@ export interface ManagedUser {
   role: RoleName;
   role_label: string;
   is_active: boolean;
+  fleet_wide: boolean;
+  sites: Site[];
   last_login_at: string | null;
   created_at: string;
+}
+
+export interface UserScopeInput {
+  fleet_wide?: boolean;
+  site_ids?: string[];
 }
 
 export const ROLE_OPTIONS: { value: RoleName; label: string }[] = [
@@ -29,6 +36,17 @@ export const ROLE_OPTIONS: { value: RoleName; label: string }[] = [
   { value: 'hse_manager', label: 'HSE Manager' },
   { value: 'admin', label: 'Administrator' },
 ];
+
+/** Roles whose authority is site-scoped, and which of those are shipboard (vessels only). */
+export const SCOPED_ROLES: RoleName[] = [
+  'operator',
+  'chief_engineer',
+  'master',
+  'technical_superintendent',
+  'marine_superintendent',
+  'hse_manager',
+];
+export const SHIPBOARD_ROLES: RoleName[] = ['master', 'chief_engineer'];
 
 export const AuthService = {
   login: async (username: string, password: string): Promise<CurrentUser> => {
@@ -49,14 +67,23 @@ export const AuthService = {
     return me;
   },
   listUsers: () => ApiClient.get<ManagedUser[]>('/users'),
-  createUser: (data: {
-    username: string;
-    display_name: string;
-    role: RoleName;
-    password: string;
-  }) => ApiClient.post<ManagedUser>('/users', data),
+  listSites: () => ApiClient.get<Site[]>('/sites'),
+  createUser: (
+    data: {
+      username: string;
+      display_name: string;
+      role: RoleName;
+      password: string;
+    } & UserScopeInput
+  ) => ApiClient.post<ManagedUser>('/users', data),
   updateUser: (
     userId: string,
-    data: Partial<{ display_name: string; role: RoleName; is_active: boolean; password: string }>
+    data: Partial<{
+      display_name: string;
+      role: RoleName;
+      is_active: boolean;
+      password: string;
+    }> &
+      UserScopeInput
   ) => ApiClient.patch<ManagedUser>(`/users/${encodeURIComponent(userId)}`, data),
 };

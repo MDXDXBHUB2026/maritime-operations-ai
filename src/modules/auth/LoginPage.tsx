@@ -4,26 +4,36 @@ import { AuthService } from '../../services/authService';
 import { ApiError } from '../../services/apiClient';
 
 const DEMO_ACCOUNTS: { username: string; role: string; authority: string }[] = [
-  {
-    username: 'duty.officer',
-    role: 'Duty Officer',
-    authority: 'Request recommendations, start review',
-  },
+  { username: 'duty.officer', role: 'Duty Officer', authority: 'Request & review · fleet-wide' },
+  { username: 'master', role: 'Master', authority: 'Approve voyage & safety · MV Horizon Star' },
   {
     username: 'chief.engineer',
     role: 'Chief Engineer',
-    authority: 'Approve anomaly & maintenance',
+    authority: 'Approve anomaly & maintenance · MV Horizon Star',
+  },
+  {
+    username: 'master.meridian',
+    role: 'Master',
+    authority: 'Approve voyage & safety · MV Meridian',
+  },
+  {
+    username: 'chief.meridian',
+    role: 'Chief Engineer',
+    authority: 'Approve anomaly & maintenance · MV Meridian',
   },
   {
     username: 'tech.super',
     role: 'Technical Superintendent',
-    authority: 'Approve anomaly & maintenance',
+    authority: 'Approve anomaly & maintenance · fleet-wide',
   },
-  { username: 'master', role: 'Master', authority: 'Approve voyage & safety' },
-  { username: 'marine.super', role: 'Marine Superintendent', authority: 'Approve voyage' },
-  { username: 'hse.manager', role: 'HSE Manager', authority: 'Approve safety' },
+  {
+    username: 'marine.super',
+    role: 'Marine Superintendent',
+    authority: 'Approve voyage · fleet-wide',
+  },
+  { username: 'hse.manager', role: 'HSE Manager', authority: 'Approve safety · fleet-wide' },
   { username: 'viewer', role: 'Viewer', authority: 'Read-only' },
-  { username: 'admin', role: 'Administrator', authority: 'Manage users (no approvals)' },
+  { username: 'admin', role: 'Administrator', authority: 'Manage users & scope (no approvals)' },
 ];
 
 /** Sign-in screen shown in API mode before any operational data is loaded. */

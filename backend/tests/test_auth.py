@@ -13,6 +13,8 @@ def test_login_returns_session_and_permissions(client):
     user = body["user"]
     assert user["role"] == "chief_engineer" and user["role_label"] == "Chief Engineer"
     assert user["permissions"]["approve_domains"] == ["anomaly", "maintenance"]
+    assert user["scope"] == {"fleet_wide": False, "sites": [
+        {"site_id": "VES-001", "name": "MV Horizon Star", "site_type": "vessel"}]}
     assert user["permissions"]["can_manage_users"] is False
     assert "password" not in r.text.lower().replace("password_", "")
 
@@ -93,8 +95,9 @@ def test_admin_manages_users_and_changes_are_audited(client, as_user):
     user_headers = login(client, "c.officer", "Str0ng-Password")
 
     # Role change revokes existing sessions.
-    r = client.patch(f"/api/v1/users/{new_id}", headers=admin, json={"role": "master"})
+    r = client.patch(f"/api/v1/users/{new_id}", headers=admin, json={"role": "master", "site_ids": ["VES-002"]})
     assert r.json()["role"] == "master"
+    assert [s["name"] for s in r.json()["sites"]] == ["MV Ocean Crest"] and r.json()["fleet_wide"] is False
     assert client.get("/api/v1/auth/me", headers=user_headers).status_code == 401
 
     # Deactivated users cannot log in.

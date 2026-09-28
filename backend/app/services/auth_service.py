@@ -8,6 +8,7 @@ configured period. Every login, logout and account change is written to the audi
 from __future__ import annotations
 
 import uuid
+from collections.abc import Callable
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
@@ -15,12 +16,26 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.config import Settings
-from app.db.models import AuthSession, User
+from app.db.models import AuthSession, User, UserSiteAssignment
 from app.domain.enums import AuditAction, EntityType, Role
 from app.domain.errors import ConflictError, DomainError, ForbiddenError, NotFoundError, UnauthorizedError
-from app.domain.models import MeOut, PermissionsOut, Principal, UserCreate, UserOut, UserUpdate
+from app.domain.models import (
+    MeOut,
+    PermissionsOut,
+    Principal,
+    ScopeOut,
+    Site,
+    UserCreate,
+    UserOut,
+    UserUpdate,
+)
 from app.security.passwords import hash_password, hash_token, new_token, validate_password_policy, verify_password
-from app.security.permissions import approval_matrix, permission_summary
+from app.security.permissions import (
+    approval_matrix,
+    default_fleet_wide,
+    permission_summary,
+    validate_scope,
+)
 from app.services.audit_service import AuditService
 
 # Used to equalise timing when the username does not exist.
@@ -34,33 +49,75 @@ class PasswordPolicyError(DomainError):
     code = "password_policy"
 
 
+class ScopeError(DomainError):
+    status_code = 422
+    code = "invalid_scope"
+
+
+SiteCatalog = Callable[[], dict[str, Site]]
+
+
 def _now() -> datetime:
     return datetime.now(timezone.utc)
 
 
-def to_principal(user: User) -> Principal:
-    return Principal(user_id=user.id, username=user.username, display_name=user.display_name, role=Role(user.role))
+def _site_ids(session: Session, user_id: str) -> frozenset[str]:
+    return frozenset(session.scalars(select(UserSiteAssignment.site_id).where(UserSiteAssignment.user_id == user_id)))
 
 
-def to_user_out(user: User) -> UserOut:
-    role = Role(user.role)
-    return UserOut(user_id=user.id, username=user.username, display_name=user.display_name, role=role,
-                   role_label=role.label, is_active=user.is_active, last_login_at=user.last_login_at,
-                   created_at=user.created_at)
+def to_principal(session: Session, user: User) -> Principal:
+    return Principal(user_id=user.id, username=user.username, display_name=user.display_name, role=Role(user.role),
+                     fleet_wide=bool(user.fleet_wide), site_ids=_site_ids(session, user.id))
 
 
-def to_me(principal: Principal) -> MeOut:
+def _sites(site_ids: frozenset[str], catalog: dict[str, Site]) -> list[Site]:
+    # Unknown ids (e.g. a vessel removed from the register) are still shown, marked by their id.
+    return sorted((catalog.get(i) or Site(site_id=i, name=i, site_type="vessel") for i in site_ids),
+                  key=lambda s: (s.site_type.value, s.name))
+
+
+def to_me(principal: Principal, catalog: dict[str, Site]) -> MeOut:
     return MeOut(user_id=principal.user_id, username=principal.username, display_name=principal.display_name,
                  role=principal.role, role_label=principal.role.label,
                  permissions=PermissionsOut(**permission_summary(principal.role)),
+                 scope=ScopeOut(fleet_wide=principal.fleet_wide, sites=_sites(principal.site_ids, catalog)),
                  approval_matrix=approval_matrix())
 
 
 class AuthService:
-    def __init__(self, session: Session, settings: Settings) -> None:
+    def __init__(self, session: Session, settings: Settings, site_catalog: SiteCatalog) -> None:
         self.session = session
         self.settings = settings
+        self.site_catalog = site_catalog
         self.audit = AuditService(session)
+
+    def me(self, principal: Principal) -> MeOut:
+        return to_me(principal, self.site_catalog())
+
+    def to_user_out(self, user: User, catalog: Optional[dict[str, Site]] = None) -> UserOut:
+        role = Role(user.role)
+        catalog = catalog if catalog is not None else self.site_catalog()
+        return UserOut(user_id=user.id, username=user.username, display_name=user.display_name, role=role,
+                       role_label=role.label, is_active=user.is_active, fleet_wide=bool(user.fleet_wide),
+                       sites=_sites(_site_ids(self.session, user.id), catalog),
+                       last_login_at=user.last_login_at, created_at=user.created_at)
+
+    def _apply_scope(self, user: User, role: Role, fleet_wide: bool, site_ids: list[str]) -> None:
+        catalog = self.site_catalog()
+        unique = sorted(set(site_ids))
+        unknown = [i for i in unique if i not in catalog]
+        if unknown:
+            raise ScopeError(f"Unknown site(s): {', '.join(unknown)}")
+        error = validate_scope(role, fleet_wide, [catalog[i].site_type for i in unique])
+        if error:
+            raise ScopeError(error)
+        user.fleet_wide = fleet_wide
+        for existing in self.session.scalars(select(UserSiteAssignment).where(UserSiteAssignment.user_id == user.id)):
+            self.session.delete(existing)
+        self.session.flush()
+        now = _now()
+        for site_id in unique:
+            self.session.add(UserSiteAssignment(user_id=user.id, site_id=site_id, assigned_at=now))
 
     # -- login / logout ----------------------------------------------------
     def login(self, username: str, password: str) -> tuple[str, datetime, Principal]:
@@ -92,7 +149,7 @@ class AuthService:
         expires = now + timedelta(minutes=self.settings.session_ttl_minutes)
         self.session.add(AuthSession(id=str(uuid.uuid4()), token_hash=hash_token(token), user_id=user.id,
                                      created_at=now, expires_at=expires))
-        principal = to_principal(user)
+        principal = to_principal(self.session, user)
         self.audit.record_for(principal, action=AuditAction.LOGIN_SUCCEEDED, entity_type=EntityType.USER,
                               entity_id=user.id)
         self.session.commit()
@@ -112,7 +169,8 @@ class AuthService:
         user = self.session.get(User, record.user_id)
         if user is None or not user.is_active:
             raise UnauthorizedError("Account is not active")
-        return to_principal(user)
+        # Scope is loaded per request, so assignment changes take effect immediately.
+        return to_principal(self.session, user)
 
     def logout(self, token: str, principal: Principal) -> None:
         record = self.session.scalar(select(AuthSession).where(AuthSession.token_hash == hash_token(token)))
@@ -130,7 +188,8 @@ class AuthService:
 
     # -- user administration ------------------------------------------------
     def list_users(self) -> list[UserOut]:
-        return [to_user_out(u) for u in self.session.scalars(select(User).order_by(User.username))]
+        catalog = self.site_catalog()
+        return [self.to_user_out(u, catalog) for u in self.session.scalars(select(User).order_by(User.username))]
 
     def create_user(self, data: UserCreate, actor: Optional[Principal] = None, commit: bool = True) -> UserOut:
         username = data.username.strip().lower()
@@ -147,7 +206,10 @@ class AuthService:
                     is_active=True, failed_logins=0, created_at=now, updated_at=now)
         self.session.add(user)
         self.session.flush()
-        details = {"username": username, "role": data.role.value}
+        fleet_wide = default_fleet_wide(data.role) and not data.site_ids if data.fleet_wide is None else data.fleet_wide
+        self._apply_scope(user, data.role, fleet_wide, data.site_ids)
+        details = {"username": username, "role": data.role.value, "fleet_wide": fleet_wide,
+                   "site_ids": sorted(set(data.site_ids))}
         if actor:
             self.audit.record_for(actor, action=AuditAction.USER_CREATED, entity_type=EntityType.USER,
                                   entity_id=user.id, details=details)
@@ -156,7 +218,7 @@ class AuthService:
                               entity_type=EntityType.USER, entity_id=user.id, details=details)
         if commit:
             self.session.commit()
-        return to_user_out(user)
+        return self.to_user_out(user)
 
     def update_user(self, user_id: str, data: UserUpdate, actor: Principal) -> UserOut:
         user = self.session.get(User, user_id)
@@ -174,6 +236,31 @@ class AuthService:
         if data.is_active is not None and data.is_active != user.is_active:
             changes["is_active"] = [user.is_active, data.is_active]
             user.is_active = data.is_active
+        new_role = Role(user.role)
+        role_changed = "role" in changes
+        if data.fleet_wide is not None or data.site_ids is not None or role_changed:
+            old_ids = sorted(_site_ids(self.session, user.id))
+            old_fleet = bool(user.fleet_wide)
+            site_ids = data.site_ids if data.site_ids is not None else old_ids
+            if data.fleet_wide is not None:
+                fleet_wide = data.fleet_wide
+            elif data.site_ids:
+                fleet_wide = False  # assigning specific sites means "limit to these sites"
+            else:
+                fleet_wide = default_fleet_wide(new_role) if role_changed else old_fleet
+            if role_changed and data.fleet_wide is None and data.site_ids is None:
+                # Keep the scope only if it is still valid for the new role; otherwise apply the role default.
+                catalog = self.site_catalog()
+                valid = validate_scope(new_role, fleet_wide,
+                                       [catalog[i].site_type for i in site_ids if i in catalog]) is None
+                if not valid:
+                    fleet_wide, site_ids = default_fleet_wide(new_role), []
+            self._apply_scope(user, new_role, fleet_wide, site_ids)
+            new_ids = sorted(set(site_ids))
+            if fleet_wide != old_fleet:
+                changes["fleet_wide"] = [old_fleet, fleet_wide]
+            if new_ids != old_ids:
+                changes["site_ids"] = [old_ids, new_ids]
         if data.password is not None:
             try:
                 validate_password_policy(data.password)
@@ -190,29 +277,38 @@ class AuthService:
             self.audit.record_for(actor, action=AuditAction.USER_UPDATED, entity_type=EntityType.USER,
                                   entity_id=user.id, details={"changes": changes})
             self.session.commit()
-        return to_user_out(user)
+        return self.to_user_out(user)
 
 
-DEMO_USERS: list[tuple[str, str, Role]] = [
-    ("admin", "System Administrator (demo)", Role.ADMIN),
-    ("duty.officer", "Duty Officer (demo)", Role.OPERATOR),
-    ("chief.engineer", "Chief Engineer (demo)", Role.CHIEF_ENGINEER),
-    ("master", "Master (demo)", Role.MASTER),
-    ("tech.super", "Technical Superintendent (demo)", Role.TECHNICAL_SUPERINTENDENT),
-    ("marine.super", "Marine Superintendent (demo)", Role.MARINE_SUPERINTENDENT),
-    ("hse.manager", "HSE Manager (demo)", Role.HSE_MANAGER),
-    ("viewer", "Viewer (demo)", Role.VIEWER),
+# (username, display name, role, assigned sites; empty = fleet-wide shore role)
+DEMO_USERS: list[tuple[str, str, Role, list[str]]] = [
+    ("admin", "System Administrator (demo)", Role.ADMIN, []),
+    ("duty.officer", "Duty Officer (demo)", Role.OPERATOR, []),
+    ("chief.engineer", "Chief Engineer, MV Horizon Star (demo)", Role.CHIEF_ENGINEER, ["VES-001"]),
+    ("master", "Master, MV Horizon Star (demo)", Role.MASTER, ["VES-001"]),
+    ("chief.meridian", "Chief Engineer, MV Meridian (demo)", Role.CHIEF_ENGINEER, ["VES-003"]),
+    ("master.meridian", "Master, MV Meridian (demo)", Role.MASTER, ["VES-003"]),
+    ("tech.super", "Technical Superintendent (demo)", Role.TECHNICAL_SUPERINTENDENT, []),
+    ("marine.super", "Marine Superintendent (demo)", Role.MARINE_SUPERINTENDENT, []),
+    ("hse.manager", "HSE Manager (demo)", Role.HSE_MANAGER, []),
+    ("viewer", "Viewer (demo)", Role.VIEWER, []),
 ]
 
 
-def seed_demo_users(session: Session, settings: Settings, password: str) -> list[str]:
-    """Create any missing demo role accounts with the given password. Existing accounts are untouched."""
-    service = AuthService(session, settings)
+def seed_demo_users(session: Session, settings: Settings, password: str, site_catalog: SiteCatalog) -> list[str]:
+    """Create missing demo accounts. Existing demo accounts without any scope (created before site
+    scoping existed) receive their default demo scope; other existing accounts are untouched."""
+    service = AuthService(session, settings, site_catalog)
     created = []
-    for username, display_name, role in DEMO_USERS:
-        if session.scalar(select(User).where(User.username == username)) is None:
+    for username, display_name, role, sites in DEMO_USERS:
+        user = session.scalar(select(User).where(User.username == username))
+        if user is None:
             service.create_user(UserCreate(username=username, display_name=display_name, role=role,
-                                           password=password), commit=False)
+                                           password=password, site_ids=sites), commit=False)
             created.append(username)
+        elif user.fleet_wide is None and not _site_ids(session, user.id) and Role(user.role) == role:
+            service._apply_scope(user, role, default_fleet_wide(role) and not sites, sites)
+            if user.display_name != display_name and role in (Role.MASTER, Role.CHIEF_ENGINEER):
+                user.display_name = display_name
     session.commit()
     return created

@@ -142,6 +142,7 @@ export const DecisionCentrePage: React.FC = () => {
                       <th>Created</th>
                       <th>Agent</th>
                       <th>Entity</th>
+                      <th>Site</th>
                       <th>Severity</th>
                       <th>Summary</th>
                       <th>Status</th>
@@ -159,6 +160,7 @@ export const DecisionCentrePage: React.FC = () => {
                         <td>{formatUtc(d.created_at)}</td>
                         <td>{d.agent}</td>
                         <td>{d.entity_id}</td>
+                        <td>{d.site_name ?? '-'}</td>
                         <td>
                           <SeverityPill severity={d.severity} />
                         </td>

@@ -20,6 +20,7 @@ from app.db.session import build_engine, build_session_factory, init_db
 from app.domain.errors import DomainError
 from app.repositories.maritime_repository import JsonFileMaritimeRepository
 from app.services.auth_service import seed_demo_users
+from app.services.maritime_service import MaritimeService
 
 logger = logging.getLogger("maritime_ai")
 
@@ -57,7 +58,8 @@ def create_app(settings: Optional[Settings] = None) -> FastAPI:
     if settings.demo_users_password is not None:
         session = app.state.session_factory()
         try:
-            created = seed_demo_users(session, settings, settings.demo_users_password.get_secret_value())
+            catalog = MaritimeService(app.state.repository).site_by_id
+            created = seed_demo_users(session, settings, settings.demo_users_password.get_secret_value(), catalog)
             if created:
                 logger.info("Seeded demo users: %s", ", ".join(created))
         finally:

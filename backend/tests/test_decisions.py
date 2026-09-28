@@ -1,8 +1,10 @@
 import pytest
 
-# Demo accounts seeded by conftest (roles in brackets):
-# duty.officer [operator], chief.engineer, tech.super [technical_superintendent], master,
-# marine.super [marine_superintendent], hse.manager, viewer, admin
+# Demo accounts seeded by conftest (roles and scope in brackets):
+# duty.officer [operator, fleet-wide], chief.engineer + master [MV Horizon Star / VES-001],
+# chief.meridian + master.meridian [MV Meridian / VES-003], tech.super, marine.super, hse.manager
+# [fleet-wide], viewer, admin.
+# MV Horizon Star entities: ANM-0001, MA-001, VP-2601, SE-0003/SE-0007/SE-0011.
 
 APPROVER_FOR = {
     "anomaly": "chief.engineer",
@@ -59,7 +61,7 @@ def test_approval_state_transition(client, as_user):
     assert r.status_code == 200, r.text
     body = r.json()
     assert body["status"] == "APPROVED"
-    assert body["decided_by"] == "Chief Engineer (demo)"
+    assert body["decided_by"] == "Chief Engineer, MV Horizon Star (demo)"
     assert body["decided_by_role"] == "chief_engineer" and body["decided_at"]
 
 
@@ -79,10 +81,10 @@ def test_reject_requires_reason(client, as_user):
 
 
 @pytest.mark.parametrize("domain,entity,allowed,denied", [
-    ("anomaly", "ANM-0004", ["chief.engineer", "tech.super"], ["master", "hse.manager", "duty.officer"]),
-    ("maintenance", "MA-005", ["chief.engineer", "tech.super"], ["master", "marine.super"]),
-    ("voyage", "VP-2603", ["master", "marine.super"], ["chief.engineer", "hse.manager"]),
-    ("safety", "SE-0005", ["hse.manager", "master"], ["chief.engineer", "tech.super", "marine.super"]),
+    ("anomaly", "ANM-0001", ["chief.engineer", "tech.super"], ["master", "hse.manager", "duty.officer"]),
+    ("maintenance", "MA-001", ["chief.engineer", "tech.super"], ["master", "marine.super"]),
+    ("voyage", "VP-2601", ["master", "marine.super"], ["chief.engineer", "hse.manager"]),
+    ("safety", "SE-0003", ["hse.manager", "master"], ["chief.engineer", "tech.super", "marine.super"]),
 ])
 def test_approval_authority_follows_domain(client, as_user, domain, entity, allowed, denied):
     for user in denied + ["viewer", "admin"]:
@@ -105,7 +107,7 @@ def test_viewer_and_admin_cannot_generate_or_review(client, as_user):
 
 
 def test_four_eyes_for_safety_critical_decisions(client, as_user):
-    d = _create(client, as_user, "safety", "SE-0006", user="hse.manager")
+    d = _create(client, as_user, "safety", "SE-0007", user="hse.manager")
     assert d["safety_critical"] is True
     r = _post(client, as_user, "hse.manager", d["recommendation_id"], "approve", {})
     assert r.status_code == 403
@@ -131,7 +133,7 @@ def test_forbidden_automatic_execution(client, as_user):
 
 
 def test_execution_only_after_approval_by_authorised_role(client, as_user):
-    did = _create(client, as_user, "voyage", "VP-2604")["recommendation_id"]
+    did = _create(client, as_user, "voyage", "VP-2601")["recommendation_id"]
     _post(client, as_user, "master", did, "approve", {"comment": "Proceed"})
     assert _post(client, as_user, "duty.officer", did, "execute").status_code == 403
     r = _post(client, as_user, "marine.super", did, "execute")
@@ -183,7 +185,7 @@ def test_invalid_decision_id_is_validated(client, as_user):
 def test_list_decisions_filters_by_entity_status_and_agent(client, as_user):
     a = _create(client, as_user, "anomaly", "ANM-0010")["recommendation_id"]
     _create(client, as_user, "safety", "SE-0011")
-    _post(client, as_user, "chief.engineer", a, "approve", {})
+    _post(client, as_user, "tech.super", a, "approve", {})
     h = as_user("viewer")
     by_entity = client.get("/api/v1/decisions", params={"entity_id": "ANM-0010"}, headers=h).json()
     assert [d["recommendation_id"] for d in by_entity] == [a]

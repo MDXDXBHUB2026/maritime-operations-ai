@@ -47,6 +47,8 @@ class DecisionRecord(Base):
     requires_human_approval: Mapped[bool] = mapped_column(Boolean)
     safety_critical: Mapped[bool] = mapped_column(Boolean)
     provider: Mapped[str] = mapped_column(String(128))
+    site_id: Mapped[Optional[str]] = mapped_column(String(64), nullable=True, index=True)
+    site_name: Mapped[Optional[str]] = mapped_column(String(120), nullable=True)
     created_by: Mapped[str] = mapped_column(String(80))
     created_by_user_id: Mapped[Optional[str]] = mapped_column(String(36), nullable=True, index=True)
     created_by_role: Mapped[Optional[str]] = mapped_column(String(40), nullable=True)
@@ -91,6 +93,8 @@ class User(Base):
     role: Mapped[str] = mapped_column(String(40))
     password_hash: Mapped[str] = mapped_column(String(255))
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    # NULL (legacy accounts) is treated as not fleet-wide: authority fails closed until scoped.
+    fleet_wide: Mapped[Optional[bool]] = mapped_column(Boolean, nullable=True)
     failed_logins: Mapped[int] = mapped_column(default=0)
     locked_until: Mapped[Optional[datetime]] = mapped_column(UTCDateTime(), nullable=True)
     last_login_at: Mapped[Optional[datetime]] = mapped_column(UTCDateTime(), nullable=True)
@@ -109,3 +113,13 @@ class AuthSession(Base):
     created_at: Mapped[datetime] = mapped_column(UTCDateTime())
     expires_at: Mapped[datetime] = mapped_column(UTCDateTime())
     revoked_at: Mapped[Optional[datetime]] = mapped_column(UTCDateTime(), nullable=True)
+
+
+class UserSiteAssignment(Base):
+    """Sites (vessels or terminals) a user may act on when not fleet-wide."""
+
+    __tablename__ = "user_site_assignments"
+
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), primary_key=True)
+    site_id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    assigned_at: Mapped[datetime] = mapped_column(UTCDateTime())

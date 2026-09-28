@@ -15,10 +15,11 @@ from app.domain.enums import (
     EntityType,
     Role,
     Severity,
+    SiteType,
 )
 
 ID_PATTERN = r"^[A-Za-z0-9][A-Za-z0-9_\-]{0,63}$"
-ACTOR_PATTERN = r"^[A-Za-z0-9][A-Za-z0-9 .'_@()\-]{0,79}$"
+ACTOR_PATTERN = r"^[A-Za-z0-9][A-Za-z0-9 .,'_@()\-]{0,79}$"
 
 
 # ---------------------------------------------------------------------------
@@ -172,13 +173,23 @@ class CancelRequest(BaseModel):
 USERNAME_PATTERN = r"^[a-z0-9][a-z0-9._\-]{2,63}$"
 
 
+class Site(BaseModel):
+    """An operational site that owns decisions: a vessel or a terminal."""
+
+    site_id: str
+    name: str
+    site_type: SiteType
+
+
 class Principal(BaseModel):
-    """The authenticated person acting on a request."""
+    """The authenticated person acting on a request, with their site scope."""
 
     user_id: str
     username: str
     display_name: str
     role: Role
+    fleet_wide: bool = False
+    site_ids: frozenset[str] = frozenset()
 
     @property
     def actor_label(self) -> str:
@@ -201,6 +212,11 @@ class PermissionsOut(BaseModel):
     can_manage_users: bool
 
 
+class ScopeOut(BaseModel):
+    fleet_wide: bool
+    sites: list[Site]
+
+
 class MeOut(BaseModel):
     user_id: str
     username: str
@@ -208,6 +224,7 @@ class MeOut(BaseModel):
     role: Role
     role_label: str
     permissions: PermissionsOut
+    scope: ScopeOut
     approval_matrix: dict[str, list[dict[str, str]]]
 
 
@@ -225,6 +242,8 @@ class UserOut(BaseModel):
     role: Role
     role_label: str
     is_active: bool
+    fleet_wide: bool
+    sites: list[Site]
     last_login_at: Optional[datetime]
     created_at: datetime
 
@@ -235,6 +254,9 @@ class UserCreate(BaseModel):
     display_name: str = Field(pattern=ACTOR_PATTERN)
     role: Role
     password: str = Field(min_length=10, max_length=256)
+    # Site scope. Shipboard roles need explicit vessels; shore roles default to fleet-wide.
+    fleet_wide: Optional[bool] = None
+    site_ids: list[str] = Field(default_factory=list, max_length=100)
 
 
 class UserUpdate(BaseModel):
@@ -243,6 +265,8 @@ class UserUpdate(BaseModel):
     role: Optional[Role] = None
     is_active: Optional[bool] = None
     password: Optional[str] = Field(default=None, min_length=10, max_length=256)
+    fleet_wide: Optional[bool] = None
+    site_ids: Optional[list[str]] = Field(default=None, max_length=100)
 
 
 class DecisionOut(BaseModel):
@@ -261,6 +285,8 @@ class DecisionOut(BaseModel):
     requires_human_approval: bool
     safety_critical: bool
     provider: str
+    site_id: Optional[str] = None
+    site_name: Optional[str] = None
     created_by: str
     created_by_role: Optional[str] = None
     created_by_user_id: Optional[str] = None

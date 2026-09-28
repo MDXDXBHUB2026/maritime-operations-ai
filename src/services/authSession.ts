@@ -22,6 +22,17 @@ export interface Permissions {
   can_manage_users: boolean;
 }
 
+export interface Site {
+  site_id: string;
+  name: string;
+  site_type: 'vessel' | 'terminal';
+}
+
+export interface Scope {
+  fleet_wide: boolean;
+  sites: Site[];
+}
+
 export interface CurrentUser {
   user_id: string;
   username: string;
@@ -29,6 +40,7 @@ export interface CurrentUser {
   role: RoleName;
   role_label: string;
   permissions: Permissions;
+  scope: Scope;
   approval_matrix: Record<string, { role: RoleName; label: string }[]>;
 }
 
@@ -96,6 +108,24 @@ export const AuthSessionStore = {
 
 export function canDecide(user: CurrentUser | null | undefined, domain: string): boolean {
   return !!user && user.permissions.approve_domains.includes(domain);
+}
+
+/** Site scope check mirroring the backend: fleet-wide, or the site is assigned. */
+export function inScope(
+  user: CurrentUser | null | undefined,
+  site: { siteId?: string | null; siteName?: string | null }
+): boolean {
+  if (!user?.scope) return false;
+  if (user.scope.fleet_wide) return true;
+  return user.scope.sites.some(
+    (s) => (site.siteId && s.site_id === site.siteId) || (site.siteName && s.name === site.siteName)
+  );
+}
+
+export function scopeText(user: CurrentUser | null | undefined): string {
+  if (!user?.scope) return '';
+  if (user.scope.fleet_wide) return 'Fleet-wide';
+  return user.scope.sites.map((s) => s.name).join(', ') || 'No site assigned';
 }
 
 export function approverLabels(user: CurrentUser | null | undefined, domain: string): string {

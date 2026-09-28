@@ -995,3 +995,91 @@ h3 {
   border-color: var(--line);
   color: #9fb2c8;
 }
+
+/* ---------------------------------------------------------------------------
+   Site scope
+   --------------------------------------------------------------------------- */
+.decision-scope-note {
+  background: rgba(246, 184, 75, 0.1);
+  border: 1px solid rgba(246, 184, 75, 0.35);
+  color: #f7d08e;
+  padding: 0.5rem 0.8rem;
+  border-radius: var(--radius-md);
+  font-size: 0.82rem;
+  margin: 0.5rem 0;
+}
+
+.scope-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.scope-title {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.scope-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.scope-sites {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 0.25rem 0.9rem;
+}
+
+.scope-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: #d3deec;
+  cursor: pointer;
+}
+
+.scope-problem {
+  font-size: 0.78rem;
+  color: #ff9ca8;
+}
+
+.user-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.user-actions .btn {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.78rem;
+}
+
+.user-edit-row td {
+  background: #0b1624;
+}
+
+.user-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.user-edit select {
+  background: #0b1624;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  padding: 0.4rem 0.6rem;
+  margin-left: 0.5rem;
+}
+
+.user-edit > button {
+  align-self: flex-start;
+}

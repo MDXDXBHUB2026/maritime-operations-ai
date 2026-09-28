@@ -3,8 +3,12 @@ import {
   AuthSessionStore,
   approverLabels,
   canDecide,
+  inScope,
+  scopeText,
   type CurrentUser,
+  type Site,
 } from '../../src/services/authSession';
+import { scopeProblem } from '../../src/modules/users/ScopeEditor';
 import { ApiClient, ApiError } from '../../src/services/apiClient';
 
 const chiefEngineer: CurrentUser = {
@@ -18,6 +22,10 @@ const chiefEngineer: CurrentUser = {
     can_review: true,
     approve_domains: ['anomaly', 'maintenance'],
     can_manage_users: false,
+  },
+  scope: {
+    fleet_wide: false,
+    sites: [{ site_id: 'VES-001', name: 'MV Horizon Star', site_type: 'vessel' }],
   },
   approval_matrix: {
     anomaly: [
@@ -95,5 +103,35 @@ describe('Auth session store', () => {
     );
     const err = await ApiClient.post('/auth/login', { username: 'x', password: 'y' }).catch((e) => e);
     expect(err.detail).toBe('Invalid username or password');
+  });
+});
+
+describe('Site scope (frontend mirror of backend rules)', () => {
+  const sites: Site[] = [
+    { site_id: 'VES-001', name: 'MV Horizon Star', site_type: 'vessel' },
+    { site_id: 'TRM-NORTH', name: 'North Container Terminal', site_type: 'terminal' },
+  ];
+
+  it('checks scope by site id or name', () => {
+    expect(inScope(chiefEngineer, { siteName: 'MV Horizon Star' })).toBe(true);
+    expect(inScope(chiefEngineer, { siteId: 'VES-001' })).toBe(true);
+    expect(inScope(chiefEngineer, { siteName: 'MV Meridian' })).toBe(false);
+    expect(inScope(chiefEngineer, {})).toBe(false);
+    const fleet = { ...chiefEngineer, scope: { fleet_wide: true, sites: [] } };
+    expect(inScope(fleet, { siteName: 'Anywhere' })).toBe(true);
+    expect(scopeText(chiefEngineer)).toBe('MV Horizon Star');
+    expect(scopeText(fleet)).toBe('Fleet-wide');
+  });
+
+  it('validates scope per role before submitting', () => {
+    expect(scopeProblem('master', { fleetWide: true, siteIds: [] }, sites)).toMatch(/fleet-wide/);
+    expect(scopeProblem('master', { fleetWide: false, siteIds: [] }, sites)).toMatch(/vessel/);
+    expect(scopeProblem('master', { fleetWide: false, siteIds: ['TRM-NORTH'] }, sites)).toMatch(
+      /only be assigned vessels/
+    );
+    expect(scopeProblem('master', { fleetWide: false, siteIds: ['VES-001'] }, sites)).toBeNull();
+    expect(scopeProblem('hse_manager', { fleetWide: false, siteIds: [] }, sites)).toMatch(/fleet-wide/);
+    expect(scopeProblem('hse_manager', { fleetWide: false, siteIds: ['TRM-NORTH'] }, sites)).toBeNull();
+    expect(scopeProblem('viewer', { fleetWide: false, siteIds: [] }, sites)).toBeNull();
   });
 });

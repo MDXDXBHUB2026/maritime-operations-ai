@@ -23,6 +23,7 @@ import { AppConfig } from '../services/config';
 import { LiveStatusBar } from '../components/live/LiveStatusBar';
 import { useAuth } from '../app/AuthContext';
 import { AuthService } from '../services/authService';
+import { scopeText } from '../services/authSession';
 import styles from './MainLayout.module.css';
 
 interface NavItemDef {
@@ -130,7 +131,11 @@ export const MainLayout: React.FC = () => {
                 <UserCircle2 size={16} />
                 <span>
                   <strong>{user.display_name}</strong>
-                  <span className="live-muted"> · {user.role_label}</span>
+                  <span className="live-muted">
+                    {' '}
+                    · {user.role_label}
+                    {user.permissions.can_generate ? ` · ${scopeText(user)}` : ''}
+                  </span>
                 </span>
                 <button
                   className="user-signout"
