@@ -1,8 +1,11 @@
 import { ApiClient } from './apiClient';
 import { AppConfig } from './config';
+import { DemoPersona, LocalDecisionEngine } from './localDecisionEngine';
 
 /**
- * Client for the backend decision-support workflow (API mode only).
+ * Client for the decision-support workflow. In API mode it calls the FastAPI backend; in STATIC
+ * mode (GitHub Pages) it uses the browser-local port of the same agents and state machine
+ * (localDecisionEngine.ts), acting as the selected demo persona.
  * Agents propose; a named human reviews/approves/rejects; execution is simulated in Phase 1.
  * Used by the AI Decision Support panels and the AI Decision Centre. The existing
  * localStorage operator workflows remain in place alongside it.
@@ -103,50 +106,53 @@ function toQuery(params: Record<string, string | number | undefined>): string {
   return text ? `?${text}` : '';
 }
 
+const local = () => AppConfig.dataMode !== 'api';
+
 export const DecisionService = {
-  isAvailable: () => AppConfig.dataMode === 'api',
-  generate: (domain: DecisionDomain, entityId: string) => {
-    requireApiMode();
-    return ApiClient.post<Decision>(`/decisions/${domain}/${encodeURIComponent(entityId)}`);
-  },
+  /** Decision workflow is available in both modes. */
+  isAvailable: () => true,
+  /** True when decisions are stored by the backend; false for the in-browser demo engine. */
+  isBackend: () => AppConfig.dataMode === 'api',
+  generate: (domain: DecisionDomain, entityId: string) =>
+    local()
+      ? LocalDecisionEngine.generate(domain, entityId, DemoPersona.current())
+      : ApiClient.post<Decision>(`/decisions/${domain}/${encodeURIComponent(entityId)}`),
   health: () => {
     requireApiMode();
     return ApiClient.get<BackendHealth>('/health');
   },
-  list: (query: DecisionQuery = {}) => {
-    requireApiMode();
-    return ApiClient.get<Decision[]>(
-      `/decisions${toQuery({ entity_id: query.entityId, status: query.status, agent: query.agent, limit: query.limit })}`
-    );
-  },
-  get: (id: string) => {
-    requireApiMode();
-    return ApiClient.get<Decision>(`/decisions/${encodeURIComponent(id)}`);
-  },
-  review: (id: string, comment?: string) => {
-    requireApiMode();
-    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/review`, { comment });
-  },
-  approve: (id: string, comment?: string) => {
-    requireApiMode();
-    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/approve`, { comment });
-  },
-  reject: (id: string, reason: string) => {
-    requireApiMode();
-    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/reject`, { reason });
-  },
-  execute: (id: string) => {
-    requireApiMode();
-    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/execute`);
-  },
-  cancel: (id: string, reason: string) => {
-    requireApiMode();
-    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/cancel`, { reason });
-  },
-  auditEvents: (decisionId?: string, limit?: number) => {
-    requireApiMode();
-    return ApiClient.get<AuditEvent[]>(
-      `/audit-events${toQuery({ decision_id: decisionId, limit })}`
-    );
-  },
+  list: (query: DecisionQuery = {}) =>
+    local()
+      ? LocalDecisionEngine.list(query)
+      : ApiClient.get<Decision[]>(
+          `/decisions${toQuery({ entity_id: query.entityId, status: query.status, agent: query.agent, limit: query.limit })}`
+        ),
+  get: (id: string) =>
+    local()
+      ? LocalDecisionEngine.get(id)
+      : ApiClient.get<Decision>(`/decisions/${encodeURIComponent(id)}`),
+  review: (id: string, comment?: string) =>
+    local()
+      ? LocalDecisionEngine.review(id, DemoPersona.current(), comment)
+      : ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/review`, { comment }),
+  approve: (id: string, comment?: string) =>
+    local()
+      ? LocalDecisionEngine.approve(id, DemoPersona.current(), comment)
+      : ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/approve`, { comment }),
+  reject: (id: string, reason: string) =>
+    local()
+      ? LocalDecisionEngine.reject(id, DemoPersona.current(), reason)
+      : ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/reject`, { reason }),
+  execute: (id: string) =>
+    local()
+      ? LocalDecisionEngine.execute(id, DemoPersona.current())
+      : ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/execute`),
+  cancel: (id: string, reason: string) =>
+    local()
+      ? LocalDecisionEngine.cancel(id, DemoPersona.current(), reason)
+      : ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/cancel`, { reason }),
+  auditEvents: (decisionId?: string, limit?: number) =>
+    local()
+      ? LocalDecisionEngine.auditEvents(decisionId, limit)
+      : ApiClient.get<AuditEvent[]>(`/audit-events${toQuery({ decision_id: decisionId, limit })}`),
 };

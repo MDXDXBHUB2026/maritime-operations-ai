@@ -733,6 +733,36 @@ h3 {
   flex: 1;
 }
 
+.decision-demo-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.4rem 0.9rem;
+  margin: 0 0 0.85rem;
+}
+
+.decision-demo-bar label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.decision-demo-bar select {
+  background: #0b1624;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  padding: 0.45rem 0.6rem;
+  font-size: 0.85rem;
+  min-width: 220px;
+}
+
+.decision-demo-bar .decision-muted {
+  flex: 1 1 260px;
+}
+
 .decision-muted {
   font-size: 0.78rem;
   color: var(--muted);
