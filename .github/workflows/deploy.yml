@@ -60,6 +60,21 @@ jobs:
       - name: Playwright E2E Validation
         run: npm run test:e2e
 
+      # E2E above validates the static build. When the repository variable MARITIME_API_URL is set
+      # (e.g. https://<project>.vercel.app/api/v1), the published site is rebuilt to use that shared
+      # backend. The app falls back to the in-browser demo if the backend is unreachable.
+      - name: Build for shared backend (when configured)
+        if: ${{ vars.MARITIME_API_URL != '' }}
+        env:
+          VITE_DATA_MODE: api
+          VITE_API_BASE_URL: ${{ vars.MARITIME_API_URL }}
+        run: |
+          npm run build
+          mkdir -p dist/assurance
+          if [ -f public/assurance/latest.json ]; then
+            cp public/assurance/latest.json dist/assurance/latest.json
+          fi
+
       - name: Upload Build Artifact for Pages Deployment
         uses: actions/upload-pages-artifact@v3
         with:

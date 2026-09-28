@@ -45,7 +45,7 @@ def create_app(settings: Optional[Settings] = None) -> FastAPI:
         openapi_url=f"{settings.api_prefix}/openapi.json",
     )
 
-    engine = build_engine(settings.database_url)
+    engine = build_engine(settings.database_url, serverless=settings.serverless)
     init_db(engine)
     provider = build_provider(settings)
     app.state.settings = settings

@@ -1,0 +1,17 @@
+# Only the backend, its data files and the Vercel entry point are deployed to Vercel.
+node_modules
+dist
+src
+tests
+legacy
+docs
+scripts
+tools
+data
+assurance-results
+test-results
+playwright-report
+backend/tests
+backend/**/__pycache__
+*.db
+.env*

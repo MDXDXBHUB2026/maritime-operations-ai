@@ -4,13 +4,28 @@ from __future__ import annotations
 
 from sqlalchemy import Engine, create_engine, event
 from sqlalchemy.orm import Session, sessionmaker
-from sqlalchemy.pool import StaticPool
+from sqlalchemy.pool import NullPool, StaticPool
 
 from app.db.base import Base
 
 
-def build_engine(database_url: str) -> Engine:
+def normalize_database_url(database_url: str) -> str:
+    """Use the psycopg (v3) driver for PostgreSQL URLs given in the common provider formats."""
+    for prefix in ("postgres://", "postgresql://"):
+        if database_url.startswith(prefix):
+            return "postgresql+psycopg://" + database_url[len(prefix):]
+    return database_url
+
+
+def build_engine(database_url: str, serverless: bool = False) -> Engine:
+    database_url = normalize_database_url(database_url)
     kwargs: dict = {"pool_pre_ping": True}
+    if database_url.startswith("postgresql"):
+        # Works behind PgBouncer/Supavisor in transaction mode (no server-side prepared statements).
+        kwargs["connect_args"] = {"prepare_threshold": None}
+        if serverless:
+            # Serverless instances are short-lived: let the provider's pooler hold connections.
+            kwargs["poolclass"] = NullPool
     if database_url.startswith("sqlite"):
         kwargs["connect_args"] = {"check_same_thread": False}
         if ":memory:" in database_url:
@@ -38,6 +53,22 @@ def init_db(engine: Engine) -> None:
 
     _check_schema_compatible(engine)
     Base.metadata.create_all(engine)
+    if engine.dialect.name == "postgresql":
+        _enable_row_level_security(engine)
+
+
+def _enable_row_level_security(engine: Engine) -> None:
+    """Deny access to the backend's tables through any other database API.
+
+    Hosted PostgreSQL providers such as Supabase expose tables in the public schema through an
+    automatic REST API. Enabling row-level security without policies blocks that path entirely;
+    the backend connects as the table owner, which is not subject to RLS. Idempotent.
+    """
+    from sqlalchemy import text
+
+    with engine.begin() as conn:
+        for table in Base.metadata.sorted_tables:
+            conn.execute(text(f'ALTER TABLE "{table.name}" ENABLE ROW LEVEL SECURITY'))
 
 
 def _check_schema_compatible(engine: Engine) -> None:

@@ -3,6 +3,8 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Response
 
 from app.api.deps import get_auth_service, get_bearer_token, get_current_principal
+from pydantic import BaseModel, ConfigDict, Field
+
 from app.domain.models import LoginRequest, LoginResponse, MeOut, Principal
 from app.security.permissions import approval_matrix
 from app.services.auth_service import AuthService
@@ -13,6 +15,23 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 @router.post("/login", response_model=LoginResponse, summary="Exchange username/password for a session token")
 def login(body: LoginRequest, auth: Annotated[AuthService, Depends(get_auth_service)]) -> LoginResponse:
     token, expires, principal = auth.login(body.username, body.password)
+    return LoginResponse(access_token=token, expires_at=expires, user=auth.me(principal))
+
+
+class DemoLoginRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    username: str = Field(min_length=1, max_length=64)
+
+
+@router.get("/demo-accounts", summary="Demo accounts for one-click sign-in (public demo only)")
+def demo_accounts(auth: Annotated[AuthService, Depends(get_auth_service)]) -> list[dict]:
+    return auth.demo_accounts()
+
+
+@router.post("/demo-login", response_model=LoginResponse,
+             summary="Sign in to a non-admin demo account without a password (public demo only)")
+def demo_login(body: DemoLoginRequest, auth: Annotated[AuthService, Depends(get_auth_service)]) -> LoginResponse:
+    token, expires, principal = auth.demo_login(body.username)
     return LoginResponse(access_token=token, expires_at=expires, user=auth.me(principal))
 
 

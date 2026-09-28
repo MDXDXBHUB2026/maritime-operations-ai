@@ -166,6 +166,35 @@ class AuthService:
             self._audit_failure(username, reason, user)
             raise UnauthorizedError(GENERIC_LOGIN_ERROR)
 
+        return self._issue_session(user, now)
+
+    def demo_accounts(self) -> list[dict]:
+        """Demo accounts available for one-click sign-in (public demo deployments only)."""
+        if not self.settings.public_demo:
+            return []
+        users = {u.username: u for u in self.session.scalars(
+            select(User).where(User.username.in_(PUBLIC_DEMO_USERNAMES)))}
+        accounts = []
+        for username, display_name, role, _ in DEMO_USERS:
+            user = users.get(username)
+            if username in PUBLIC_DEMO_USERNAMES and user is not None and user.is_active:
+                accounts.append({"username": username, "display_name": user.display_name,
+                                 "role": role.value, "role_label": role.label})
+        return accounts
+
+    def demo_login(self, username: str) -> tuple[str, datetime, Principal]:
+        """Password-less sign-in to a non-admin demo account, only when PUBLIC_DEMO is enabled.
+        Administrator accounts and user-created accounts are never reachable this way."""
+        username = username.strip().lower()
+        if not self.settings.public_demo:
+            raise ForbiddenError("Demo sign-in is disabled on this deployment")
+        user = self.session.scalar(select(User).where(User.username == username))
+        if username not in PUBLIC_DEMO_USERNAMES or user is None or not user.is_active:
+            raise UnauthorizedError("Unknown demo account")
+        return self._issue_session(user, _now(), details={"method": "public_demo"})
+
+    def _issue_session(self, user: User, now: datetime,
+                       details: Optional[dict] = None) -> tuple[str, datetime, Principal]:
         user.failed_logins = 0
         user.locked_until = None
         user.last_login_at = now
@@ -175,7 +204,7 @@ class AuthService:
                                      created_at=now, expires_at=expires))
         principal = to_principal(self.session, user)
         self.audit.record_for(principal, action=AuditAction.LOGIN_SUCCEEDED, entity_type=EntityType.USER,
-                              entity_id=user.id)
+                              entity_id=user.id, details=details)
         self.session.commit()
         return token, expires, principal
 
@@ -319,6 +348,9 @@ DEMO_USERS: list[tuple[str, str, Role, list[str]]] = [
     ("hse.manager", "HSE Manager (demo)", Role.HSE_MANAGER, []),
     ("viewer", "Viewer (demo)", Role.VIEWER, []),
 ]
+
+# Accounts offered for password-less sign-in on a public demo. Administrator is deliberately excluded.
+PUBLIC_DEMO_USERNAMES: frozenset[str] = frozenset(u for u, _, r, _ in DEMO_USERS if r != Role.ADMIN)
 
 
 def seed_demo_users(session: Session, settings: Settings, password: str, site_catalog: SiteCatalog) -> list[str]:
