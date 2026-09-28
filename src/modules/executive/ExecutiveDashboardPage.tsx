@@ -159,13 +159,13 @@ export const ExecutiveDashboardPage: React.FC = () => {
       <LiveOperationsPanel />
 
       {/* Live Map & Fleet Status */}
-      <div className="grid-2" style={{ alignItems: 'stretch' }}>
+      <div className="map-stack">
         <div
           className="card-panel"
           style={{ padding: '1rem', display: 'flex', flexDirection: 'column' }}
         >
           <h3>Live Operational Picture</h3>
-          <InteractiveMap vessels={vessels} height={390} />
+          <InteractiveMap vessels={vessels} height={470} />
         </div>
 
         <div

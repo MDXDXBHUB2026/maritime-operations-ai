@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { Vessel } from '../types/maritime';
+import { SimulationClock } from './simulationClock';
+import { motionAt } from './vesselMotion';
 
 /**
  * Simulated live telemetry.
@@ -68,6 +70,11 @@ export function liveTelemetry(vessel: Vessel, nowMs: number): LiveTelemetry {
     ? round(vessel.fuel_consumption_tonnes_day * Math.pow(speedFactor, 3), 1)
     : vessel.fuel_consumption_tonnes_day;
 
+  const reported = motionAt(
+    vessel,
+    (lastReport - SimulationClock.referenceMs) / 3_600_000
+  ).position;
+
   return {
     vessel_id: vessel.vessel_id,
     vessel_name: vessel.vessel_name,
@@ -76,8 +83,9 @@ export function liveTelemetry(vessel: Vessel, nowMs: number): LiveTelemetry {
     speed_knots: speed,
     engine_load_percentage: load,
     fuel_consumption_tonnes_day: fuel,
-    latitude: vessel.latitude,
-    longitude: vessel.longitude,
+    // Position report from the shared motion model (sea-lane route at reported speed).
+    latitude: reported[1],
+    longitude: reported[0],
     last_report_ms: lastReport,
     next_report_ms: lastReport + REPORT_INTERVAL_MS,
   };

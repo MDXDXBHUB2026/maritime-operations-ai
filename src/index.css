@@ -474,9 +474,16 @@ h3 {
 
 .grid-2 {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0, 1fr): a wide table in one column must not squeeze the other (e.g. the map). */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1.25rem;
   margin-bottom: 1.25rem;
+}
+
+.grid-2 > *,
+.grid-3 > *,
+.grid-4 > * {
+  min-width: 0;
 }
 
 .grid-3 {
@@ -495,7 +502,7 @@ h3 {
 
 @media (max-width: 900px) {
   .grid-2 {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -1102,4 +1109,23 @@ h3 {
   padding: 0.35rem 0.5rem;
   font-size: 0.78rem;
   width: 140px;
+}
+
+/* Full-width map with its fleet table below (dashboard, fleet overview). */
+.map-stack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.map-stack > * {
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+  .map-stack [data-testid='interactive-map'] {
+    height: 380px !important;
+  }
 }
