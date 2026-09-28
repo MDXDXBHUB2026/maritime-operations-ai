@@ -1,5 +1,6 @@
 .mapContainer {
   position: relative;
+  container-type: inline-size;
   width: 100%;
   background: radial-gradient(circle at 40% 40%, #0a1727 0%, #06101c 100%);
   border-radius: 10px;
@@ -31,6 +32,17 @@
   padding: 4px 6px;
   border-radius: 6px;
   border: 1px solid #1c324c;
+  flex-wrap: wrap;
+  max-width: calc(100% - 24px);
+}
+
+.toolbarLabel {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6d88a5;
+  padding-left: 2px;
 }
 
 .toolbarBtn {
@@ -80,8 +92,8 @@
 /* Legend */
 .mapLegend {
   position: absolute;
-  top: 10px;
-  right: 12px;
+  bottom: 8px;
+  left: 12px;
   z-index: 10;
   background: rgba(8, 18, 30, 0.88);
   backdrop-filter: blur(6px);
@@ -105,8 +117,8 @@
 /* Floating Tooltip */
 .tooltipCard {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
+  top: 52px;
+  right: 12px;
   z-index: 20;
   background: rgba(7, 17, 29, 0.96);
   border: 1px solid #233d5c;
@@ -188,16 +200,17 @@
   }
 
   .mapLegend {
-    top: 6px;
-    right: 6px;
+    bottom: 6px;
+    left: 6px;
     padding: 4px 6px;
     font-size: 0.62rem;
     gap: 6px;
   }
 
   .tooltipCard {
-    bottom: 6px;
-    left: 6px;
+    top: auto;
+    bottom: 34px;
+    right: 6px;
     max-width: 250px;
     padding: 0.5rem 0.75rem;
     font-size: 0.7rem;
@@ -207,10 +220,36 @@
 @media (max-width: 500px) {
   .mapToolbar {
     flex-wrap: wrap;
-    max-width: 80%;
+    max-width: calc(100% - 12px);
+  }
+
+  .mapStatus {
+    left: 6px;
+    right: 6px;
+    text-align: center;
   }
 
   .mapLegend {
     display: none; /* Hide legend on very narrow mobile to prioritize map viewing */
+  }
+}
+
+/* Narrow maps: stack the status line above the legend instead of beside it. */
+@container (max-width: 820px) {
+  .mapStatus {
+    bottom: 40px;
+    right: 12px;
+  }
+}
+
+@container (max-width: 520px) {
+  .toolbarLabel {
+    display: none;
+  }
+  .mapStatus {
+    bottom: 6px;
+    left: 6px;
+    right: 6px;
+    text-align: center;
   }
 }

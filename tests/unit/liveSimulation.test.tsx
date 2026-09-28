@@ -84,8 +84,9 @@ describe('Simulated live telemetry', () => {
 });
 
 describe('Decision panel', () => {
-  it('explains API mode requirement in the static demo', () => {
+  it('runs the in-browser workflow with a demo persona in the static demo', () => {
     render(<DecisionPanel domain="anomaly" entityId="ANM-0001" entityLabel="ANM-0001" />);
-    expect(screen.getByTestId('decision-panel-static')).toHaveTextContent('API mode');
+    expect(screen.getByTestId('decision-panel')).toBeInTheDocument();
+    expect(screen.getByTestId('demo-persona')).toHaveTextContent('browser only');
   });
 });

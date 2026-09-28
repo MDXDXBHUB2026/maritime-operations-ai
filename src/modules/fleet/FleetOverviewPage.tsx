@@ -253,7 +253,7 @@ export const FleetOverviewPage: React.FC = () => {
       <LiveOperationsPanel showEventStream={false} />
 
       {/* Map and Table */}
-      <div className="grid-2">
+      <div className="map-stack">
         <div
           className="card-panel"
           style={{ padding: '1rem', display: 'flex', flexDirection: 'column' }}
@@ -267,7 +267,7 @@ export const FleetOverviewPage: React.FC = () => {
               const found = vessels.find((v) => v.vessel_id === id);
               if (found) setTargetStatus(found.operational_status);
             }}
-            height={380}
+            height={460}
           />
         </div>
 

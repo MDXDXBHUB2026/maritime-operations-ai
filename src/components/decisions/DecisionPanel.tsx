@@ -15,7 +15,7 @@ import {
   scopeText,
 } from '../../services/authSession';
 import { AuthService } from '../../services/authService';
-import { useAuth } from '../../app/AuthContext';
+import { DemoPersonaSwitcher, useDecisionActor } from './DemoPersonaSwitcher';
 import { AuditTimeline, SeverityPill, StatusPill, confidenceText, formatUtc } from './decisionUi';
 
 interface DecisionPanelProps {
@@ -31,8 +31,8 @@ const OPEN_STATES = ['PROPOSED', 'UNDER_REVIEW'];
 /**
  * AI Decision Support panel: an agent proposes; the signed-in user acts within their role's
  * authority and site scope (reviews, approves or rejects), and execution is simulated. Every
- * transition is recorded by the backend audit trail.
- * In STATIC mode (GitHub Pages) it only explains how to enable the workflow.
+ * transition is recorded in the audit trail. In STATIC mode (GitHub Pages) the same rules run in
+ * the browser and the user acts as a selectable demo persona.
  */
 export const DecisionPanel: React.FC<DecisionPanelProps> = ({
   domain,
@@ -40,8 +40,8 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({
   entityLabel,
   siteName,
 }) => {
-  const apiMode = DecisionService.isAvailable();
-  const { user } = useAuth();
+  const apiMode = DecisionService.isBackend();
+  const user = useDecisionActor();
   const [decisions, setDecisions] = useState<Decision[]>([]);
   const [active, setActive] = useState<Decision | null>(null);
   const [events, setEvents] = useState<AuditEvent[]>([]);
@@ -54,9 +54,9 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({
   }, []);
 
   useEffect(() => {
-    if (!apiMode || !entityId) return;
+    if (!entityId) return;
     // Pick up delegations or crew handovers made since sign-in.
-    AuthService.refreshMe().catch(() => undefined);
+    if (apiMode) AuthService.refreshMe().catch(() => undefined);
     let cancelled = false;
     setActive(null);
     setEvents([]);
@@ -79,20 +79,6 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({
       cancelled = true;
     };
   }, [apiMode, domain, entityId]);
-
-  if (!apiMode) {
-    return (
-      <div className="card-panel decision-panel" data-testid="decision-panel-static">
-        <h3>
-          <Bot size={16} /> AI Decision Support
-        </h3>
-        <div className="decision-note">
-          Backend decision support is available in API mode only (VITE_DATA_MODE=api with the
-          FastAPI backend running). This static demo keeps its browser-local workflow.
-        </div>
-      </div>
-    );
-  }
 
   const canGenerate = !!user?.permissions.can_generate;
   const canReview = !!user?.permissions.can_review;
@@ -161,6 +147,7 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({
         {myScope}). Approval of {domain} decisions requires {requiredRoles} for{' '}
         {siteName ?? 'the site'}. Execution is simulated and every state change is audited.
       </div>
+      <DemoPersonaSwitcher />
 
       <div className="decision-toolbar">
         <button
