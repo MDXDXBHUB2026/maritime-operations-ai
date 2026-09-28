@@ -156,3 +156,11 @@
     padding: 1rem;
   }
 }
+
+/* On phones the status bar wraps to several lines; a sticky header would cover a quarter of the
+   screen and the content scrolled beneath it. Let it scroll away with the page instead. */
+@media (max-width: 600px) {
+  .topBar {
+    position: static;
+  }
+}
