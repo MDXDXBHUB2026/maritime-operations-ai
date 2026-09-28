@@ -1083,3 +1083,23 @@ h3 {
 .user-edit > button {
   align-self: flex-start;
 }
+
+.decision-delegation-note {
+  background: rgba(37, 194, 216, 0.08);
+  border: 1px solid rgba(37, 194, 216, 0.35);
+  color: #a9e6f0;
+  padding: 0.5rem 0.8rem;
+  border-radius: var(--radius-md);
+  font-size: 0.82rem;
+  margin: 0.5rem 0;
+}
+
+.user-actions input {
+  background: #0b1624;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  padding: 0.35rem 0.5rem;
+  font-size: 0.78rem;
+  width: 140px;
+}

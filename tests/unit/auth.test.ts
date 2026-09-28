@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   AuthSessionStore,
+  activeDelegation,
   approverLabels,
   canDecide,
   inScope,
@@ -125,7 +126,7 @@ describe('Site scope (frontend mirror of backend rules)', () => {
 
   it('validates scope per role before submitting', () => {
     expect(scopeProblem('master', { fleetWide: true, siteIds: [] }, sites)).toMatch(/fleet-wide/);
-    expect(scopeProblem('master', { fleetWide: false, siteIds: [] }, sites)).toMatch(/vessel/);
+    expect(scopeProblem('master', { fleetWide: false, siteIds: [] }, sites)).toBeNull(); // standby
     expect(scopeProblem('master', { fleetWide: false, siteIds: ['TRM-NORTH'] }, sites)).toMatch(
       /only be assigned vessels/
     );
@@ -133,5 +134,50 @@ describe('Site scope (frontend mirror of backend rules)', () => {
     expect(scopeProblem('hse_manager', { fleetWide: false, siteIds: [] }, sites)).toMatch(/fleet-wide/);
     expect(scopeProblem('hse_manager', { fleetWide: false, siteIds: ['TRM-NORTH'] }, sites)).toBeNull();
     expect(scopeProblem('viewer', { fleetWide: false, siteIds: [] }, sites)).toBeNull();
+  });
+});
+
+describe('Delegated authority (frontend mirror)', () => {
+  const hour = 3_600_000;
+  const base = {
+    delegation_id: 'd-1',
+    delegator_user_id: 'u-master',
+    delegator: 'Master, MV Horizon Star (demo)',
+    delegator_role: 'master' as const,
+    delegate_user_id: 'u-1',
+    delegate: 'Duty Officer (demo)',
+    delegate_role: 'operator' as const,
+    site: { site_id: 'VES-001', name: 'MV Horizon Star', site_type: 'vessel' as const },
+    domains: ['voyage'],
+    valid_from: new Date(Date.now() - hour).toISOString(),
+    valid_until: new Date(Date.now() + hour).toISOString(),
+    reason: 'Master ashore',
+    status: 'active' as const,
+    status_note: null,
+    created_at: new Date().toISOString(),
+    revoked_at: null,
+    revoke_reason: null,
+  };
+  const withDelegations = (delegations: (typeof base)[]) => ({
+    ...chiefEngineer,
+    scope: { ...chiefEngineer.scope, delegations_received: delegations },
+  });
+
+  it('matches only the delegated site, domain and period', () => {
+    const user = withDelegations([base]);
+    expect(activeDelegation(user, { siteId: 'VES-001' }, 'voyage')?.delegation_id).toBe('d-1');
+    expect(activeDelegation(user, { siteName: 'MV Horizon Star' }, 'voyage')).toBeDefined();
+    expect(activeDelegation(user, { siteId: 'VES-001' }, 'safety')).toBeUndefined();
+    expect(activeDelegation(user, { siteId: 'VES-003' }, 'voyage')).toBeUndefined();
+  });
+
+  it('ignores suspended, revoked or expired delegations', () => {
+    for (const status of ['suspended', 'revoked', 'expired'] as const) {
+      expect(
+        activeDelegation(withDelegations([{ ...base, status } as never]), { siteId: 'VES-001' }, 'voyage')
+      ).toBeUndefined();
+    }
+    const expired = { ...base, valid_until: new Date(Date.now() - 1000).toISOString() };
+    expect(activeDelegation(withDelegations([expired]), { siteId: 'VES-001' }, 'voyage')).toBeUndefined();
   });
 });

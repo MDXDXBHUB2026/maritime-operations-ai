@@ -19,6 +19,7 @@ from app.config import Settings
 from app.db.models import AuthSession, User, UserSiteAssignment
 from app.domain.enums import AuditAction, EntityType, Role
 from app.domain.errors import ConflictError, DomainError, ForbiddenError, NotFoundError, UnauthorizedError
+from app.services.authority_service import AuthorityService, effective_site_ids, principal_for, shipboard_conflicts
 from app.domain.models import (
     MeOut,
     PermissionsOut,
@@ -62,12 +63,12 @@ def _now() -> datetime:
 
 
 def _site_ids(session: Session, user_id: str) -> frozenset[str]:
-    return frozenset(session.scalars(select(UserSiteAssignment.site_id).where(UserSiteAssignment.user_id == user_id)))
+    """Sites the user holds authority for right now (time-bound assignments respected)."""
+    return effective_site_ids(session, user_id)
 
 
 def to_principal(session: Session, user: User) -> Principal:
-    return Principal(user_id=user.id, username=user.username, display_name=user.display_name, role=Role(user.role),
-                     fleet_wide=bool(user.fleet_wide), site_ids=_site_ids(session, user.id))
+    return principal_for(session, user)
 
 
 def _sites(site_ids: frozenset[str], catalog: dict[str, Site]) -> list[Site]:
@@ -92,7 +93,13 @@ class AuthService:
         self.audit = AuditService(session)
 
     def me(self, principal: Principal) -> MeOut:
-        return to_me(principal, self.site_catalog())
+        catalog = self.site_catalog()
+        me = to_me(principal, catalog)
+        authority = AuthorityService(self.session, self.site_catalog, self.settings)
+        me.scope.assignments = authority.assignments_for(principal.user_id, catalog)
+        me.scope.delegations_received = authority.delegations_for(principal.user_id, given=False, catalog=catalog)
+        me.scope.delegations_given = authority.delegations_for(principal.user_id, given=True, catalog=catalog)
+        return me
 
     def to_user_out(self, user: User, catalog: Optional[dict[str, Site]] = None) -> UserOut:
         role = Role(user.role)
@@ -111,13 +118,30 @@ class AuthService:
         error = validate_scope(role, fleet_wide, [catalog[i].site_type for i in unique])
         if error:
             raise ScopeError(error)
-        user.fleet_wide = fleet_wide
-        for existing in self.session.scalars(select(UserSiteAssignment).where(UserSiteAssignment.user_id == user.id)):
-            self.session.delete(existing)
-        self.session.flush()
-        now = _now()
+        # Enforce one Master / one Chief Engineer per vessel before changing anything.
         for site_id in unique:
-            self.session.add(UserSiteAssignment(user_id=user.id, site_id=site_id, assigned_at=now))
+            conflicts = shipboard_conflicts(self.session, role, site_id, None, None, user.id)
+            active = [u for u in conflicts]
+            if active:
+                names = ", ".join(u.display_name for u in active)
+                raise ConflictError(f"{catalog[site_id].name} already has a {role.label} ({names}). "
+                                    "Use a crew handover to rotate officers.")
+        user.fleet_wide = fleet_wide
+        now = _now()
+        existing = {a.site_id: a for a in self.session.scalars(
+            select(UserSiteAssignment).where(UserSiteAssignment.user_id == user.id))}
+        for site_id, row in existing.items():
+            if site_id not in unique:
+                self.session.delete(row)
+        for site_id in unique:
+            row = existing.get(site_id)
+            if row is None:
+                self.session.add(UserSiteAssignment(user_id=user.id, site_id=site_id, assigned_at=now))
+            elif row.valid_from is not None and row.valid_from > now:
+                continue  # keep a scheduled (future) rotation untouched
+            else:
+                row.valid_from, row.valid_until = None, None
+        self.session.flush()
 
     # -- login / logout ----------------------------------------------------
     def login(self, username: str, password: str) -> tuple[str, datetime, Principal]:
@@ -239,7 +263,8 @@ class AuthService:
         new_role = Role(user.role)
         role_changed = "role" in changes
         if data.fleet_wide is not None or data.site_ids is not None or role_changed:
-            old_ids = sorted(_site_ids(self.session, user.id))
+            old_ids = sorted(a.site_id for a in self.session.scalars(
+                select(UserSiteAssignment).where(UserSiteAssignment.user_id == user.id)))
             old_fleet = bool(user.fleet_wide)
             site_ids = data.site_ids if data.site_ids is not None else old_ids
             if data.fleet_wide is not None:
@@ -288,6 +313,7 @@ DEMO_USERS: list[tuple[str, str, Role, list[str]]] = [
     ("master", "Master, MV Horizon Star (demo)", Role.MASTER, ["VES-001"]),
     ("chief.meridian", "Chief Engineer, MV Meridian (demo)", Role.CHIEF_ENGINEER, ["VES-003"]),
     ("master.meridian", "Master, MV Meridian (demo)", Role.MASTER, ["VES-003"]),
+    ("relief.master", "Relief Master (demo)", Role.MASTER, []),  # standby: no vessel until handover
     ("tech.super", "Technical Superintendent (demo)", Role.TECHNICAL_SUPERINTENDENT, []),
     ("marine.super", "Marine Superintendent (demo)", Role.MARINE_SUPERINTENDENT, []),
     ("hse.manager", "HSE Manager (demo)", Role.HSE_MANAGER, []),

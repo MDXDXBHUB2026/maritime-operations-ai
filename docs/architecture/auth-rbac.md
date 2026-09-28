@@ -1,4 +1,4 @@
-# Authentication, Role-Based Approvals & Site Scope (Phases 2–3)
+# Authentication, Role-Based Approvals, Site Scope, Crew Rotation & Delegation (Phases 2–4)
 
 Principle: **AI proposes. A signed-in person decides, and only within their role's authority and for the
 vessels or terminals they are responsible for.**
@@ -84,6 +84,42 @@ Master", or the four-eyes note), but the backend is the authority.
 | Browser storage | Token in `sessionStorage` (tab-scoped, cleared on close); a 401 anywhere signs the user out |
 | CORS | Configured origins only; `Authorization` and `Content-Type` headers; no cookies/credentials |
 
+## Crew rotation (Phase 4)
+
+Site assignments are **time-bound** (`valid_from` / `valid_until`, both optional). Authority is evaluated at the
+moment of each action, so a rotation takes effect on time without anyone signing in or out.
+
+- **One Master and one Chief Engineer per vessel** at any time. Assigning a second one for an overlapping period is
+  refused (409) and the admin is directed to a handover.
+- **Crew handover** (administrator, `POST /sites/{vessel}/handover`): for the given position, the outgoing officer's
+  assignment ends and the incoming officer's starts at the same instant, now or at a scheduled time. It cannot be
+  back-dated, cannot clash with another scheduled officer, and is audited as `CREW_HANDOVER` with outgoing and incoming
+  names.
+- A Master or Chief Engineer may have **no vessel** (standby or on leave), which gives no authority until assigned. The
+  demo includes `relief.master` in that state.
+- `GET /crew` and `GET /sites/{id}/crew` show current and scheduled officers to every signed-in user. Editing a user's
+  scope never discards a scheduled rotation.
+
+## Delegation of approval authority (Phase 4)
+
+A person with approval authority can lend it temporarily (`POST /delegations`), for example to a Chief Officer while
+the Master is ashore:
+
+| Rule | Detail |
+|---|---|
+| What | One site, selected domains (a subset of the delegator's own approval domains) |
+| When | Explicit period, may start later, at most 30 days (`MAX_DELEGATION_DAYS`); no back-dating |
+| Who can delegate | Only authority held **directly** (role and current site assignment). Delegated authority cannot be delegated again |
+| Who can receive | Active users in an operational role. Never Viewer or Administrator, never yourself |
+| Fails closed | A delegation is honoured only while the delegator **still** holds that authority. After rotation, deactivation or a role change it becomes `suspended` |
+| Safeguards | The four-eyes rule applies to the delegate; scope is extended only for the delegated site and domains |
+| Revocation | By the delegator or an administrator, with a reason (`POST /delegations/{id}/revoke`) |
+| Audit | `DELEGATION_CREATED` and `DELEGATION_REVOKED`. Every decision taken under a delegation records the delegate as actor, plus `on_behalf_of` and the delegation ID; `decided_by` reads "X on behalf of Y" |
+
+The UI's **Crew & Delegations** page shows my authority (assignments and delegations received), a delegation form, my
+delegations (administrators see all), crew on board, and, for administrators, handover scheduling. The decision panel
+shows "Acting under delegation from …" when delegated authority is in use.
+
 ## Endpoints
 
 | Method | Path | Access |
@@ -92,6 +128,11 @@ Master", or the four-eyes note), but the backend is the authority.
 | POST | `/api/v1/auth/logout` | Signed in |
 | GET | `/api/v1/auth/me` | Signed in: user, role, permissions, site scope, approval matrix |
 | GET | `/api/v1/sites` | Signed in: vessels and terminals that decisions and scopes refer to |
+| GET | `/api/v1/crew`, `/api/v1/sites/{id}/crew` | Signed in: current and scheduled officers |
+| POST | `/api/v1/sites/{id}/handover` | Administrator: crew handover now or scheduled |
+| GET/POST | `/api/v1/delegations` | Signed in: own delegations (administrators: all) / create a delegation |
+| GET | `/api/v1/delegations/eligible-delegates` | Signed in: colleagues who can receive authority |
+| POST | `/api/v1/delegations/{id}/revoke` | Delegator or administrator |
 | GET | `/api/v1/auth/approval-matrix` | Signed in |
 | GET/POST | `/api/v1/users` | Administrator |
 | PATCH | `/api/v1/users/{id}` | Administrator (role, display name, active, password reset, `fleet_wide`, `site_ids`) |
@@ -127,8 +168,8 @@ and are added automatically to an older local database at startup. A logged warn
 
 - **SSO**: replace local passwords with OpenID Connect (e.g. Microsoft Entra ID) and map directory groups to roles.
 - **MFA** for approver roles.
-- **Time-bound assignments** (crew rotation): assignment start and end dates, and handover between Masters.
-- **Delegation** (for example to a Chief Officer during the Master's absence), with an audit trail.
+- **Crew-management integration**: take rotations from the crewing system instead of manual handovers.
+- **Notifications** to the incoming officer and the delegate when a handover or delegation starts or ends.
 - **TLS** is required for any non-local deployment (tokens are bearer credentials).
 - **XSS exposure**: `sessionStorage` tokens can be read by injected script. The app avoids `dangerouslySetInnerHTML`
   and `eval` (checked by the security agent). A stricter option is an HttpOnly cookie with CSRF protection.

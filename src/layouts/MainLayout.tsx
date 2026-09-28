@@ -13,6 +13,7 @@ import {
   X,
   RotateCcw,
   Bot,
+  KeyRound,
   LogOut,
   Users,
   UserCircle2,
@@ -43,6 +44,7 @@ const NAV_ITEMS: NavItemDef[] = [
   { path: '/safety', name: 'Safety Monitoring', icon: ShieldCheck },
   { path: '/automation', name: 'Automation Centre', icon: Cpu },
   { path: '/decisions', name: 'AI Decision Centre', icon: Bot },
+  { path: '/crew', name: 'Crew & Delegations', icon: KeyRound },
   { path: '/users', name: 'User Administration', icon: Users, adminOnly: true },
   { path: '/assurance', name: 'Application Assurance', icon: CheckCircle2, isAssurance: true },
 ];
@@ -135,6 +137,9 @@ export const MainLayout: React.FC = () => {
                     {' '}
                     · {user.role_label}
                     {user.permissions.can_generate ? ` · ${scopeText(user)}` : ''}
+                    {(user.scope?.delegations_received ?? []).some((d) => d.status === 'active')
+                      ? ' · + delegated authority'
+                      : ''}
                   </span>
                 </span>
                 <button

@@ -51,7 +51,11 @@ export const AuditTimeline: React.FC<{ events: AuditEvent[]; newestFirst?: boole
           approver?: string;
           approved?: boolean;
           approved_by?: string;
+          delegated_from?: { on_behalf_of?: string };
         } | null;
+        const delegation = (approval?.delegated_from ??
+          (e.details?.delegation as { on_behalf_of?: string } | undefined)) as
+          { on_behalf_of?: string } | undefined;
         const approverLabel = approval?.approved === false ? 'rejected by' : 'human approver';
         const reason = (e.details?.reason ?? e.details?.comment ?? e.human_approval?.reason) as
           string | undefined;
@@ -65,6 +69,9 @@ export const AuditTimeline: React.FC<{ events: AuditEvent[]; newestFirst?: boole
               {e.previous_state ?? 'none'} &rarr; {e.new_state ?? 'none'} &middot; by {e.actor}
               {approval?.approver ? ` · ${approverLabel}: ${approval.approver}` : ''}
               {approval?.approved_by ? ` · approved by: ${approval.approved_by}` : ''}
+              {delegation?.on_behalf_of
+                ? ` · on behalf of ${delegation.on_behalf_of} (delegated authority)`
+                : ''}
               {reason ? ` · "${reason}"` : ''}
             </div>
           </li>

@@ -21,7 +21,6 @@ export function scopeProblem(role: RoleName, value: ScopeValue, sites: Site[]): 
   const types = value.siteIds.map((id) => sites.find((s) => s.site_id === id)?.site_type);
   if (SHIPBOARD_ROLES.includes(role)) {
     if (value.fleetWide) return 'Shipboard roles cannot be fleet-wide';
-    if (value.siteIds.length === 0) return 'Assign at least one vessel';
     if (types.some((t) => t !== 'vessel')) return 'Shipboard roles can only be assigned vessels';
     return null;
   }
@@ -88,6 +87,11 @@ export const ScopeEditor: React.FC<ScopeEditorProps> = ({
         </div>
       )}
       {problem && <div className="scope-problem">{problem}</div>}
+      {!problem && shipboard && value.siteIds.length === 0 && (
+        <div className="decision-muted" data-testid={`${idPrefix}-standby-note`}>
+          No vessel: standby / on leave, with no approval authority until assigned or handed over.
+        </div>
+      )}
     </div>
   );
 };

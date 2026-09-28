@@ -11,6 +11,7 @@ import { AutomationCentrePage } from '../modules/automation/AutomationCentrePage
 import { AssuranceCentrePage } from '../modules/assurance/AssuranceCentrePage';
 import { DecisionCentrePage } from '../modules/decisions/DecisionCentrePage';
 import { UserAdminPage } from '../modules/users/UserAdminPage';
+import { CrewDelegationPage } from '../modules/crew/CrewDelegationPage';
 import { LoginPage } from '../modules/auth/LoginPage';
 import { AppConfig } from '../services/config';
 import { AuthProvider, useAuth } from './AuthContext';
@@ -46,6 +47,7 @@ const AppRoutes: React.FC = () => {
           <Route path="safety" element={<SafetyMonitoringPage />} />
           <Route path="automation" element={<AutomationCentrePage />} />
           <Route path="decisions" element={<DecisionCentrePage />} />
+          <Route path="crew" element={<CrewDelegationPage />} />
           <Route path="users" element={<UserAdminPage />} />
           <Route path="assurance" element={<AssuranceCentrePage />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />

@@ -44,6 +44,8 @@ class EntityType(str, Enum):
     SAFETY_EVENT = "safety_event"
     DECISION = "decision"
     USER = "user"
+    SITE = "site"
+    DELEGATION = "delegation"
 
 
 class DecisionStatus(str, Enum):
@@ -67,6 +69,9 @@ class AuditAction(str, Enum):
     LOGOUT = "LOGOUT"
     USER_CREATED = "USER_CREATED"
     USER_UPDATED = "USER_UPDATED"
+    CREW_HANDOVER = "CREW_HANDOVER"
+    DELEGATION_CREATED = "DELEGATION_CREATED"
+    DELEGATION_REVOKED = "DELEGATION_REVOKED"
 
 
 class Role(str, Enum):

@@ -5,8 +5,10 @@ from app.api.routes import (
     anomalies,
     audit,
     auth,
+    crew,
     datasets,
     decisions,
+    delegations,
     health,
     maintenance,
     safety,
@@ -26,5 +28,7 @@ api_router.include_router(auth.router)
 for module in (vessels, anomalies, maintenance, voyages, safety, sites, datasets, decisions, audit):
     api_router.include_router(module.router, dependencies=[Depends(get_current_principal)])
 
-# User administration enforces the Administrator role itself.
+# These enforce authentication (and, where needed, roles) themselves.
 api_router.include_router(users.router)
+api_router.include_router(delegations.router)
+api_router.include_router(crew.router)

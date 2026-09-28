@@ -22,6 +22,11 @@ const DEMO_ACCOUNTS: { username: string; role: string; authority: string }[] = [
     authority: 'Approve anomaly & maintenance · MV Meridian',
   },
   {
+    username: 'relief.master',
+    role: 'Master',
+    authority: 'Standby: no vessel until a crew handover',
+  },
+  {
     username: 'tech.super',
     role: 'Technical Superintendent',
     authority: 'Approve anomaly & maintenance · fleet-wide',

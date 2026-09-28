@@ -37,6 +37,8 @@ class Settings(BaseSettings):
     password_hash_iterations: int = Field(default=600_000, ge=1_000)
     login_max_failures: int = Field(default=5, ge=1, le=50)
     login_lockout_minutes: int = Field(default=15, ge=1, le=24 * 60)
+    # Longest period a delegation of approval authority may cover.
+    max_delegation_days: int = Field(default=30, ge=1, le=180)
     # When set, the demo role accounts are created at startup with this password (never committed).
     demo_users_password: Optional[SecretStr] = None
 

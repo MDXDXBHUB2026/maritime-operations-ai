@@ -20,6 +20,10 @@ class ForbiddenError(DomainError):
     code = "forbidden"
 
 
+class OutOfScopeError(ForbiddenError):
+    code = "out_of_scope"
+
+
 class ConflictError(DomainError):
     status_code = 409
     code = "conflict"

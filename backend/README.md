@@ -60,7 +60,10 @@ python -m app.cli list-users
 For a quick local demo you can instead set `DEMO_USERS_PASSWORD` in `backend/.env`
 (min. 10 characters, upper/lower case and a digit). Demo accounts: `admin`, `duty.officer`,
 `chief.engineer` + `master` (MV Horizon Star), `chief.meridian` + `master.meridian` (MV Meridian),
-`tech.super`, `marine.super`, `hse.manager` (fleet-wide), `viewer`.
+`tech.super`, `marine.super`, `hse.manager` (fleet-wide), `relief.master` (standby, no vessel), `viewer`.
+
+Crew rotation (time-bound assignments, handover) and temporary delegation of approval authority are
+managed in the UI (**Crew & Delegations**) or via `/api/v1/crew`, `/sites/{id}/handover` and `/delegations`.
 
 Authority is **per site**: Masters and Chief Engineers act only for their assigned vessels; shore roles
 are fleet-wide or limited to chosen vessels and terminals.

@@ -58,6 +58,7 @@ class DecisionRecord(Base):
     decided_by: Mapped[Optional[str]] = mapped_column(String(80), nullable=True)
     decided_by_user_id: Mapped[Optional[str]] = mapped_column(String(36), nullable=True)
     decided_by_role: Mapped[Optional[str]] = mapped_column(String(40), nullable=True)
+    decided_via_delegation_id: Mapped[Optional[str]] = mapped_column(String(36), nullable=True)
     decided_at: Mapped[Optional[datetime]] = mapped_column(UTCDateTime(), nullable=True)
     decision_comment: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     execution_mode: Mapped[Optional[str]] = mapped_column(String(16), nullable=True)
@@ -116,10 +117,36 @@ class AuthSession(Base):
 
 
 class UserSiteAssignment(Base):
-    """Sites (vessels or terminals) a user may act on when not fleet-wide."""
+    """Sites (vessels or terminals) a user may act on when not fleet-wide.
+
+    ``valid_from``/``valid_until`` bound the assignment in time (crew rotation); NULL means open.
+    Authority is evaluated against the assignment period at the moment of each action.
+    """
 
     __tablename__ = "user_site_assignments"
 
     user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), primary_key=True)
     site_id: Mapped[str] = mapped_column(String(64), primary_key=True)
     assigned_at: Mapped[datetime] = mapped_column(UTCDateTime())
+    valid_from: Mapped[Optional[datetime]] = mapped_column(UTCDateTime(), nullable=True)
+    valid_until: Mapped[Optional[datetime]] = mapped_column(UTCDateTime(), nullable=True)
+
+
+class Delegation(Base):
+    """Temporary transfer of a person's approval authority for one site and selected domains."""
+
+    __tablename__ = "delegations"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    delegator_user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), index=True)
+    delegate_user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), index=True)
+    site_id: Mapped[str] = mapped_column(String(64), index=True)
+    domains: Mapped[list[str]] = mapped_column(JSON)
+    valid_from: Mapped[datetime] = mapped_column(UTCDateTime())
+    valid_until: Mapped[datetime] = mapped_column(UTCDateTime())
+    reason: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(UTCDateTime())
+    created_by_user_id: Mapped[str] = mapped_column(String(36))
+    revoked_at: Mapped[Optional[datetime]] = mapped_column(UTCDateTime(), nullable=True)
+    revoked_by_user_id: Mapped[Optional[str]] = mapped_column(String(36), nullable=True)
+    revoke_reason: Mapped[Optional[str]] = mapped_column(Text, nullable=True)

@@ -28,9 +28,41 @@ export interface Site {
   site_type: 'vessel' | 'terminal';
 }
 
+export interface Assignment {
+  site: Site;
+  valid_from: string | null;
+  valid_until: string | null;
+  status: 'active' | 'scheduled' | 'ended';
+}
+
+export type DelegationStatus = 'active' | 'scheduled' | 'expired' | 'revoked' | 'suspended';
+
+export interface Delegation {
+  delegation_id: string;
+  delegator_user_id: string;
+  delegator: string;
+  delegator_role: RoleName;
+  delegate_user_id: string;
+  delegate: string;
+  delegate_role: RoleName;
+  site: Site;
+  domains: string[];
+  valid_from: string;
+  valid_until: string;
+  reason: string;
+  status: DelegationStatus;
+  status_note: string | null;
+  created_at: string;
+  revoked_at: string | null;
+  revoke_reason: string | null;
+}
+
 export interface Scope {
   fleet_wide: boolean;
   sites: Site[];
+  assignments?: Assignment[];
+  delegations_received?: Delegation[];
+  delegations_given?: Delegation[];
 }
 
 export interface CurrentUser {
@@ -122,10 +154,28 @@ export function inScope(
   );
 }
 
+/** An active delegation that lets this user act for the given site and domain, if any. */
+export function activeDelegation(
+  user: CurrentUser | null | undefined,
+  site: { siteId?: string | null; siteName?: string | null },
+  domain: string
+): Delegation | undefined {
+  const now = Date.now();
+  return (user?.scope?.delegations_received ?? []).find(
+    (d) =>
+      d.status === 'active' &&
+      Date.parse(d.valid_from) <= now &&
+      Date.parse(d.valid_until) > now &&
+      d.domains.includes(domain) &&
+      ((site.siteId && d.site.site_id === site.siteId) ||
+        (site.siteName && d.site.name === site.siteName))
+  );
+}
+
 export function scopeText(user: CurrentUser | null | undefined): string {
   if (!user?.scope) return '';
   if (user.scope.fleet_wide) return 'Fleet-wide';
-  return user.scope.sites.map((s) => s.name).join(', ') || 'No site assigned';
+  return user.scope.sites.map((s) => s.name).join(', ') || 'No current site assignment';
 }
 
 export function approverLabels(user: CurrentUser | null | undefined, domain: string): string {

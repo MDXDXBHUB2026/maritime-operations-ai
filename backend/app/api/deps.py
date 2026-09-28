@@ -12,6 +12,7 @@ from app.domain.errors import ForbiddenError, UnauthorizedError
 from app.domain.models import Principal
 from app.security.permissions import ADMIN_ROLES
 from app.services.auth_service import AuthService
+from app.services.authority_service import AuthorityService
 from app.services.decision_service import DecisionService
 from app.services.maritime_service import MaritimeService
 
@@ -72,3 +73,11 @@ def require_admin(principal: Principal = Depends(get_current_principal)) -> Prin
     if principal.role not in ADMIN_ROLES:
         raise ForbiddenError("Administrator role required")
     return principal
+
+
+def get_authority_service(
+    request: Request,
+    session: Session = Depends(get_session),
+    maritime: MaritimeService = Depends(get_maritime_service),
+) -> AuthorityService:
+    return AuthorityService(session, maritime.site_by_id, request.app.state.settings)

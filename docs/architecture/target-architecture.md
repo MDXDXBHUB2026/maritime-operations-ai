@@ -85,6 +85,7 @@ PROPOSED --> UNDER_REVIEW --> APPROVED --> EXECUTED (simulated)
 | Frontend `localStorage` workflows | Still active alongside backend decisions |
 | Authentication / role-based approval authority | Implemented (Phase 2, local accounts; SSO/MFA future) |
 | Per-vessel / per-terminal approval scope | Implemented (Phase 3) |
+| Crew rotation (time-bound assignments, handover) and delegation | Implemented (Phase 4) |
 | Live telemetry, AIS, ERP/fleet systems, event streams | Future integration |
 | Commercial LLM providers | Future integration |
 | ML models for anomaly/failure prediction | Future (current values come from synthetic data) |

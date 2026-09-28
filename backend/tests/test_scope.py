@@ -59,7 +59,7 @@ def test_sites_catalog_and_me_scope(client, as_user):
     assert {"site_id": "TRM-NORTH-CONTAINER-TERMINAL", "name": "North Container Terminal",
             "site_type": "terminal"} in sites
     me = client.get("/api/v1/auth/me", headers=as_user("hse.manager")).json()
-    assert me["scope"] == {"fleet_wide": True, "sites": []}
+    assert me["scope"]["fleet_wide"] is True and me["scope"]["sites"] == []
 
 
 def test_scope_validation_rules(client, as_user):
@@ -68,7 +68,11 @@ def test_scope_validation_rules(client, as_user):
     def create(username, **extra):
         return client.post("/api/v1/users", headers=admin, json={"username": username, **ADMIN_NEW, **extra})
 
-    assert create("m.one", role="master").json()["error"]["code"] == "invalid_scope"  # no vessel
+    standby = create("m.one", role="master")  # no vessel = standby / on leave: allowed, but no authority
+    assert standby.status_code == 201 and standby.json()["sites"] == [] and standby.json()["fleet_wide"] is False
+    # One Master per vessel: MV Horizon Star already has one.
+    taken = create("m.five", role="master", site_ids=["VES-001"])
+    assert taken.status_code == 409 and "crew handover" in taken.json()["error"]["message"]
     assert create("m.two", role="master", fleet_wide=True).status_code == 422
     assert "terminals" in create("m.three", role="master",
                                  site_ids=["TRM-NORTH-CONTAINER-TERMINAL"]).json()["error"]["message"]
@@ -117,7 +121,7 @@ def test_accounts_without_scope_fail_closed(app, client, as_user):
         user.fleet_wide = None  # legacy account created before site scoping
         s.commit()
     r = _create(client, headers, "anomaly", "ANM-0001")
-    assert r.status_code == 403 and "no site assignment" in r.json()["error"]["message"]
+    assert r.status_code == 403 and "no current site assignment" in r.json()["error"]["message"]
 
 
 def test_legacy_decision_without_site_is_resolved(app, client, as_user):

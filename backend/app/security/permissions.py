@@ -82,8 +82,8 @@ def validate_scope(role: Role, fleet_wide: bool, site_types: Iterable[SiteType])
     if role in SHIPBOARD_ROLES:
         if fleet_wide:
             return f"{role.label} is a shipboard role and cannot be fleet-wide"
-        if not types:
-            return f"{role.label} must be assigned to at least one vessel"
+        # No vessel is allowed: the officer is on leave / standby and holds no authority until
+        # assigned or handed over to a vessel.
         if any(t != SiteType.VESSEL for t in types):
             return f"{role.label} can only be assigned to vessels, not terminals"
         return None

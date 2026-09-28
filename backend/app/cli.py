@@ -19,7 +19,7 @@ from app.db.session import build_engine, build_session_factory, init_db
 from app.domain.enums import Role
 from app.domain.models import UserCreate
 from app.security.passwords import validate_password_policy
-from app.security.permissions import SCOPED_ROLES
+from app.security.permissions import SCOPED_ROLES, SHIPBOARD_ROLES
 from app.repositories.maritime_repository import JsonFileMaritimeRepository
 from app.services.auth_service import AuthService, seed_demo_users
 from app.services.maritime_service import MaritimeService
@@ -71,7 +71,8 @@ def main(argv: list[str] | None = None) -> None:
                 if u.role not in SCOPED_ROLES:
                     scope = "n/a"
                 else:
-                    scope = "fleet-wide" if u.fleet_wide else (", ".join(s.site_id for s in u.sites) or "NONE")
+                    scope = "fleet-wide" if u.fleet_wide else (", ".join(s.site_id for s in u.sites) or (
+                        "standby (no vessel)" if u.role in SHIPBOARD_ROLES else "NONE"))
                 print(f"{u.username:<20} {u.role_label:<26} {'active' if u.is_active else 'inactive':<9} {scope}")
             return
         password = _password(args.password_env)

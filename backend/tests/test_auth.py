@@ -13,8 +13,9 @@ def test_login_returns_session_and_permissions(client):
     user = body["user"]
     assert user["role"] == "chief_engineer" and user["role_label"] == "Chief Engineer"
     assert user["permissions"]["approve_domains"] == ["anomaly", "maintenance"]
-    assert user["scope"] == {"fleet_wide": False, "sites": [
-        {"site_id": "VES-001", "name": "MV Horizon Star", "site_type": "vessel"}]}
+    assert user["scope"]["fleet_wide"] is False
+    assert user["scope"]["sites"] == [{"site_id": "VES-001", "name": "MV Horizon Star", "site_type": "vessel"}]
+    assert user["scope"]["assignments"][0]["status"] == "active"
     assert user["permissions"]["can_manage_users"] is False
     assert "password" not in r.text.lower().replace("password_", "")
 

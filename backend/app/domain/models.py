@@ -212,9 +212,39 @@ class PermissionsOut(BaseModel):
     can_manage_users: bool
 
 
+class AssignmentOut(BaseModel):
+    site: Site
+    valid_from: Optional[datetime] = None
+    valid_until: Optional[datetime] = None
+    status: str = Field(description="active | scheduled | ended")
+
+
+class DelegationOut(BaseModel):
+    delegation_id: str
+    delegator_user_id: str
+    delegator: str
+    delegator_role: Role
+    delegate_user_id: str
+    delegate: str
+    delegate_role: Role
+    site: Site
+    domains: list[AgentName]
+    valid_from: datetime
+    valid_until: datetime
+    reason: str
+    status: str = Field(description="active | scheduled | expired | revoked | suspended")
+    status_note: Optional[str] = None
+    created_at: datetime
+    revoked_at: Optional[datetime] = None
+    revoke_reason: Optional[str] = None
+
+
 class ScopeOut(BaseModel):
     fleet_wide: bool
-    sites: list[Site]
+    sites: list[Site] = Field(description="Sites the user holds authority for right now")
+    assignments: list[AssignmentOut] = Field(default_factory=list, description="Active and scheduled assignments")
+    delegations_received: list[DelegationOut] = Field(default_factory=list)
+    delegations_given: list[DelegationOut] = Field(default_factory=list)
 
 
 class MeOut(BaseModel):
@@ -325,3 +355,48 @@ class HealthOut(BaseModel):
     data_source: str
     ai_provider: str
     ai_provider_available: bool
+
+
+class DelegationCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    delegate_user_id: str = Field(pattern=r"^[0-9a-fA-F\-]{36}$")
+    site_id: str = Field(pattern=ID_PATTERN)
+    domains: list[AgentName] = Field(min_length=1, max_length=4)
+    valid_from: Optional[datetime] = None  # default: now
+    valid_until: datetime
+    reason: str = Field(min_length=5, max_length=500)
+
+
+class DelegationRevoke(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    reason: str = Field(min_length=3, max_length=500)
+
+
+class EligibleDelegate(BaseModel):
+    user_id: str
+    display_name: str
+    role: Role
+    role_label: str
+
+
+class HandoverRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    role: Role
+    incoming_user_id: str = Field(pattern=r"^[0-9a-fA-F\-]{36}$")
+    effective_at: Optional[datetime] = None  # default: now
+    note: Optional[str] = Field(default=None, max_length=500)
+
+
+class CrewMember(BaseModel):
+    user_id: str
+    display_name: str
+    role: Role
+    role_label: str
+    valid_from: Optional[datetime] = None
+    valid_until: Optional[datetime] = None
+    status: str
+
+
+class CrewOut(BaseModel):
+    site: Site
+    crew: list[CrewMember]

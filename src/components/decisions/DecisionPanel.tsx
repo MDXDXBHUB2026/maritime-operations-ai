@@ -7,7 +7,14 @@ import {
   type DecisionDomain,
 } from '../../services/decisionService';
 import { ApiError } from '../../services/apiClient';
-import { approverLabels, canDecide, inScope, scopeText } from '../../services/authSession';
+import {
+  activeDelegation,
+  approverLabels,
+  canDecide,
+  inScope,
+  scopeText,
+} from '../../services/authSession';
+import { AuthService } from '../../services/authService';
 import { useAuth } from '../../app/AuthContext';
 import { AuditTimeline, SeverityPill, StatusPill, confidenceText, formatUtc } from './decisionUi';
 
@@ -48,6 +55,8 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({
 
   useEffect(() => {
     if (!apiMode || !entityId) return;
+    // Pick up delegations or crew handovers made since sign-in.
+    AuthService.refreshMe().catch(() => undefined);
     let cancelled = false;
     setActive(null);
     setEvents([]);
@@ -87,18 +96,23 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({
 
   const canGenerate = !!user?.permissions.can_generate;
   const canReview = !!user?.permissions.can_review;
-  const mayDecide = canDecide(user, domain);
+  // Delegated authority (for this site and domain) counts like the delegator's own authority.
+  const decisionSiteRef = active
+    ? { siteId: active.site_id, siteName: active.site_name }
+    : { siteName };
+  const delegation = activeDelegation(user, decisionSiteRef, domain);
+  const directAuthority = canDecide(user, domain) && inScope(user, decisionSiteRef);
+  const mayDecide = canDecide(user, domain) || !!delegation;
   const requiredRoles = approverLabels(user, domain) || 'an authorised approver';
   // Four-eyes: the requester of a safety-critical decision cannot approve it.
   const fourEyesBlocked =
     !!active?.safety_critical && !!user && active?.created_by_user_id === user.user_id;
   // Site scope: requests use the selected item's site; actions use the decision's recorded site.
   const myScope = scopeText(user);
-  const requestInScope = inScope(user, { siteName });
+  const requestInScope =
+    inScope(user, { siteName }) || !!activeDelegation(user, { siteName }, domain);
   const decisionSite = active?.site_name ?? siteName ?? 'this site';
-  const decisionInScope = active
-    ? inScope(user, { siteId: active.site_id, siteName: active.site_name })
-    : requestInScope;
+  const decisionInScope = active ? inScope(user, decisionSiteRef) || !!delegation : requestInScope;
   const outOfScopeText = `Outside your scope: ${decisionSite} is not covered by your authority (${myScope}).`;
 
   const run = async (label: string, fn: () => Promise<Decision>) => {
@@ -185,6 +199,13 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({
       {!canGenerate && (
         <div className="decision-muted" data-testid="decision-role-note">
           Your role ({user?.role_label}) has read-only access to AI recommendations.
+        </div>
+      )}
+      {delegation && !directAuthority && (
+        <div className="decision-delegation-note" data-testid="decision-delegation-note">
+          Acting under delegation from <strong>{delegation.delegator}</strong> for{' '}
+          {delegation.site.name} ({delegation.domains.join(', ')}) until{' '}
+          {formatUtc(delegation.valid_until)}. Your actions are recorded on their behalf.
         </div>
       )}
       {canGenerate && !decisionInScope && (
