@@ -27,7 +27,8 @@ A high-performance, static React Single-Page Application (SPA) deployed to GitHu
 
 - **Frontend**: React 18, TypeScript (strict mode enabled)
 - **Tooling & Bundling**: Vite 6, React Router (HashRouter for zero-config GitHub Pages deep-link compatibility)
-- **Data Layer**: Pre-compiled static JSON datasets in `public/data/*.json` with browser-local simulation state (`localStorage`)
+- **Data Layer**: Pre-compiled static JSON datasets in `public/data/*.json` with browser-local simulation state (`localStorage`); optional `api` data mode backed by the FastAPI service in `backend/`
+- **Backend (optional, Phase 1)**: Python, FastAPI, Pydantic, SQLAlchemy (SQLite by default, `DATABASE_URL` for PostgreSQL), rule-based specialist agents with a human approval gate and persistent audit trail — see [`backend/README.md`](backend/README.md)
 - **Unit & Component Testing**: Vitest 3, React Testing Library, JSDOM
 - **End-to-End Testing**: Playwright (27 tests across Desktop Chrome 1280x800, Tablet iPad 768x1024, and Mobile Chrome 375x667)
 - **Static Quality & Security**: ESLint 9, Prettier, Non-invasive `npm audit`, Deterministic Secret Scanner with regex masking
@@ -66,6 +67,40 @@ npm run build
 # Preview production build locally
 npm run preview
 ```
+
+### Data Modes: STATIC (default) and API
+
+The frontend reads data through `src/services/dataService.ts` in one of two modes, selected at build time:
+
+| Mode | Configuration | Data source |
+| --- | --- | --- |
+| `static` (default) | `VITE_DATA_MODE` unset or `static` | Bundled `public/data/*.json` — the GitHub Pages demo |
+| `api` | `VITE_DATA_MODE=api`, `VITE_API_BASE_URL=http://localhost:8000/api/v1` | FastAPI backend in `backend/` |
+
+```bash
+# STATIC mode (unchanged GitHub Pages behaviour)
+npm run dev
+
+# API mode: start the backend first (see backend/README.md), then create .env.local with:
+#   VITE_DATA_MODE=api
+#   VITE_API_BASE_URL=http://localhost:8000/api/v1
+npm run dev
+```
+
+`VITE_*` values are embedded in the public browser bundle — never put API keys or other secrets in them. Model/provider credentials belong only in the backend environment.
+
+Backend quickstart (Windows PowerShell):
+
+```powershell
+cd backend
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1      # cmd.exe: .venv\Scripts\activate.bat ; Git Bash: source .venv/Scripts/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+# Health: http://localhost:8000/api/v1/health   Docs: http://localhost:8000/docs
+```
+
+Architecture notes: [`docs/architecture/`](docs/architecture/current-state.md).
 
 ---
 
