@@ -12,9 +12,19 @@ import {
   Menu,
   X,
   RotateCcw,
+  Bot,
+  KeyRound,
+  LogOut,
+  Users,
+  UserCircle2,
   type LucideIcon,
 } from 'lucide-react';
 import { StorageService } from '../services/storageService';
+import { AppConfig } from '../services/config';
+import { LiveStatusBar } from '../components/live/LiveStatusBar';
+import { useAuth } from '../app/AuthContext';
+import { AuthService } from '../services/authService';
+import { scopeText } from '../services/authSession';
 import styles from './MainLayout.module.css';
 
 interface NavItemDef {
@@ -22,6 +32,7 @@ interface NavItemDef {
   name: string;
   icon: LucideIcon;
   isAssurance?: boolean;
+  adminOnly?: boolean;
 }
 
 const NAV_ITEMS: NavItemDef[] = [
@@ -32,11 +43,16 @@ const NAV_ITEMS: NavItemDef[] = [
   { path: '/voyage', name: 'Voyage & Fuel', icon: Compass },
   { path: '/safety', name: 'Safety Monitoring', icon: ShieldCheck },
   { path: '/automation', name: 'Automation Centre', icon: Cpu },
+  { path: '/decisions', name: 'AI Decision Centre', icon: Bot },
+  { path: '/crew', name: 'Crew & Delegations', icon: KeyRound },
+  { path: '/users', name: 'User Administration', icon: Users, adminOnly: true },
   { path: '/assurance', name: 'Application Assurance', icon: CheckCircle2, isAssurance: true },
 ];
 
 export const MainLayout: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user } = useAuth();
+  const navItems = NAV_ITEMS.filter((i) => !i.adminOnly || user?.permissions.can_manage_users);
 
   const handleResetDemo = () => {
     if (window.confirm('Reset all simulated operator actions back to pristine seed data?')) {
@@ -58,7 +74,7 @@ export const MainLayout: React.FC = () => {
         </div>
 
         <nav className={styles.nav} aria-label="Main Navigation">
-          {NAV_ITEMS.map((item) => {
+          {navItems.map((item) => {
             const Icon = item.icon;
             const isAssurance = item.isAssurance;
             return (
@@ -83,7 +99,9 @@ export const MainLayout: React.FC = () => {
             connected.
           </div>
           <div className={styles.versionBadge}>
-            <span>Static GitHub Pages</span>
+            <span>
+              {AppConfig.dataMode === 'api' ? 'API mode · FastAPI' : 'Static GitHub Pages'}
+            </span>
             <button
               onClick={handleResetDemo}
               title="Reset simulated actions"
@@ -107,14 +125,33 @@ export const MainLayout: React.FC = () => {
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-            <span className="pill info">
-              <span>●</span> LIVE SYSTEM
-            </span>
-            <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>UTC 2026-07-23 14:00</span>
-          </div>
+          <LiveStatusBar />
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            {user && (
+              <div className="user-chip" data-testid="user-chip" title={user.username}>
+                <UserCircle2 size={16} />
+                <span>
+                  <strong>{user.display_name}</strong>
+                  <span className="live-muted">
+                    {' '}
+                    · {user.role_label}
+                    {user.permissions.can_generate ? ` · ${scopeText(user)}` : ''}
+                    {(user.scope?.delegations_received ?? []).some((d) => d.status === 'active')
+                      ? ' · + delegated authority'
+                      : ''}
+                  </span>
+                </span>
+                <button
+                  className="user-signout"
+                  onClick={() => AuthService.logout()}
+                  aria-label="Sign out"
+                  title="Sign out"
+                >
+                  <LogOut size={14} />
+                </button>
+              </div>
+            )}
             <button
               onClick={handleResetDemo}
               title="Reset simulated actions"

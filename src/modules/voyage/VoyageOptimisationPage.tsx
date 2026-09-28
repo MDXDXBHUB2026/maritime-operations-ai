@@ -3,6 +3,11 @@ import { ActionHistoryEntry, VoyagePlan } from '../../types/maritime';
 import { DataService } from '../../services/dataService';
 import { StorageService } from '../../services/storageService';
 import { scenario, voyageKpis } from '../../utils/voyageCalculations';
+import { rebasedMs } from '../../services/simulationClock';
+import { DecisionPanel } from '../../components/decisions/DecisionPanel';
+
+// Scenario model base time (dataset 08:00 UTC) mapped onto the live timeline.
+const SCENARIO_BASE_MS = rebasedMs('2026-07-23T08:00:00');
 import { MetricCard } from '../../components/common/MetricCard';
 import { BarChart } from '../../components/charts/BarChart';
 import { Check, AlertTriangle } from 'lucide-react';
@@ -90,7 +95,8 @@ export const VoyageOptimisationPage: React.FC = () => {
         weather,
         berthDelay,
         loadFactor,
-        efficiency
+        efficiency,
+        SCENARIO_BASE_MS
       );
       StorageService.saveVoyageScenario(selectedVoyageId, scenarioSnapshot);
     }
@@ -181,7 +187,8 @@ export const VoyageOptimisationPage: React.FC = () => {
         selectedPlan.wind_factor,
         selectedPlan.estimated_waiting_hours,
         1.0,
-        1.0
+        1.0,
+        SCENARIO_BASE_MS
       )
     : null;
 
@@ -193,12 +200,22 @@ export const VoyageOptimisationPage: React.FC = () => {
         selectedPlan.wind_factor,
         selectedPlan.estimated_waiting_hours,
         1.0,
-        0.95
+        0.95,
+        SCENARIO_BASE_MS
       )
     : null;
 
   const adjustedScenario = selectedPlan
-    ? scenario(selectedPlan, speed, bunker, weather, berthDelay, loadFactor, efficiency)
+    ? scenario(
+        selectedPlan,
+        speed,
+        bunker,
+        weather,
+        berthDelay,
+        loadFactor,
+        efficiency,
+        SCENARIO_BASE_MS
+      )
     : null;
 
   // Chart data
@@ -663,6 +680,15 @@ export const VoyageOptimisationPage: React.FC = () => {
             </button>
           </div>
         </div>
+      )}
+
+      {selectedPlan && (
+        <DecisionPanel
+          domain="voyage"
+          entityId={selectedPlan.voyage_id}
+          entityLabel={`${selectedPlan.voyage_id} · ${selectedPlan.vessel_name}`}
+          siteName={selectedPlan.vessel_name}
+        />
       )}
 
       {/* Action History */}

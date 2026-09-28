@@ -13,6 +13,10 @@ __pycache__/
 *.db
 *.sqlite
 *.sqlite3
+.venv/
+venv/
+.ruff_cache/
+.mypy_cache/
 
 # Generated CI Assurance Artifacts (generated dynamically during CI/deploy)
 public/assurance/latest.json

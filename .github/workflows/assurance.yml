@@ -13,6 +13,29 @@ permissions:
   contents: read
 
 jobs:
+  backend:
+    name: Backend Tests (FastAPI decision-support API)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Install backend dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run backend tests
+        run: pytest -q
+
   assurance:
     name: Deterministic QA & Security Gates
     runs-on: ubuntu-latest

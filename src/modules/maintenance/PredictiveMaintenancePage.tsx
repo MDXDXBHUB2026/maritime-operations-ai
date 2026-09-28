@@ -8,6 +8,11 @@ import {
 import { DataService } from '../../services/dataService';
 import { StorageService } from '../../services/storageService';
 import { healthClass, maintenanceKpis } from '../../utils/maintenanceCalculations';
+import { rebasedMs } from '../../services/simulationClock';
+import { DecisionPanel } from '../../components/decisions/DecisionPanel';
+
+// Maintenance KPI "today" (dataset 2026-07-23) mapped onto the live timeline.
+const KPI_TODAY = new Date(rebasedMs('2026-07-23'));
 import { MetricCard } from '../../components/common/MetricCard';
 import { BarChart } from '../../components/charts/BarChart';
 import { Check, AlertTriangle } from 'lucide-react';
@@ -156,7 +161,7 @@ export const PredictiveMaintenancePage: React.FC = () => {
     );
   }
 
-  const kpis = maintenanceKpis(assets);
+  const kpis = maintenanceKpis(assets, KPI_TODAY);
 
   // Apply filters
   const filteredAssets = assets.filter((a) => {
@@ -580,6 +585,15 @@ export const PredictiveMaintenancePage: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {selectedAsset && (
+        <DecisionPanel
+          domain="maintenance"
+          entityId={selectedAsset.asset_id}
+          entityLabel={`${selectedAsset.asset_id} · ${selectedAsset.asset_name} (${selectedAsset.vessel_or_terminal})`}
+          siteName={selectedAsset.vessel_or_terminal}
+        />
       )}
 
       {/* Session Work Orders & Action History */}
