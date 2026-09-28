@@ -13,11 +13,12 @@ from app.domain.enums import (
     ConfidenceBasis,
     DecisionStatus,
     EntityType,
+    Role,
     Severity,
 )
 
 ID_PATTERN = r"^[A-Za-z0-9][A-Za-z0-9_\-]{0,63}$"
-ACTOR_PATTERN = r"^[A-Za-z0-9][A-Za-z0-9 .'_@\-]{0,79}$"
+ACTOR_PATTERN = r"^[A-Za-z0-9][A-Za-z0-9 .'_@()\-]{0,79}$"
 
 
 # ---------------------------------------------------------------------------
@@ -144,32 +145,104 @@ class AgentRecommendation(BaseModel):
 # ---------------------------------------------------------------------------
 # Decisions & audit
 # ---------------------------------------------------------------------------
-class GenerateDecisionRequest(BaseModel):
-    requested_by: str = Field(default="operator", pattern=ACTOR_PATTERN)
-
-
+# The acting person is always the authenticated user; request bodies never carry identity.
 class ReviewRequest(BaseModel):
-    reviewer: str = Field(pattern=ACTOR_PATTERN)
+    model_config = ConfigDict(extra="forbid")
     comment: Optional[str] = Field(default=None, max_length=1000)
 
 
 class ApproveRequest(BaseModel):
-    approver: str = Field(pattern=ACTOR_PATTERN)
+    model_config = ConfigDict(extra="forbid")
     comment: Optional[str] = Field(default=None, max_length=1000)
 
 
 class RejectRequest(BaseModel):
-    approver: str = Field(pattern=ACTOR_PATTERN)
+    model_config = ConfigDict(extra="forbid")
     reason: str = Field(min_length=3, max_length=1000)
-
-
-class ExecuteRequest(BaseModel):
-    actor: str = Field(pattern=ACTOR_PATTERN)
 
 
 class CancelRequest(BaseModel):
-    actor: str = Field(pattern=ACTOR_PATTERN)
+    model_config = ConfigDict(extra="forbid")
     reason: str = Field(min_length=3, max_length=1000)
+
+
+# ---------------------------------------------------------------------------
+# Authentication & users
+# ---------------------------------------------------------------------------
+USERNAME_PATTERN = r"^[a-z0-9][a-z0-9._\-]{2,63}$"
+
+
+class Principal(BaseModel):
+    """The authenticated person acting on a request."""
+
+    user_id: str
+    username: str
+    display_name: str
+    role: Role
+
+    @property
+    def actor_label(self) -> str:
+        # Avoid "Master (demo) (Master)" when the display name already states the role.
+        if self.role.label.lower() in self.display_name.lower():
+            return self.display_name
+        return f"{self.display_name} ({self.role.label})"
+
+
+class LoginRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    username: str = Field(min_length=1, max_length=64)
+    password: str = Field(min_length=1, max_length=256)
+
+
+class PermissionsOut(BaseModel):
+    can_generate: bool
+    can_review: bool
+    approve_domains: list[str]
+    can_manage_users: bool
+
+
+class MeOut(BaseModel):
+    user_id: str
+    username: str
+    display_name: str
+    role: Role
+    role_label: str
+    permissions: PermissionsOut
+    approval_matrix: dict[str, list[dict[str, str]]]
+
+
+class LoginResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    expires_at: datetime
+    user: MeOut
+
+
+class UserOut(BaseModel):
+    user_id: str
+    username: str
+    display_name: str
+    role: Role
+    role_label: str
+    is_active: bool
+    last_login_at: Optional[datetime]
+    created_at: datetime
+
+
+class UserCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    username: str = Field(pattern=USERNAME_PATTERN)
+    display_name: str = Field(pattern=ACTOR_PATTERN)
+    role: Role
+    password: str = Field(min_length=10, max_length=256)
+
+
+class UserUpdate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    display_name: Optional[str] = Field(default=None, pattern=ACTOR_PATTERN)
+    role: Optional[Role] = None
+    is_active: Optional[bool] = None
+    password: Optional[str] = Field(default=None, min_length=10, max_length=256)
 
 
 class DecisionOut(BaseModel):
@@ -189,10 +262,13 @@ class DecisionOut(BaseModel):
     safety_critical: bool
     provider: str
     created_by: str
+    created_by_role: Optional[str] = None
+    created_by_user_id: Optional[str] = None
     created_at: datetime
     updated_at: datetime
     reviewed_by: Optional[str] = None
     decided_by: Optional[str] = None
+    decided_by_role: Optional[str] = None
     decided_at: Optional[datetime] = None
     decision_comment: Optional[str] = None
     execution_mode: Optional[str] = Field(
@@ -204,6 +280,8 @@ class AuditEventOut(BaseModel):
     event_id: str
     timestamp: datetime
     actor: str
+    actor_user_id: Optional[str] = None
+    actor_role: Optional[str] = None
     action: AuditAction
     entity_type: EntityType
     entity_id: str

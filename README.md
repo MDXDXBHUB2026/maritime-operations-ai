@@ -91,8 +91,12 @@ VITE_DATA_MODE=api VITE_API_BASE_URL=http://localhost:8000/api/v1 npm run dev
 ```
 Or copy `.env.example` to `.env.local` and set `VITE_DATA_MODE=api`.
 
-In API mode, operator actions still use browser `localStorage`; backend decisions and the audit trail
-are available through the API (`/docs`). See `docs/architecture/` for the current and target architecture.
+In API mode the app opens with a **sign-in screen**. Create accounts first with
+`python -m app.cli seed-demo-users` (in `backend/`). Approval authority depends on the signed-in user's role:
+Chief Engineer / Technical Superintendent for anomaly and maintenance, Master / Marine Superintendent for voyage,
+HSE Manager / Master for safety. Safety-critical decisions need a second person (four-eyes). See
+[`docs/architecture/auth-rbac.md`](docs/architecture/auth-rbac.md). The older browser-local operator actions
+still use `localStorage`. See `docs/architecture/` for the current and target architecture.
 
 ### Building for Production
 ```bash
@@ -154,6 +158,7 @@ The repository includes a standalone, deterministic assurance pipeline executed 
 ## Architecture & Legacy Archive
 
 - **Backend & AI Decision-Support Foundation (Phase 1)**: `backend/` contains a FastAPI service with a repository layer over the existing datasets, a Manager Agent routing to Anomaly, Maintenance, Voyage and Safety agents (deterministic rules, optional local LLM via Ollama), a human-approval state machine, and a persistent audit trail (SQLite by default, PostgreSQL via `DATABASE_URL`). Execution is simulated. See [`docs/architecture/backend-ai-foundation.md`](docs/architecture/backend-ai-foundation.md).
+- **Authentication & Role-Based Approvals** (API mode): session login, 8 operational roles, domain-based approval authority, four-eyes rule for safety-critical decisions, user administration, and identity-attributed audit trail. See [`docs/architecture/auth-rbac.md`](docs/architecture/auth-rbac.md).
 - **Real-Time Operations Layer**: a simulation clock places the synthetic datasets on the current timeline, vessels send simulated telemetry every 30 s, and the dashboard shows a live operations event stream. The feed is labelled as simulated. See [`docs/architecture/realtime-simulation.md`](docs/architecture/realtime-simulation.md).
 - **Static JSON Architecture**: Synthetic maritime datasets are converted to static fixtures in `public/data/` at build time. Operator actions (acknowledgments, status changes, work orders) are simulated locally in browser memory and `localStorage`.
 - **Legacy Streamlit Archive**: The original prototype is preserved in `legacy/streamlit/` for historical reference and parity auditing.

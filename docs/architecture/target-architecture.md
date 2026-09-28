@@ -66,7 +66,8 @@ PROPOSED --> UNDER_REVIEW --> APPROVED --> EXECUTED (simulated)
 
 - `PROPOSED -> EXECUTED` is impossible; execution requires `APPROVED` with a recorded human approver.
 - `REJECTED`, `EXECUTED` and `CANCELLED` are terminal.
-- Approver identities such as `system`, `ai`, `agent`, `manager` or an agent name are refused.
+- The approver is the authenticated user; approval authority depends on role and domain, and safety-critical
+  decisions require a second person (see `auth-rbac.md`).
 
 ## Status classification
 
@@ -82,7 +83,7 @@ PROPOSED --> UNDER_REVIEW --> APPROVED --> EXECUTED (simulated)
 | Frontend decision UI (panels + AI Decision Centre) | Implemented (API mode) |
 | Simulation clock, live telemetry, event stream | Implemented, **simulated** (see `realtime-simulation.md`) |
 | Frontend `localStorage` workflows | Still active alongside backend decisions |
-| Authentication / role-based approval authority | Future |
+| Authentication / role-based approval authority | Implemented (Phase 2, local accounts; SSO/MFA future) |
 | Live telemetry, AIS, ERP/fleet systems, event streams | Future integration |
 | Commercial LLM providers | Future integration |
 | ML models for anomaly/failure prediction | Future (current values come from synthetic data) |

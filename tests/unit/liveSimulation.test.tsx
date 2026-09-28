@@ -9,7 +9,6 @@ import {
 } from '../../src/services/simulationClock';
 import { liveTelemetry, REPORT_INTERVAL_MS } from '../../src/services/liveTelemetry';
 import { DecisionPanel } from '../../src/components/decisions/DecisionPanel';
-import { isValidActor } from '../../src/components/decisions/decisionUi';
 import type { Vessel } from '../../src/types/maritime';
 
 const HOUR = 3_600_000;
@@ -88,11 +87,5 @@ describe('Decision panel', () => {
   it('explains API mode requirement in the static demo', () => {
     render(<DecisionPanel domain="anomaly" entityId="ANM-0001" entityLabel="ANM-0001" />);
     expect(screen.getByTestId('decision-panel-static')).toHaveTextContent('API mode');
-  });
-
-  it('validates operator names like the backend', () => {
-    expect(isValidActor('Chief Engineer A. Rahman')).toBe(true);
-    expect(isValidActor('')).toBe(false);
-    expect(isValidActor('<script>')).toBe(false);
   });
 });

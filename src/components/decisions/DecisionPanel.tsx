@@ -6,15 +6,10 @@ import {
   type Decision,
   type DecisionDomain,
 } from '../../services/decisionService';
-import { StorageService } from '../../services/storageService';
-import {
-  AuditTimeline,
-  SeverityPill,
-  StatusPill,
-  confidenceText,
-  formatUtc,
-  isValidActor,
-} from './decisionUi';
+import { ApiError } from '../../services/apiClient';
+import { approverLabels, canDecide } from '../../services/authSession';
+import { useAuth } from '../../app/AuthContext';
+import { AuditTimeline, SeverityPill, StatusPill, confidenceText, formatUtc } from './decisionUi';
 
 interface DecisionPanelProps {
   domain: DecisionDomain;
@@ -25,13 +20,13 @@ interface DecisionPanelProps {
 const OPEN_STATES = ['PROPOSED', 'UNDER_REVIEW'];
 
 /**
- * AI Decision Support panel: an agent proposes, a named human reviews and approves or rejects,
- * and execution is simulated. Every transition is recorded by the backend audit trail.
+ * AI Decision Support panel: an agent proposes; the signed-in user acts within their role's
+ * authority (reviews, approves or rejects), and execution is simulated. Every transition is recorded by the backend audit trail.
  * In STATIC mode (GitHub Pages) it only explains how to enable the workflow.
  */
 export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, entityLabel }) => {
   const apiMode = DecisionService.isAvailable();
-  const [operator, setOperator] = useState<string>(() => StorageService.getOperatorName());
+  const { user } = useAuth();
   const [decisions, setDecisions] = useState<Decision[]>([]);
   const [active, setActive] = useState<Decision | null>(null);
   const [events, setEvents] = useState<AuditEvent[]>([]);
@@ -82,7 +77,13 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
     );
   }
 
-  const operatorValid = isValidActor(operator);
+  const canGenerate = !!user?.permissions.can_generate;
+  const canReview = !!user?.permissions.can_review;
+  const mayDecide = canDecide(user, domain);
+  const requiredRoles = approverLabels(user, domain) || 'an authorised approver';
+  // Four-eyes: the requester of a safety-critical decision cannot approve it.
+  const fourEyesBlocked =
+    !!active?.safety_critical && !!user && active?.created_by_user_id === user.user_id;
 
   const run = async (label: string, fn: () => Promise<Decision>) => {
     setBusy(true);
@@ -104,11 +105,6 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
     }
   };
 
-  const updateOperator = (value: string) => {
-    setOperator(value);
-    StorageService.saveOperatorName(value.trim());
-  };
-
   const select = async (id: string) => {
     const found = decisions.find((d) => d.recommendation_id === id) ?? null;
     setActive(found);
@@ -122,7 +118,6 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
     }
   };
 
-  const name = operator.trim();
   const status = active?.status;
 
   return (
@@ -131,27 +126,19 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
         <Bot size={16} /> AI Decision Support: {entityLabel}
       </h3>
       <div className="decision-note">
-        Agents propose; a named person decides. Execution is simulated in this phase and every state
-        change is written to the audit trail.
+        Agents propose; people decide within their role. You are signed in as{' '}
+        <strong>{user?.display_name ?? 'unknown'}</strong> ({user?.role_label ?? 'no role'}).
+        Approval of {domain} decisions requires {requiredRoles}. Execution is simulated and every
+        state change is audited.
       </div>
 
       <div className="decision-toolbar">
-        <label>
-          Your name (recorded as actor)
-          <input
-            type="text"
-            value={operator}
-            maxLength={80}
-            placeholder="e.g. Chief Engineer A. Rahman"
-            onChange={(e) => updateOperator(e.target.value)}
-            aria-label="Decision operator name"
-          />
-        </label>
         <button
           className="btn btn-primary"
-          disabled={busy || !operatorValid}
+          disabled={busy || !canGenerate}
+          title={canGenerate ? undefined : `${user?.role_label} cannot request recommendations`}
           onClick={() =>
-            run('Recommendation generated', () => DecisionService.generate(domain, entityId, name))
+            run('Recommendation generated', () => DecisionService.generate(domain, entityId))
           }
         >
           Generate AI recommendation
@@ -173,9 +160,9 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
           </label>
         )}
       </div>
-      {!operatorValid && (
-        <div className="decision-muted">
-          Enter your name to generate or decide on a recommendation.
+      {!canGenerate && (
+        <div className="decision-muted" data-testid="decision-role-note">
+          Your role ({user?.role_label}) has read-only access to AI recommendations.
         </div>
       )}
 
@@ -267,10 +254,10 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
               {status === 'PROPOSED' && (
                 <button
                   className="btn"
-                  disabled={busy || !operatorValid}
+                  disabled={busy || !canReview}
                   onClick={() =>
                     run('Review started', () =>
-                      DecisionService.review(active.recommendation_id, name, note || undefined)
+                      DecisionService.review(active.recommendation_id, note || undefined)
                     )
                   }
                 >
@@ -279,10 +266,17 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
               )}
               <button
                 className="btn btn-success"
-                disabled={busy || !operatorValid}
+                disabled={busy || !mayDecide || fourEyesBlocked}
+                title={
+                  !mayDecide
+                    ? `Requires ${requiredRoles}`
+                    : fourEyesBlocked
+                      ? 'Four-eyes rule: another authorised person must approve'
+                      : undefined
+                }
                 onClick={() =>
                   run('Approved', () =>
-                    DecisionService.approve(active.recommendation_id, name, note || undefined)
+                    DecisionService.approve(active.recommendation_id, note || undefined)
                   )
                 }
               >
@@ -290,26 +284,44 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
               </button>
               <button
                 className="btn btn-danger"
-                disabled={busy || !operatorValid || note.trim().length < 3}
-                title={note.trim().length < 3 ? 'A rejection reason is required' : undefined}
+                disabled={busy || !mayDecide || note.trim().length < 3}
+                title={
+                  !mayDecide
+                    ? `Requires ${requiredRoles}`
+                    : note.trim().length < 3
+                      ? 'A rejection reason is required'
+                      : undefined
+                }
                 onClick={() =>
                   run('Rejected', () =>
-                    DecisionService.reject(active.recommendation_id, name, note.trim())
+                    DecisionService.reject(active.recommendation_id, note.trim())
                   )
                 }
               >
                 Reject decision
               </button>
+              {!mayDecide && (
+                <span className="decision-muted" data-testid="decision-authority-note">
+                  Approval requires {requiredRoles}.
+                </span>
+              )}
+              {mayDecide && fourEyesBlocked && (
+                <span className="decision-muted" data-testid="decision-four-eyes-note">
+                  Four-eyes rule: you requested this safety-critical recommendation, so another
+                  authorised person must approve it.
+                </span>
+              )}
             </div>
           )}
           {status === 'APPROVED' && (
             <div className="decision-controls">
               <button
                 className="btn btn-primary"
-                disabled={busy || !operatorValid}
+                disabled={busy || !mayDecide}
+                title={mayDecide ? undefined : `Requires ${requiredRoles}`}
                 onClick={() =>
                   run('Simulated execution', () =>
-                    DecisionService.execute(active.recommendation_id, name)
+                    DecisionService.execute(active.recommendation_id)
                   )
                 }
               >
@@ -331,5 +343,6 @@ export const DecisionPanel: React.FC<DecisionPanelProps> = ({ domain, entityId, 
 };
 
 function errorText(err: unknown): string {
+  if (err instanceof ApiError) return err.detail ?? err.message;
   return err instanceof Error ? err.message : 'Backend request failed';
 }

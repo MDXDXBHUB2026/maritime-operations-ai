@@ -36,4 +36,35 @@ def init_db(engine: Engine) -> None:
     # Phase 1 uses create_all; introduce Alembic migrations before the first PostgreSQL deployment.
     from app.db import models  # noqa: F401 - register tables
 
+    _check_schema_compatible(engine)
     Base.metadata.create_all(engine)
+
+
+def _check_schema_compatible(engine: Engine) -> None:
+    """Minimal additive upgrade for development databases created by an earlier version.
+
+    Missing *nullable* columns are added with ALTER TABLE (safe, no data change). Anything else
+    fails fast with a clear message. Alembic migrations replace this before shared deployments.
+    """
+    import logging
+
+    from sqlalchemy import inspect, text
+
+    log = logging.getLogger("maritime_ai.db")
+    inspector = inspect(engine)
+    for table in Base.metadata.sorted_tables:
+        if not inspector.has_table(table.name):
+            continue
+        existing = {c["name"] for c in inspector.get_columns(table.name)}
+        missing = [c for c in table.columns if c.name not in existing]
+        blocking = [c.name for c in missing if not c.nullable]
+        if blocking:
+            raise RuntimeError(
+                f"Database schema is out of date: table '{table.name}' is missing required columns "
+                f"{sorted(blocking)}. For local SQLite, delete backend/maritime_ai.db and restart (dev data only)."
+            )
+        with engine.begin() as conn:
+            for column in missing:
+                ddl = column.type.compile(dialect=engine.dialect)
+                conn.execute(text(f'ALTER TABLE {table.name} ADD COLUMN {column.name} {ddl}'))
+                log.warning("Added missing column %s.%s", table.name, column.name)

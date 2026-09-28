@@ -48,10 +48,14 @@ class DecisionRecord(Base):
     safety_critical: Mapped[bool] = mapped_column(Boolean)
     provider: Mapped[str] = mapped_column(String(128))
     created_by: Mapped[str] = mapped_column(String(80))
+    created_by_user_id: Mapped[Optional[str]] = mapped_column(String(36), nullable=True, index=True)
+    created_by_role: Mapped[Optional[str]] = mapped_column(String(40), nullable=True)
     created_at: Mapped[datetime] = mapped_column(UTCDateTime())
     updated_at: Mapped[datetime] = mapped_column(UTCDateTime())
     reviewed_by: Mapped[Optional[str]] = mapped_column(String(80), nullable=True)
     decided_by: Mapped[Optional[str]] = mapped_column(String(80), nullable=True)
+    decided_by_user_id: Mapped[Optional[str]] = mapped_column(String(36), nullable=True)
+    decided_by_role: Mapped[Optional[str]] = mapped_column(String(40), nullable=True)
     decided_at: Mapped[Optional[datetime]] = mapped_column(UTCDateTime(), nullable=True)
     decision_comment: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     execution_mode: Mapped[Optional[str]] = mapped_column(String(16), nullable=True)
@@ -64,6 +68,8 @@ class AuditEvent(Base):
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     timestamp: Mapped[datetime] = mapped_column(UTCDateTime(), index=True)
     actor: Mapped[str] = mapped_column(String(80))
+    actor_user_id: Mapped[Optional[str]] = mapped_column(String(36), nullable=True, index=True)
+    actor_role: Mapped[Optional[str]] = mapped_column(String(40), nullable=True)
     action: Mapped[str] = mapped_column(String(32))
     entity_type: Mapped[str] = mapped_column(String(32))
     entity_id: Mapped[str] = mapped_column(String(64))
@@ -74,3 +80,32 @@ class AuditEvent(Base):
     )
     human_approval: Mapped[Optional[dict[str, Any]]] = mapped_column(JSON, nullable=True)
     details: Mapped[Optional[dict[str, Any]]] = mapped_column(JSON, nullable=True)
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    username: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    display_name: Mapped[str] = mapped_column(String(80))
+    role: Mapped[str] = mapped_column(String(40))
+    password_hash: Mapped[str] = mapped_column(String(255))
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    failed_logins: Mapped[int] = mapped_column(default=0)
+    locked_until: Mapped[Optional[datetime]] = mapped_column(UTCDateTime(), nullable=True)
+    last_login_at: Mapped[Optional[datetime]] = mapped_column(UTCDateTime(), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(UTCDateTime())
+    updated_at: Mapped[datetime] = mapped_column(UTCDateTime())
+
+
+class AuthSession(Base):
+    """Server-side session. Only the SHA-256 hash of the bearer token is stored."""
+
+    __tablename__ = "auth_sessions"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    token_hash: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id"), index=True)
+    created_at: Mapped[datetime] = mapped_column(UTCDateTime())
+    expires_at: Mapped[datetime] = mapped_column(UTCDateTime())
+    revoked_at: Mapped[Optional[datetime]] = mapped_column(UTCDateTime(), nullable=True)

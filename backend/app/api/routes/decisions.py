@@ -2,17 +2,16 @@
 
 from typing import Annotated, Optional
 
-from fastapi import APIRouter, Body, Depends, Path, Query
+from fastapi import APIRouter, Depends, Path, Query
 
-from app.api.deps import get_decision_service
+from app.api.deps import get_current_principal, get_decision_service
 from app.domain.enums import AgentName, DecisionStatus
 from app.domain.models import (
     ID_PATTERN,
     ApproveRequest,
     CancelRequest,
     DecisionOut,
-    ExecuteRequest,
-    GenerateDecisionRequest,
+    Principal,
     RejectRequest,
     ReviewRequest,
 )
@@ -20,15 +19,14 @@ from app.services.decision_service import DecisionService
 
 router = APIRouter(prefix="/decisions", tags=["decisions"])
 Service = Annotated[DecisionService, Depends(get_decision_service)]
+User = Annotated[Principal, Depends(get_current_principal)]
 EntityId = Annotated[str, Path(pattern=ID_PATTERN)]
 DecisionId = Annotated[str, Path(pattern=r"^[0-9a-fA-F\-]{36}$")]
 
 
 def _register_generate(agent: AgentName, label: str) -> None:
-    def generate(service: Service, entity_id: EntityId,
-                 body: Annotated[Optional[GenerateDecisionRequest], Body()] = None) -> DecisionOut:
-        requested_by = (body or GenerateDecisionRequest()).requested_by
-        return service.generate(agent, entity_id, requested_by)
+    def generate(service: Service, user: User, entity_id: EntityId) -> DecisionOut:
+        return service.generate(agent, entity_id, user)
 
     generate.__name__ = f"generate_{agent.value}_recommendation"
     router.add_api_route(
@@ -57,26 +55,30 @@ def get_decision(service: Service, decision_id: DecisionId) -> DecisionOut:
 
 
 @router.post("/{decision_id}/review", response_model=DecisionOut, summary="Move PROPOSED -> UNDER_REVIEW")
-def review_decision(service: Service, decision_id: DecisionId, body: ReviewRequest) -> DecisionOut:
-    return service.review(decision_id, body.reviewer, body.comment)
+def review_decision(service: Service, user: User, decision_id: DecisionId,
+                    body: ReviewRequest) -> DecisionOut:
+    return service.review(decision_id, user, body.comment)
 
 
 @router.post("/{decision_id}/approve", response_model=DecisionOut, summary="Human approval -> APPROVED")
-def approve_decision(service: Service, decision_id: DecisionId, body: ApproveRequest) -> DecisionOut:
-    return service.approve(decision_id, body.approver, body.comment)
+def approve_decision(service: Service, user: User, decision_id: DecisionId,
+                     body: ApproveRequest) -> DecisionOut:
+    return service.approve(decision_id, user, body.comment)
 
 
 @router.post("/{decision_id}/reject", response_model=DecisionOut, summary="Human rejection -> REJECTED")
-def reject_decision(service: Service, decision_id: DecisionId, body: RejectRequest) -> DecisionOut:
-    return service.reject(decision_id, body.approver, body.reason)
+def reject_decision(service: Service, user: User, decision_id: DecisionId,
+                    body: RejectRequest) -> DecisionOut:
+    return service.reject(decision_id, user, body.reason)
 
 
 @router.post("/{decision_id}/execute", response_model=DecisionOut,
              summary="Simulated execution of an APPROVED decision -> EXECUTED")
-def execute_decision(service: Service, decision_id: DecisionId, body: ExecuteRequest) -> DecisionOut:
-    return service.execute(decision_id, body.actor)
+def execute_decision(service: Service, user: User, decision_id: DecisionId) -> DecisionOut:
+    return service.execute(decision_id, user)
 
 
 @router.post("/{decision_id}/cancel", response_model=DecisionOut, summary="Cancel an open decision -> CANCELLED")
-def cancel_decision(service: Service, decision_id: DecisionId, body: CancelRequest) -> DecisionOut:
-    return service.cancel(decision_id, body.actor, body.reason)
+def cancel_decision(service: Service, user: User, decision_id: DecisionId,
+                    body: CancelRequest) -> DecisionOut:
+    return service.cancel(decision_id, user, body.reason)

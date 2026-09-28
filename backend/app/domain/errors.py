@@ -10,6 +10,21 @@ class DomainError(Exception):
         self.message = message
 
 
+class UnauthorizedError(DomainError):
+    status_code = 401
+    code = "unauthorized"
+
+
+class ForbiddenError(DomainError):
+    status_code = 403
+    code = "forbidden"
+
+
+class ConflictError(DomainError):
+    status_code = 409
+    code = "conflict"
+
+
 class NotFoundError(DomainError):
     status_code = 404
     code = "not_found"

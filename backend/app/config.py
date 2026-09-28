@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from functools import lru_cache
 from pathlib import Path
-from typing import Literal
+from typing import Literal, Optional
 
-from pydantic import Field, field_validator
+from pydantic import Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BACKEND_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +31,14 @@ class Settings(BaseSettings):
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "llama3.1"
     ollama_timeout_seconds: float = Field(default=20.0, gt=0, le=120)
+
+    # Authentication
+    session_ttl_minutes: int = Field(default=480, ge=5, le=7 * 24 * 60)
+    password_hash_iterations: int = Field(default=600_000, ge=1_000)
+    login_max_failures: int = Field(default=5, ge=1, le=50)
+    login_lockout_minutes: int = Field(default=15, ge=1, le=24 * 60)
+    # When set, the demo role accounts are created at startup with this password (never committed).
+    demo_users_password: Optional[SecretStr] = None
 
     @field_validator("data_dir")
     @classmethod

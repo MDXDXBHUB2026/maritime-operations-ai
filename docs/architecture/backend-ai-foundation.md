@@ -1,7 +1,8 @@
 # Backend & AI Decision-Support Foundation (Phase 1)
 
 Phase 1 adds a Python backend beside the unchanged React frontend. It is a **prototype foundation**,
-not a production system: there is no authentication, all data is synthetic, and execution is simulated.
+not a production system: all data is synthetic and execution is simulated. Login and role-based
+approvals were added in Phase 2 ([auth-rbac.md](auth-rbac.md)).
 
 ## Layout
 
@@ -85,6 +86,6 @@ Errors are returned as `{"error": {"code", "message", "details?"}}` (404 `not_fo
 
 ## Known limitations
 
-- **No authentication**: actor/approver names are self-declared. Role-based approval authority is the next priority.
+- Authentication and role-based approvals were added in Phase 2. See `auth-rbac.md`.
 - Frontend decision UI (AI Decision Support panels, AI Decision Centre) runs in API mode; the older `localStorage` operator workflows still run alongside it and are not synchronised with backend decisions.
 - SQLite is single-node; use PostgreSQL for shared environments.

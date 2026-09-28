@@ -19,6 +19,7 @@ from app.config import Settings, get_settings
 from app.db.session import build_engine, build_session_factory, init_db
 from app.domain.errors import DomainError
 from app.repositories.maritime_repository import JsonFileMaritimeRepository
+from app.services.auth_service import seed_demo_users
 
 logger = logging.getLogger("maritime_ai")
 
@@ -53,17 +54,29 @@ def create_app(settings: Optional[Settings] = None) -> FastAPI:
     app.state.provider = provider
     app.state.manager_agent = ManagerAgent(provider)
 
+    if settings.demo_users_password is not None:
+        session = app.state.session_factory()
+        try:
+            created = seed_demo_users(session, settings, settings.demo_users_password.get_secret_value())
+            if created:
+                logger.info("Seeded demo users: %s", ", ".join(created))
+        finally:
+            session.close()
+
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origin_list,
         allow_credentials=False,
-        allow_methods=["GET", "POST"],
-        allow_headers=["Content-Type"],
+        allow_methods=["GET", "POST", "PATCH"],
+        allow_headers=["Content-Type", "Authorization"],
     )
 
     @app.exception_handler(DomainError)
     async def _domain_error(_: Request, exc: DomainError) -> JSONResponse:
-        return _error(exc.status_code, exc.code, exc.message)
+        response = _error(exc.status_code, exc.code, exc.message)
+        if exc.status_code == 401:
+            response.headers["WWW-Authenticate"] = "Bearer"
+        return response
 
     @app.exception_handler(RequestValidationError)
     async def _validation_error(_: Request, exc: RequestValidationError) -> JSONResponse:
@@ -79,4 +92,14 @@ def create_app(settings: Optional[Settings] = None) -> FastAPI:
     return app
 
 
-app = create_app()
+_app: Optional[FastAPI] = None
+
+
+def __getattr__(name: str) -> FastAPI:
+    """Lazily build the ASGI app for ``uvicorn app.main:app`` without side effects on import."""
+    global _app
+    if name == "app":
+        if _app is None:
+            _app = create_app()
+        return _app
+    raise AttributeError(name)

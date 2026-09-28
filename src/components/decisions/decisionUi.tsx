@@ -1,13 +1,6 @@
 import React from 'react';
 import type { AuditEvent, Decision, DecisionStatus } from '../../services/decisionService';
 
-/** Mirrors the backend ACTOR_PATTERN so invalid names are caught before a request is sent. */
-export const ACTOR_PATTERN = /^[A-Za-z0-9][A-Za-z0-9 .'_@-]{0,79}$/;
-
-export function isValidActor(name: string): boolean {
-  return ACTOR_PATTERN.test(name.trim());
-}
-
 export function formatUtc(iso: string | null | undefined): string {
   if (!iso) return '-';
   const d = new Date(iso);

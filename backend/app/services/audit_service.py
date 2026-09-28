@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 
 from app.db.models import AuditEvent
 from app.domain.enums import AuditAction, DecisionStatus, EntityType
+from app.domain.models import Principal
 
 
 class AuditService:
@@ -22,11 +23,13 @@ class AuditService:
         *,
         actor: str,
         action: AuditAction,
+        actor_user_id: Optional[str] = None,
+        actor_role: Optional[str] = None,
         entity_type: EntityType,
         entity_id: str,
-        previous_state: Optional[DecisionStatus],
-        new_state: Optional[DecisionStatus],
-        decision_id: Optional[str],
+        previous_state: Optional[DecisionStatus] = None,
+        new_state: Optional[DecisionStatus] = None,
+        decision_id: Optional[str] = None,
         human_approval: Optional[dict[str, Any]] = None,
         details: Optional[dict[str, Any]] = None,
     ) -> AuditEvent:
@@ -34,6 +37,8 @@ class AuditService:
             id=str(uuid.uuid4()),
             timestamp=datetime.now(timezone.utc),
             actor=actor,
+            actor_user_id=actor_user_id,
+            actor_role=actor_role,
             action=action.value,
             entity_type=entity_type.value,
             entity_id=entity_id,
@@ -45,6 +50,10 @@ class AuditService:
         )
         self.session.add(event)
         return event
+
+    def record_for(self, principal: Principal, **kwargs: Any) -> AuditEvent:
+        return self.record(actor=principal.actor_label, actor_user_id=principal.user_id,
+                           actor_role=principal.role.value, **kwargs)
 
     def list(self, decision_id: Optional[str] = None, entity_id: Optional[str] = None,
              limit: int = 100, offset: int = 0) -> list[AuditEvent]:

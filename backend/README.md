@@ -43,7 +43,24 @@ uvicorn app.main:app --reload --port 8000
 - OpenAPI docs: http://localhost:8000/docs
 
 Configuration is optional; copy `.env.example` to `.env` to override defaults
-(`DATABASE_URL`, `DATA_DIR`, `CORS_ORIGINS`, `AI_PROVIDER`, `OLLAMA_*`).
+(`DATABASE_URL`, `DATA_DIR`, `CORS_ORIGINS`, `AI_PROVIDER`, `OLLAMA_*`, session/lockout settings).
+
+## Accounts and sign-in
+
+All endpoints except `/health` and `/auth/login` require a signed-in user. Create accounts first
+(no password is stored in the repository):
+
+```bash
+python -m app.cli seed-demo-users     # demo role accounts, prompts for one shared password
+python -m app.cli create-user --username j.smith --display-name "J. Smith" --role chief_engineer
+python -m app.cli list-users
+```
+
+For a quick local demo you can instead set `DEMO_USERS_PASSWORD` in `backend/.env`
+(min. 10 characters, upper/lower case and a digit). Demo accounts: `admin`, `duty.officer`,
+`chief.engineer`, `master`, `tech.super`, `marine.super`, `hse.manager`, `viewer`.
+
+Roles and approval authority: [`docs/architecture/auth-rbac.md`](../docs/architecture/auth-rbac.md).
 
 ## Tests
 
@@ -66,14 +83,17 @@ provider automatically; the recommendation's `provider` field shows which one pr
 ## Example decision flow
 
 ```bash
-# 1. Generate (status PROPOSED)
-curl -X POST http://localhost:8000/api/v1/decisions/anomaly/ANM-0001 \
-  -H "Content-Type: application/json" -d '{"requested_by": "Duty Officer"}'
+# 1. Sign in (returns access_token)
+curl -X POST http://localhost:8000/api/v1/auth/login -H "Content-Type: application/json" \
+  -d '{"username": "duty.officer", "password": "<password>"}'
 
-# 2. Approve / reject with a named human
-curl -X POST http://localhost:8000/api/v1/decisions/<id>/approve \
-  -H "Content-Type: application/json" -d '{"approver": "Chief Engineer", "comment": "Agreed"}'
+# 2. Generate a recommendation as the duty officer (status PROPOSED)
+curl -X POST http://localhost:8000/api/v1/decisions/anomaly/ANM-0001 -H "Authorization: Bearer <officer-token>"
 
-# 3. Audit trail
-curl "http://localhost:8000/api/v1/audit-events?decision_id=<id>"
+# 3. Approve as a Chief Engineer (identity comes from the token, never from the body)
+curl -X POST http://localhost:8000/api/v1/decisions/<id>/approve -H "Authorization: Bearer <chief-token>" \
+  -H "Content-Type: application/json" -d '{"comment": "Agreed"}'
+
+# 4. Audit trail
+curl "http://localhost:8000/api/v1/audit-events?decision_id=<id>" -H "Authorization: Bearer <token>"
 ```

@@ -20,7 +20,8 @@ def list_audit_events(
 ) -> list[AuditEventOut]:
     events = AuditService(session).list(decision_id=decision_id, entity_id=entity_id, limit=limit, offset=offset)
     return [
-        AuditEventOut(event_id=e.id, timestamp=e.timestamp, actor=e.actor, action=e.action,
+        AuditEventOut(event_id=e.id, timestamp=e.timestamp, actor=e.actor, actor_user_id=e.actor_user_id,
+                      actor_role=e.actor_role, action=e.action,
                       entity_type=e.entity_type, entity_id=e.entity_id, previous_state=e.previous_state,
                       new_state=e.new_state, decision_id=e.decision_id, human_approval=e.human_approval,
                       details=e.details)

@@ -43,6 +43,7 @@ class EntityType(str, Enum):
     VOYAGE_PLAN = "voyage_plan"
     SAFETY_EVENT = "safety_event"
     DECISION = "decision"
+    USER = "user"
 
 
 class DecisionStatus(str, Enum):
@@ -61,6 +62,37 @@ class AuditAction(str, Enum):
     REJECTED = "REJECTED"
     EXECUTED_SIMULATED = "EXECUTED_SIMULATED"
     CANCELLED = "CANCELLED"
+    LOGIN_SUCCEEDED = "LOGIN_SUCCEEDED"
+    LOGIN_FAILED = "LOGIN_FAILED"
+    LOGOUT = "LOGOUT"
+    USER_CREATED = "USER_CREATED"
+    USER_UPDATED = "USER_UPDATED"
+
+
+class Role(str, Enum):
+    """Operational roles. Approval authority per decision domain is defined in app.security.permissions."""
+
+    VIEWER = "viewer"
+    OPERATOR = "operator"
+    CHIEF_ENGINEER = "chief_engineer"
+    MASTER = "master"
+    TECHNICAL_SUPERINTENDENT = "technical_superintendent"
+    MARINE_SUPERINTENDENT = "marine_superintendent"
+    HSE_MANAGER = "hse_manager"
+    ADMIN = "admin"
+
+    @property
+    def label(self) -> str:
+        return {
+            "viewer": "Viewer",
+            "operator": "Duty Officer",
+            "chief_engineer": "Chief Engineer",
+            "master": "Master",
+            "technical_superintendent": "Technical Superintendent",
+            "marine_superintendent": "Marine Superintendent",
+            "hse_manager": "HSE Manager",
+            "admin": "Administrator",
+        }[self.value]
 
 
 class ConfidenceBasis(str, Enum):

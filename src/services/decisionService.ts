@@ -42,10 +42,13 @@ export interface Decision {
   safety_critical: boolean;
   provider: string;
   created_by: string;
+  created_by_role?: string | null;
+  created_by_user_id?: string | null;
   created_at: string;
   updated_at: string;
   reviewed_by?: string | null;
   decided_by?: string | null;
+  decided_by_role?: string | null;
   decided_at?: string | null;
   decision_comment?: string | null;
   execution_mode?: string | null;
@@ -55,6 +58,8 @@ export interface AuditEvent {
   event_id: string;
   timestamp: string;
   actor: string;
+  actor_user_id?: string | null;
+  actor_role?: string | null;
   action: string;
   entity_type: string;
   entity_id: string;
@@ -98,11 +103,9 @@ function toQuery(params: Record<string, string | number | undefined>): string {
 
 export const DecisionService = {
   isAvailable: () => AppConfig.dataMode === 'api',
-  generate: (domain: DecisionDomain, entityId: string, requestedBy: string) => {
+  generate: (domain: DecisionDomain, entityId: string) => {
     requireApiMode();
-    return ApiClient.post<Decision>(`/decisions/${domain}/${encodeURIComponent(entityId)}`, {
-      requested_by: requestedBy,
-    });
+    return ApiClient.post<Decision>(`/decisions/${domain}/${encodeURIComponent(entityId)}`);
   },
   health: () => {
     requireApiMode();
@@ -118,37 +121,25 @@ export const DecisionService = {
     requireApiMode();
     return ApiClient.get<Decision>(`/decisions/${encodeURIComponent(id)}`);
   },
-  review: (id: string, reviewer: string, comment?: string) => {
+  review: (id: string, comment?: string) => {
     requireApiMode();
-    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/review`, {
-      reviewer,
-      comment,
-    });
+    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/review`, { comment });
   },
-  approve: (id: string, approver: string, comment?: string) => {
+  approve: (id: string, comment?: string) => {
     requireApiMode();
-    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/approve`, {
-      approver,
-      comment,
-    });
+    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/approve`, { comment });
   },
-  reject: (id: string, approver: string, reason: string) => {
+  reject: (id: string, reason: string) => {
     requireApiMode();
-    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/reject`, {
-      approver,
-      reason,
-    });
+    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/reject`, { reason });
   },
-  execute: (id: string, actor: string) => {
+  execute: (id: string) => {
     requireApiMode();
-    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/execute`, { actor });
+    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/execute`);
   },
-  cancel: (id: string, actor: string, reason: string) => {
+  cancel: (id: string, reason: string) => {
     requireApiMode();
-    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/cancel`, {
-      actor,
-      reason,
-    });
+    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/cancel`, { reason });
   },
   auditEvents: (decisionId?: string, limit?: number) => {
     requireApiMode();
