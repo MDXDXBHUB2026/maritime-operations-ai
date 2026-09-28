@@ -9,6 +9,7 @@ import { VoyageOptimisationPage } from '../modules/voyage/VoyageOptimisationPage
 import { SafetyMonitoringPage } from '../modules/safety/SafetyMonitoringPage';
 import { AutomationCentrePage } from '../modules/automation/AutomationCentrePage';
 import { AssuranceCentrePage } from '../modules/assurance/AssuranceCentrePage';
+import { DecisionCentrePage } from '../modules/decisions/DecisionCentrePage';
 
 export const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ export const App: React.FC = () => {
           <Route path="voyage" element={<VoyageOptimisationPage />} />
           <Route path="safety" element={<SafetyMonitoringPage />} />
           <Route path="automation" element={<AutomationCentrePage />} />
+          <Route path="decisions" element={<DecisionCentrePage />} />
           <Route path="assurance" element={<AssuranceCentrePage />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Route>

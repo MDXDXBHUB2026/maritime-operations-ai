@@ -6,6 +6,7 @@ import { anomalyKpis } from '../../utils/anomalyCalculations';
 import { MetricCard } from '../../components/common/MetricCard';
 import { SensorTrendChart } from '../../components/charts/SensorTrendChart';
 import { Check, AlertTriangle } from 'lucide-react';
+import { DecisionPanel } from '../../components/decisions/DecisionPanel';
 
 const SEVERITY_ORDER = ['Critical', 'High', 'Medium', 'Low'];
 const OWNERS = [
@@ -573,6 +574,12 @@ export const AnomalyDetectionPage: React.FC = () => {
               </div>
             </div>
           </div>
+
+          <DecisionPanel
+            domain="anomaly"
+            entityId={selectedAnomaly.anomaly_id}
+            entityLabel={`${selectedAnomaly.anomaly_id} · ${selectedAnomaly.asset_name}`}
+          />
 
           {/* Action History */}
           <div className="card-panel">

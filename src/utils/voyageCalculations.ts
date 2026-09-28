@@ -15,7 +15,10 @@ export function scenario(
   weather: number,
   berthDelay: number,
   load: number,
-  efficiency: number
+  efficiency: number,
+  // Reference base defaults to the dataset moment "2026-07-23T08:00:00Z"; the UI passes the
+  // simulation clock so scenario ETAs land on the current timeline.
+  baseTime: number = new Date('2026-07-23T08:00:00Z').getTime()
 ): VoyageScenarioResult {
   const safeSpeed = Math.max(speed, 1.0);
   const sailingHours = (voyage.remaining_distance_nm / safeSpeed) * weather;
@@ -29,8 +32,6 @@ export function scenario(
 
   const waiting = Math.max(0.0, berthDelay);
 
-  // Reference base: "2026-07-23T08:00:00Z"
-  const baseTime = new Date('2026-07-23T08:00:00Z').getTime();
   const totalMs = (sailingHours + waiting) * 3600 * 1000;
   const etaDate = new Date(baseTime + totalMs);
 

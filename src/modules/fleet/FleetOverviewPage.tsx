@@ -6,6 +6,7 @@ import { fleetKpis, healthBand } from '../../utils/fleetCalculations';
 import { MetricCard } from '../../components/common/MetricCard';
 import { InteractiveMap } from '../../components/charts/InteractiveMap';
 import { BarChart } from '../../components/charts/BarChart';
+import { LiveOperationsPanel } from '../../components/live/LiveOperationsPanel';
 import { Check, AlertTriangle } from 'lucide-react';
 
 const STATUSES = [
@@ -248,6 +249,8 @@ export const FleetOverviewPage: React.FC = () => {
           </select>
         </div>
       </div>
+
+      <LiveOperationsPanel showEventStream={false} />
 
       {/* Map and Table */}
       <div className="grid-2">

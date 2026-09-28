@@ -70,8 +70,10 @@ class DecisionService:
         return to_out(self._load(decision_id))
 
     def list(self, status: Optional[DecisionStatus] = None, agent: Optional[AgentName] = None,
-             limit: int = 100, offset: int = 0) -> list[DecisionOut]:
+             entity_id: Optional[str] = None, limit: int = 100, offset: int = 0) -> list[DecisionOut]:
         stmt = select(DecisionRecord)
+        if entity_id:
+            stmt = stmt.where(DecisionRecord.entity_id == entity_id)
         if status:
             stmt = stmt.where(DecisionRecord.status == status.value)
         if agent:

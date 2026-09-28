@@ -6,8 +6,10 @@ export function healthClass(score: number): 'Healthy' | 'Warning' | 'Critical' {
   return 'Critical';
 }
 
-export function maintenanceKpis(assets: MaintenanceAsset[]): Record<string, string | number> {
-  const today = new Date('2026-07-23');
+export function maintenanceKpis(
+  assets: MaintenanceAsset[],
+  today: Date = new Date('2026-07-23')
+): Record<string, string | number> {
   const criticalCount = assets.filter((a) => a.health_score < 60).length;
   const failures30d = assets.filter((a) => a.remaining_useful_life_hours < 720).length;
   const overdue = assets.filter((a) => new Date(a.next_planned_maintenance_date) < today).length;

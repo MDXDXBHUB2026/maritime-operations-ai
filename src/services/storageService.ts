@@ -192,6 +192,10 @@ export const StorageService = {
     setStored('automation_history', [entry, ...current]);
   },
 
+  // Operator identity used when acting on backend decisions (API mode)
+  getOperatorName: (): string => getStored('operator_name', ''),
+  saveOperatorName: (name: string) => setStored('operator_name', name),
+
   // Work order counter
   getNextWorkOrderReference: (): string => {
     const current = getStored('wo_counter', 1);

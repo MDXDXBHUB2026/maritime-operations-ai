@@ -79,7 +79,9 @@ PROPOSED --> UNDER_REVIEW --> APPROVED --> EXECUTED (simulated)
 | Human approval gate and state machine | Implemented (Phase 1) |
 | Execution of approved decisions | **Simulated** - no operational system is changed |
 | LLM narrative via Ollama | AI-enabled, optional, local |
-| Frontend `localStorage` workflows | Still active (not yet migrated to backend decisions) |
+| Frontend decision UI (panels + AI Decision Centre) | Implemented (API mode) |
+| Simulation clock, live telemetry, event stream | Implemented, **simulated** (see `realtime-simulation.md`) |
+| Frontend `localStorage` workflows | Still active alongside backend decisions |
 | Authentication / role-based approval authority | Future |
 | Live telemetry, AIS, ERP/fleet systems, event streams | Future integration |
 | Commercial LLM providers | Future integration |

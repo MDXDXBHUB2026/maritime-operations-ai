@@ -14,6 +14,7 @@ import {
 } from '../types/maritime';
 import { ApiClient } from './apiClient';
 import { AppConfig, DataMode } from './config';
+import { SimulationClock, rebaseRecords } from './simulationClock';
 
 async function fetchJson<T>(filename: string): Promise<T[]> {
   const url = `${AppConfig.staticBaseUrl}/data/${filename}`;
@@ -59,9 +60,13 @@ const SOURCES = {
 
 type SourceKey = keyof typeof SOURCES;
 
-export function createDataService(mode: DataMode) {
-  const load = <T>(key: SourceKey): Promise<T[]> =>
-    mode === 'api' ? fetchApi<T>(SOURCES[key].api) : fetchJson<T>(SOURCES[key].file);
+export function createDataService(mode: DataMode, offsetMs: number = SimulationClock.offsetMs) {
+  // Timestamps are rebased onto the current timeline (see simulationClock.ts) in both modes.
+  const load = async <T>(key: SourceKey): Promise<T[]> => {
+    const records =
+      mode === 'api' ? await fetchApi<T>(SOURCES[key].api) : await fetchJson<T>(SOURCES[key].file);
+    return rebaseRecords(records, offsetMs);
+  };
 
   return {
     mode,

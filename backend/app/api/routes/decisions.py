@@ -45,9 +45,10 @@ for _agent, _label in [(AgentName.ANOMALY, "anomaly"), (AgentName.MAINTENANCE, "
 
 @router.get("", response_model=list[DecisionOut])
 def list_decisions(service: Service, status: Optional[DecisionStatus] = None, agent: Optional[AgentName] = None,
+                   entity_id: Annotated[Optional[str], Query(pattern=ID_PATTERN)] = None,
                    limit: Annotated[int, Query(ge=1, le=500)] = 100,
                    offset: Annotated[int, Query(ge=0)] = 0) -> list[DecisionOut]:
-    return service.list(status=status, agent=agent, limit=limit, offset=offset)
+    return service.list(status=status, agent=agent, entity_id=entity_id, limit=limit, offset=offset)
 
 
 @router.get("/{decision_id}", response_model=DecisionOut)

@@ -19,7 +19,8 @@ A high-performance, static React Single-Page Application (SPA) deployed to GitHu
 5. **Voyage & Fuel Optimisation** (`#/voyage`) — Real-time voyage comparison, bunker consumption trends, and interactive 6-parameter scenario simulator with instant mathematical updates.
 6. **Safety Monitoring** (`#/safety`) — Incident & hazard register, risk score calculations, CCTV sensor monitoring placeholders, and corrective action workflows.
 7. **Automation Centre** (`#/automation`) — Human-in-the-loop task review, strict approval gate for high-risk operations, and simulated execution logs.
-8. **Application Assurance Centre** (`#/assurance`) — Continuous CI audit results, deterministic QA agent status, static security gates with mandatory secret redaction (`ghp_abcd********wxyz`), verified positive controls, and prioritized remediation roadmap.
+8. **AI Decision Centre** (`#/decisions`) — Backend decision register (API mode): agent recommendations, human approve/reject decisions, simulated execution and the audit trail. Anomaly, Maintenance, Voyage and Safety modules each include an **AI Decision Support** panel for the selected item.
+9. **Application Assurance Centre** (`#/assurance`) — Continuous CI audit results, deterministic QA agent status, static security gates with mandatory secret redaction (`ghp_abcd********wxyz`), verified positive controls, and prioritized remediation roadmap.
 
 ---
 
@@ -153,5 +154,6 @@ The repository includes a standalone, deterministic assurance pipeline executed 
 ## Architecture & Legacy Archive
 
 - **Backend & AI Decision-Support Foundation (Phase 1)**: `backend/` contains a FastAPI service with a repository layer over the existing datasets, a Manager Agent routing to Anomaly, Maintenance, Voyage and Safety agents (deterministic rules, optional local LLM via Ollama), a human-approval state machine, and a persistent audit trail (SQLite by default, PostgreSQL via `DATABASE_URL`). Execution is simulated. See [`docs/architecture/backend-ai-foundation.md`](docs/architecture/backend-ai-foundation.md).
+- **Real-Time Operations Layer**: a simulation clock places the synthetic datasets on the current timeline, vessels send simulated telemetry every 30 s, and the dashboard shows a live operations event stream. The feed is labelled as simulated. See [`docs/architecture/realtime-simulation.md`](docs/architecture/realtime-simulation.md).
 - **Static JSON Architecture**: Synthetic maritime datasets are converted to static fixtures in `public/data/` at build time. Operator actions (acknowledgments, status changes, work orders) are simulated locally in browser memory and `localStorage`.
 - **Legacy Streamlit Archive**: The original prototype is preserved in `legacy/streamlit/` for historical reference and parity auditing.

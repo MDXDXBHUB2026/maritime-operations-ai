@@ -6,6 +6,7 @@ import { safetyKpis } from '../../utils/safetyCalculations';
 import { MetricCard } from '../../components/common/MetricCard';
 import { BarChart } from '../../components/charts/BarChart';
 import { Check, AlertTriangle } from 'lucide-react';
+import { DecisionPanel } from '../../components/decisions/DecisionPanel';
 
 const SEVERITIES = ['Critical', 'High', 'Medium', 'Low'];
 const OWNERS = [
@@ -525,6 +526,14 @@ export const SafetyMonitoringPage: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {selectedEvent && (
+        <DecisionPanel
+          domain="safety"
+          entityId={selectedEvent.event_id}
+          entityLabel={`${selectedEvent.event_id} · ${selectedEvent.event_type}`}
+        />
       )}
 
       {/* Action History */}

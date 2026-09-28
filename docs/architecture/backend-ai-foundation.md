@@ -63,7 +63,7 @@ values are generated.
 | GET | `/safety` | Safety events |
 | GET | `/datasets`, `/datasets/{name}` | Allow-listed supporting datasets for API mode (alerts, equipment, sensor readings, ...) |
 | POST | `/decisions/{anomaly,maintenance,voyage,safety}/{id}` | Generate recommendation (201, `PROPOSED`) |
-| GET | `/decisions`, `/decisions/{id}` | Query decisions |
+| GET | `/decisions`, `/decisions/{id}` | Query decisions (filters: `status`, `agent`, `entity_id`) |
 | POST | `/decisions/{id}/review` | `PROPOSED -> UNDER_REVIEW` |
 | POST | `/decisions/{id}/approve` | Human approval -> `APPROVED` |
 | POST | `/decisions/{id}/reject` | Human rejection (reason required) -> `REJECTED` |
@@ -86,5 +86,5 @@ Errors are returned as `{"error": {"code", "message", "details?"}}` (404 `not_fo
 ## Known limitations
 
 - **No authentication**: actor/approver names are self-declared. Role-based approval authority is the next priority.
-- Frontend modules do not yet call the decision endpoints; `src/services/decisionService.ts` is ready but not wired into UI.
+- Frontend decision UI (AI Decision Support panels, AI Decision Centre) runs in API mode; the older `localStorage` operator workflows still run alongside it and are not synchronised with backend decisions.
 - SQLite is single-node; use PostgreSQL for shared environments.

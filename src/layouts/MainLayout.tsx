@@ -12,9 +12,12 @@ import {
   Menu,
   X,
   RotateCcw,
+  Bot,
   type LucideIcon,
 } from 'lucide-react';
 import { StorageService } from '../services/storageService';
+import { AppConfig } from '../services/config';
+import { LiveStatusBar } from '../components/live/LiveStatusBar';
 import styles from './MainLayout.module.css';
 
 interface NavItemDef {
@@ -32,6 +35,7 @@ const NAV_ITEMS: NavItemDef[] = [
   { path: '/voyage', name: 'Voyage & Fuel', icon: Compass },
   { path: '/safety', name: 'Safety Monitoring', icon: ShieldCheck },
   { path: '/automation', name: 'Automation Centre', icon: Cpu },
+  { path: '/decisions', name: 'AI Decision Centre', icon: Bot },
   { path: '/assurance', name: 'Application Assurance', icon: CheckCircle2, isAssurance: true },
 ];
 
@@ -83,7 +87,9 @@ export const MainLayout: React.FC = () => {
             connected.
           </div>
           <div className={styles.versionBadge}>
-            <span>Static GitHub Pages</span>
+            <span>
+              {AppConfig.dataMode === 'api' ? 'API mode · FastAPI' : 'Static GitHub Pages'}
+            </span>
             <button
               onClick={handleResetDemo}
               title="Reset simulated actions"
@@ -107,12 +113,7 @@ export const MainLayout: React.FC = () => {
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-            <span className="pill info">
-              <span>●</span> LIVE SYSTEM
-            </span>
-            <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>UTC 2026-07-23 14:00</span>
-          </div>
+          <LiveStatusBar />
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <button

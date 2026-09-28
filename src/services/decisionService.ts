@@ -4,7 +4,8 @@ import { AppConfig } from './config';
 /**
  * Client for the backend decision-support workflow (API mode only).
  * Agents propose; a named human reviews/approves/rejects; execution is simulated in Phase 1.
- * Not yet wired into the UI - the existing localStorage workflows remain in place.
+ * Used by the AI Decision Support panels and the AI Decision Centre. The existing
+ * localStorage operator workflows remain in place alongside it.
  */
 export type DecisionDomain = 'anomaly' | 'maintenance' | 'voyage' | 'safety';
 export type DecisionStatus =
@@ -70,6 +71,31 @@ function requireApiMode(): void {
   }
 }
 
+export interface BackendHealth {
+  status: string;
+  version: string;
+  database: string;
+  data_source: string;
+  ai_provider: string;
+  ai_provider_available: boolean;
+}
+
+export interface DecisionQuery {
+  entityId?: string;
+  status?: DecisionStatus;
+  agent?: DecisionDomain;
+  limit?: number;
+}
+
+function toQuery(params: Record<string, string | number | undefined>): string {
+  const q = new URLSearchParams();
+  for (const [k, v] of Object.entries(params)) {
+    if (v !== undefined && v !== '') q.set(k, String(v));
+  }
+  const text = q.toString();
+  return text ? `?${text}` : '';
+}
+
 export const DecisionService = {
   isAvailable: () => AppConfig.dataMode === 'api',
   generate: (domain: DecisionDomain, entityId: string, requestedBy: string) => {
@@ -77,6 +103,16 @@ export const DecisionService = {
     return ApiClient.post<Decision>(`/decisions/${domain}/${encodeURIComponent(entityId)}`, {
       requested_by: requestedBy,
     });
+  },
+  health: () => {
+    requireApiMode();
+    return ApiClient.get<BackendHealth>('/health');
+  },
+  list: (query: DecisionQuery = {}) => {
+    requireApiMode();
+    return ApiClient.get<Decision[]>(
+      `/decisions${toQuery({ entity_id: query.entityId, status: query.status, agent: query.agent, limit: query.limit })}`
+    );
   },
   get: (id: string) => {
     requireApiMode();
@@ -103,9 +139,21 @@ export const DecisionService = {
       reason,
     });
   },
-  auditEvents: (decisionId?: string) => {
+  execute: (id: string, actor: string) => {
     requireApiMode();
-    const q = decisionId ? `?decision_id=${encodeURIComponent(decisionId)}` : '';
-    return ApiClient.get<AuditEvent[]>(`/audit-events${q}`);
+    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/execute`, { actor });
+  },
+  cancel: (id: string, actor: string, reason: string) => {
+    requireApiMode();
+    return ApiClient.post<Decision>(`/decisions/${encodeURIComponent(id)}/cancel`, {
+      actor,
+      reason,
+    });
+  },
+  auditEvents: (decisionId?: string, limit?: number) => {
+    requireApiMode();
+    return ApiClient.get<AuditEvent[]>(
+      `/audit-events${toQuery({ decision_id: decisionId, limit })}`
+    );
   },
 };

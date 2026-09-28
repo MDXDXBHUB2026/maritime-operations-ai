@@ -7,6 +7,7 @@ import { MetricCard } from '../../components/common/MetricCard';
 import { InteractiveMap } from '../../components/charts/InteractiveMap';
 import { HealthDonutChart } from '../../components/charts/HealthDonutChart';
 import { BarChart } from '../../components/charts/BarChart';
+import { LiveOperationsPanel } from '../../components/live/LiveOperationsPanel';
 import { AlertTriangle, Check } from 'lucide-react';
 
 const SEVERITIES = ['Critical', 'High', 'Medium', 'Low'] as const;
@@ -154,6 +155,8 @@ export const ExecutiveDashboardPage: React.FC = () => {
         <MetricCard label="Potential fuel saving" value={kpis['Potential fuel saving']} icon="↘" />
         <MetricCard label="Open high-risk safety" value={kpis['Open high-risk safety']} icon="◆" />
       </div>
+
+      <LiveOperationsPanel />
 
       {/* Live Map & Fleet Status */}
       <div className="grid-2" style={{ alignItems: 'stretch' }}>

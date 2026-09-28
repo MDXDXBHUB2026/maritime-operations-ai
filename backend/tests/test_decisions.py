@@ -116,3 +116,14 @@ def test_decisions_persist_across_app_instances(settings, client):
 
 def test_invalid_decision_id_is_validated(client):
     assert client.get("/api/v1/decisions/not-a-uuid").status_code == 422
+
+
+def test_list_decisions_filters_by_entity_status_and_agent(client):
+    a = _create(client, "anomaly", "ANM-0010")["recommendation_id"]
+    _create(client, "safety", "SE-0011")
+    client.post(f"/api/v1/decisions/{a}/approve", json=APPROVER)
+    by_entity = client.get("/api/v1/decisions", params={"entity_id": "ANM-0010"}).json()
+    assert [d["recommendation_id"] for d in by_entity] == [a]
+    assert len(client.get("/api/v1/decisions", params={"status": "APPROVED"}).json()) == 1
+    assert len(client.get("/api/v1/decisions", params={"agent": "safety"}).json()) == 1
+    assert client.get("/api/v1/decisions", params={"entity_id": "bad id!"}).status_code == 422
