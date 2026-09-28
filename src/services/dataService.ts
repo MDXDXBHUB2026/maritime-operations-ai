@@ -12,11 +12,11 @@ import {
   VoyagePlan,
   WorkOrder,
 } from '../types/maritime';
-
-const BASE_URL = import.meta.env.BASE_URL || '/';
+import { ApiClient } from './apiClient';
+import { AppConfig, DataMode } from './config';
 
 async function fetchJson<T>(filename: string): Promise<T[]> {
-  const url = `${BASE_URL.replace(/\/$/, '')}/data/${filename}`;
+  const url = `${AppConfig.staticBaseUrl}/data/${filename}`;
   try {
     const res = await fetch(url);
     if (!res.ok) {
@@ -29,17 +29,55 @@ async function fetchJson<T>(filename: string): Promise<T[]> {
   }
 }
 
-export const DataService = {
-  getVessels: () => fetchJson<Vessel>('vessels.json'),
-  getVoyages: () => fetchJson<Voyage>('voyages.json'),
-  getVoyagePlans: () => fetchJson<VoyagePlan>('voyage_plans.json'),
-  getEquipment: () => fetchJson<Equipment>('equipment.json'),
-  getAlerts: () => fetchJson<Alert>('alerts.json'),
-  getAnomalies: () => fetchJson<Anomaly>('anomalies.json'),
-  getSensorReadings: () => fetchJson<SensorReading>('sensor_readings.json'),
-  getMaintenanceAssets: () => fetchJson<MaintenanceAsset>('maintenance_assets.json'),
-  getMaintenanceHistory: () => fetchJson<MaintenanceHistory>('maintenance_history.json'),
-  getWorkOrders: () => fetchJson<WorkOrder>('work_orders.json'),
-  getSafetyEvents: () => fetchJson<SafetyEvent>('safety_events.json'),
-  getAutomationTasks: () => fetchJson<AutomationTask>('automation_tasks.json'),
-};
+async function fetchApi<T>(path: string): Promise<T[]> {
+  try {
+    return await ApiClient.get<T[]>(path);
+  } catch (err) {
+    console.error(`Error loading ${path} from backend API:`, err);
+    throw err;
+  }
+}
+
+/**
+ * Each dataset has a static source (public/data, GitHub Pages demo) and an API source
+ * (FastAPI backend). Components call DataService only; the mode is chosen at build time.
+ */
+const SOURCES = {
+  vessels: { file: 'vessels.json', api: '/vessels' },
+  voyages: { file: 'voyages.json', api: '/datasets/voyages' },
+  voyagePlans: { file: 'voyage_plans.json', api: '/voyages' },
+  equipment: { file: 'equipment.json', api: '/datasets/equipment' },
+  alerts: { file: 'alerts.json', api: '/datasets/alerts' },
+  anomalies: { file: 'anomalies.json', api: '/anomalies' },
+  sensorReadings: { file: 'sensor_readings.json', api: '/datasets/sensor_readings' },
+  maintenanceAssets: { file: 'maintenance_assets.json', api: '/maintenance' },
+  maintenanceHistory: { file: 'maintenance_history.json', api: '/datasets/maintenance_history' },
+  workOrders: { file: 'work_orders.json', api: '/datasets/work_orders' },
+  safetyEvents: { file: 'safety_events.json', api: '/safety' },
+  automationTasks: { file: 'automation_tasks.json', api: '/datasets/automation_tasks' },
+} as const;
+
+type SourceKey = keyof typeof SOURCES;
+
+export function createDataService(mode: DataMode) {
+  const load = <T>(key: SourceKey): Promise<T[]> =>
+    mode === 'api' ? fetchApi<T>(SOURCES[key].api) : fetchJson<T>(SOURCES[key].file);
+
+  return {
+    mode,
+    getVessels: () => load<Vessel>('vessels'),
+    getVoyages: () => load<Voyage>('voyages'),
+    getVoyagePlans: () => load<VoyagePlan>('voyagePlans'),
+    getEquipment: () => load<Equipment>('equipment'),
+    getAlerts: () => load<Alert>('alerts'),
+    getAnomalies: () => load<Anomaly>('anomalies'),
+    getSensorReadings: () => load<SensorReading>('sensorReadings'),
+    getMaintenanceAssets: () => load<MaintenanceAsset>('maintenanceAssets'),
+    getMaintenanceHistory: () => load<MaintenanceHistory>('maintenanceHistory'),
+    getWorkOrders: () => load<WorkOrder>('workOrders'),
+    getSafetyEvents: () => load<SafetyEvent>('safetyEvents'),
+    getAutomationTasks: () => load<AutomationTask>('automationTasks'),
+  };
+}
+
+export const DataService = createDataService(AppConfig.dataMode);

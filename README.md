@@ -58,6 +58,41 @@ npm run dev
 ```
 Navigate to `http://localhost:5173/maritime-operations-ai/`.
 
+### Data Modes: STATIC and API
+
+The frontend supports two data modes, selected at build/dev time (see `.env.example`):
+
+| Mode | Config | Data source |
+|---|---|---|
+| `static` (default) | `VITE_DATA_MODE=static` or unset | `public/data/*.json` - the GitHub Pages demo, no backend needed |
+| `api` | `VITE_DATA_MODE=api`, `VITE_API_BASE_URL=http://localhost:8000/api/v1` | FastAPI backend in `backend/` |
+
+**STATIC mode** (unchanged behaviour):
+```bash
+npm install
+npm run dev
+```
+
+**API mode** - start the backend first (see [`backend/README.md`](backend/README.md) for Windows activation):
+```bash
+cd backend
+python -m venv .venv
+.venv\Scripts\activate          # Windows (source .venv/bin/activate on macOS/Linux)
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+```
+Then in a second terminal at the repository root:
+```bash
+# Windows PowerShell
+$env:VITE_DATA_MODE="api"; $env:VITE_API_BASE_URL="http://localhost:8000/api/v1"; npm run dev
+# macOS/Linux
+VITE_DATA_MODE=api VITE_API_BASE_URL=http://localhost:8000/api/v1 npm run dev
+```
+Or copy `.env.example` to `.env.local` and set `VITE_DATA_MODE=api`.
+
+In API mode, operator actions still use browser `localStorage`; backend decisions and the audit trail
+are available through the API (`/docs`). See `docs/architecture/` for the current and target architecture.
+
 ### Building for Production
 ```bash
 # Type check and build static bundle into dist/
@@ -117,5 +152,6 @@ The repository includes a standalone, deterministic assurance pipeline executed 
 
 ## Architecture & Legacy Archive
 
+- **Backend & AI Decision-Support Foundation (Phase 1)**: `backend/` contains a FastAPI service with a repository layer over the existing datasets, a Manager Agent routing to Anomaly, Maintenance, Voyage and Safety agents (deterministic rules, optional local LLM via Ollama), a human-approval state machine, and a persistent audit trail (SQLite by default, PostgreSQL via `DATABASE_URL`). Execution is simulated. See [`docs/architecture/backend-ai-foundation.md`](docs/architecture/backend-ai-foundation.md).
 - **Static JSON Architecture**: Synthetic maritime datasets are converted to static fixtures in `public/data/` at build time. Operator actions (acknowledgments, status changes, work orders) are simulated locally in browser memory and `localStorage`.
 - **Legacy Streamlit Archive**: The original prototype is preserved in `legacy/streamlit/` for historical reference and parity auditing.
