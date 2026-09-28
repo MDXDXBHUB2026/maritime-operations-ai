@@ -60,16 +60,23 @@ const SOURCES = {
 
 type SourceKey = keyof typeof SOURCES;
 
-export function createDataService(mode: DataMode, offsetMs: number = SimulationClock.offsetMs) {
+export function createDataService(
+  modeOrGetter: DataMode | (() => DataMode),
+  offsetMs: number = SimulationClock.offsetMs
+) {
+  const currentMode = () => (typeof modeOrGetter === 'function' ? modeOrGetter() : modeOrGetter);
   // Timestamps are rebased onto the current timeline (see simulationClock.ts) in both modes.
   const load = async <T>(key: SourceKey): Promise<T[]> => {
+    const mode = currentMode();
     const records =
       mode === 'api' ? await fetchApi<T>(SOURCES[key].api) : await fetchJson<T>(SOURCES[key].file);
     return rebaseRecords(records, offsetMs);
   };
 
   return {
-    mode,
+    get mode() {
+      return currentMode();
+    },
     getVessels: () => load<Vessel>('vessels'),
     getVoyages: () => load<Voyage>('voyages'),
     getVoyagePlans: () => load<VoyagePlan>('voyagePlans'),
@@ -85,4 +92,5 @@ export function createDataService(mode: DataMode, offsetMs: number = SimulationC
   };
 }
 
-export const DataService = createDataService(AppConfig.dataMode);
+// Reads the mode at call time: an API-mode build may fall back to the static demo at startup.
+export const DataService = createDataService(() => AppConfig.dataMode);

@@ -41,6 +41,11 @@ class Settings(BaseSettings):
     max_delegation_days: int = Field(default=30, ge=1, le=180)
     # When set, the demo role accounts are created at startup with this password (never committed).
     demo_users_password: Optional[SecretStr] = None
+    # Public demo: allows one-click sign-in to the non-admin demo accounts without a password.
+    # Only for a synthetic-data showcase deployment; never enable where real data is held.
+    public_demo: bool = False
+    # Set on serverless hosts (e.g. Vercel) so database connections are not pooled per instance.
+    serverless: bool = False
 
     @field_validator("data_dir")
     @classmethod

@@ -54,6 +54,16 @@ export const AuthService = {
     AuthSessionStore.set({ token: res.access_token, expiresAt: res.expires_at, user: res.user });
     return res.user;
   },
+  /** Demo accounts offered for one-click sign-in (empty unless the backend runs as a public demo). */
+  demoAccounts: () =>
+    ApiClient.get<{ username: string; display_name: string; role: RoleName; role_label: string }[]>(
+      '/auth/demo-accounts'
+    ),
+  demoLogin: async (username: string): Promise<CurrentUser> => {
+    const res = await ApiClient.post<LoginResponse>('/auth/demo-login', { username });
+    AuthSessionStore.set({ token: res.access_token, expiresAt: res.expires_at, user: res.user });
+    return res.user;
+  },
   logout: async (): Promise<void> => {
     try {
       await ApiClient.post<void>('/auth/logout');

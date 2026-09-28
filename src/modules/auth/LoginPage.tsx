@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { Anchor, Lock, LogIn } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Anchor, Lock, LogIn, MonitorSmartphone, UserCheck } from 'lucide-react';
 import { AuthService } from '../../services/authService';
 import { ApiError } from '../../services/apiClient';
+import { chooseBrowserDemo } from '../../services/config';
+
+type DemoAccount = { username: string; display_name: string; role_label: string };
 
 const DEMO_ACCOUNTS: { username: string; role: string; authority: string }[] = [
   { username: 'duty.officer', role: 'Duty Officer', authority: 'Request & review · fleet-wide' },
@@ -47,6 +50,27 @@ export const LoginPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [demoAccounts, setDemoAccounts] = useState<DemoAccount[]>([]);
+
+  useEffect(() => {
+    AuthService.demoAccounts()
+      .then(setDemoAccounts)
+      .catch(() => setDemoAccounts([]));
+  }, []);
+
+  const demoSignIn = async (username: string) => {
+    setBusy(true);
+    setError(null);
+    try {
+      await AuthService.demoLogin(username);
+    } catch (err: unknown) {
+      setError(
+        err instanceof ApiError ? (err.detail ?? 'Demo sign-in failed') : 'Backend unreachable'
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,6 +109,35 @@ export const LoginPage: React.FC = () => {
           Decisions are recorded against your account and role. Approval authority depends on your
           role.
         </p>
+        {demoAccounts.length > 0 && (
+          <div className="login-public-demo" data-testid="public-demo-accounts">
+            <h2>
+              <UserCheck size={16} /> Try it: sign in as a demo role
+            </h2>
+            <p className="live-muted">
+              Shared demo with synthetic data. Decisions and the audit trail are stored in the demo
+              PostgreSQL database and are visible to other visitors. Do not enter personal
+              information.
+            </p>
+            <div className="login-demo-grid">
+              {demoAccounts.map((a) => (
+                <button
+                  key={a.username}
+                  type="button"
+                  className="btn"
+                  disabled={busy}
+                  onClick={() => demoSignIn(a.username)}
+                  title={a.display_name}
+                >
+                  <strong>{a.role_label}</strong>
+                  {a.display_name.replace(' (demo)', '') !== a.role_label && (
+                    <span className="live-muted">{a.display_name.replace(' (demo)', '')}</span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
         <form onSubmit={submit} className="login-form">
           <label>
             Username
@@ -120,6 +173,15 @@ export const LoginPage: React.FC = () => {
             <LogIn size={15} /> {busy ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
+
+        <button
+          type="button"
+          className="btn login-browser-demo"
+          onClick={chooseBrowserDemo}
+          data-testid="use-browser-demo"
+        >
+          <MonitorSmartphone size={15} /> Continue without signing in (browser-only demo)
+        </button>
 
         <details className="login-demo">
           <summary>Demo role accounts (synthetic environment)</summary>

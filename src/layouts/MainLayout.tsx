@@ -20,7 +20,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { StorageService } from '../services/storageService';
-import { AppConfig } from '../services/config';
+import { AppConfig, chooseSharedBackend } from '../services/config';
 import { LiveStatusBar } from '../components/live/LiveStatusBar';
 import { useAuth } from '../app/AuthContext';
 import { AuthService } from '../services/authService';
@@ -99,9 +99,23 @@ export const MainLayout: React.FC = () => {
             connected.
           </div>
           <div className={styles.versionBadge}>
-            <span>
-              {AppConfig.dataMode === 'api' ? 'API mode · FastAPI' : 'Static GitHub Pages'}
+            <span title={AppConfig.fallbackReason ?? undefined}>
+              {AppConfig.dataMode === 'api'
+                ? 'Shared backend · PostgreSQL'
+                : AppConfig.builtMode === 'api'
+                  ? 'Browser demo'
+                  : 'Static GitHub Pages'}
             </span>
+            {AppConfig.builtMode === 'api' && AppConfig.dataMode === 'static' && (
+              <button
+                onClick={chooseSharedBackend}
+                title="Sign in to the shared demo backend"
+                style={{ color: '#25c2d8' }}
+                data-testid="use-shared-backend"
+              >
+                Sign in
+              </button>
+            )}
             <button
               onClick={handleResetDemo}
               title="Reset simulated actions"
